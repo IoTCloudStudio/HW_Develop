@@ -1,5 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <time.h>
+#include "timezone.h"
 
 // Set GPIOs for LED and reedswitch
 const int reedSwitch = 4;
@@ -11,19 +13,26 @@ bool changeState = false;
 // Holds reedswitch state (1=opened, 0=close)
 bool state;
 String doorState;
+time_t now;
 
 // Auxiliary variables (it will only detect changes that are 1500 milliseconds apart)
-unsigned long previousMillis = 0; 
-const long interval = 1500;
+unsigned long previousMillis = 0;
+unsigned long lastMillis = 0; 
+const long interval_sensor = 1500;
+const long interval_hb = 60000;
 
 const char* ssid = "IoT";
 const char* password = "IoTcloud2019";
 const char* mqtt_server_domain = "192.168.170.84"; // Remoto: "testmqtt.iotcloud.studio";
 const long mqtt_server_port = 1883;// Remoto: 51883;
-const char *prefixtopic = "ALARM/";                            // We'll use the prefix to describe a 'family' of devices.
-const char *subscribetopic[] = {"PUERTA1"};     // Topics that we will subscribe to within that family.
-const char* topic = "PUERTA1";     // Topics that we will subscribe to within that family.
+const char* mqttUser = "user";
+const char* mqttPassword = "user";                           // We'll use the prefix to describe a 'family' of devices.
+const char* subscribetopic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
+const char* topic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
 const String clientId = "ESP8266Client-Puerta1";
+const char* TIME_SERVER = "pool.ntp.org";
+int myTimeZone = ARG; // change this to your time zone (see in timezone.h)
+
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -74,7 +83,7 @@ void reconnect() {
     {
       Serial.println("connected");
      //once connected to MQTT broker, subscribe command if any
-      client.subscribe("OsoyooCommand");
+      client.subscribe(subscribetopic);
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -85,10 +94,47 @@ void reconnect() {
   }
 } //end reconnect()
 
+String toStringAddZero(int data)
+{
+  String st = "";
+  if (data < 10)
+  {
+    st = "0" + String(data);
+  }
+  else
+  {
+    st = String(data);
+  }
+  return st;
+}
+
+String timestamp(){
+  struct tm *timeinfo;
+
+  time(&now);
+  timeinfo = localtime(&now);
+
+  int year = timeinfo->tm_year + 1900;
+  int month = timeinfo->tm_mon;
+  int day = timeinfo->tm_mday;
+  int hour = timeinfo->tm_hour;
+  int mins = timeinfo->tm_min;
+  int sec = timeinfo->tm_sec;
+  int day_of_week = timeinfo->tm_wday;
+
+  Serial.print("Date = " + toStringAddZero(day) + "/" + toStringAddZero(month) + "/" + String(year));
+  Serial.println(" Time = " + toStringAddZero(hour) + ":" + toStringAddZero(mins) + ":" + toStringAddZero(sec));
+  Serial.print("Day is " + String(DAYS_OF_WEEK[day_of_week]));
+  Serial.println(" or " + String(DAYS_OF_WEEK_3[day_of_week]));
+
+  return "" + toStringAddZero(day) + "/" + toStringAddZero(month) + "/" + String(year) + " " 
+  + toStringAddZero(hour) + ":" + toStringAddZero(mins) + ":" + toStringAddZero(sec);
+}
+
 void setup() {
   // Serial port for debugging purposes
   Serial.begin(115200);
-  configTime(0, 0, "pool.ntp.org");      // get UTC time via NTP
+  configTime(myTimeZone, 0, TIME_SERVER);      // get UTC time via NTP
   
   // Read the current door state
   pinMode(reedSwitch, INPUT_PULLUP);
@@ -108,6 +154,13 @@ void setup() {
   client.setCallback(callback);
 }
 
+void hbLoop() {
+  String msj= timestamp() + " Test";
+  char message[58];
+  msj.toCharArray(message,58);
+  client.publish(topic, message);
+}
+
 void loop() {
   if (!client.connected()) {
     reconnect();
@@ -115,7 +168,7 @@ void loop() {
   client.loop();
   if (changeState){
     unsigned long currentMillis = millis();
-    if(currentMillis - previousMillis >= interval) {
+    if(currentMillis - previousMillis >= interval_sensor) {
       previousMillis = currentMillis;
       // If a state has occured, invert the current door state   
         state = !state;
@@ -138,4 +191,9 @@ void loop() {
       
     }  
   }
+    //HearBEAT 
+    if (millis() - lastMillis >= interval_hb) {
+            lastMillis = millis();
+            hbLoop();
+        }
 }
