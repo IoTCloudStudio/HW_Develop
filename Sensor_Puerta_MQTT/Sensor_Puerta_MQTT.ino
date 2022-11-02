@@ -1,11 +1,11 @@
 
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <PubSubClient.h>
 
 // Set GPIOs for LED and reedswitch
 const int reedSwitch = 4;
 const int led = 2; //optional
-
+ 
 // Detects whenever the door changed state
 bool changeState = false;
 
@@ -19,8 +19,8 @@ const long interval = 1500;
 
 const char* ssid = "IoT";
 const char* password = "IoTcloud2019";
-const char* mqtt_server_domain = "192.168.170.84"; // "testmqtt.iotcloud.studio";
-const long mqtt_server_port = 1883;
+const char* mqtt_server_domain = "192.168.170.84"; // Remoto: "testmqtt.iotcloud.studio";
+const long mqtt_server_port = 1883;// Remoto: 51883;
 const char *prefixtopic = "ALARM/";                            // We'll use the prefix to describe a 'family' of devices.
 const char *subscribetopic[] = {"PUERTA1"};     // Topics that we will subscribe to within that family.
 const char* topic = "PUERTA1";     // Topics that we will subscribe to within that family.
