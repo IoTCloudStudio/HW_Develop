@@ -29,7 +29,8 @@ const char* mqttUser = "user";
 const char* mqttPassword = "user";                           // We'll use the prefix to describe a 'family' of devices.
 const char* subscribetopic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
 const char* topic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
-const String clientId = "ESP8266Client-Puerta1";
+String deviceId = "1";
+String deviceDesciption = "SensorPuerta1";
 const char* TIME_SERVER = "pool.ntp.org";
 int myTimeZone = ARG; // change this to your time zone (see in timezone.h)
 
@@ -75,11 +76,11 @@ void reconnect() {
     Serial.print("Attempting MQTT connection...");
     // Create a random client ID
     
-    // clientId += String(random(0xffff), HEX);
+    // deviceId += String(random(0xffff), HEX);
     // Attempt to connect
-    //if you MQTT broker has clientID,username and password
-    //please change following line to    if (client.connect(clientId,userName,passWord))
-    if (client.connect(clientId.c_str()))
+    //if you MQTT broker has deviceId,username and password
+    //please change following line to    if (client.connect(deviceId,userName,passWord))
+    if (client.connect(deviceId.c_str()))
     {
       Serial.println("connected");
      //once connected to MQTT broker, subscribe command if any
@@ -129,6 +130,29 @@ String timestamp(){
 
   return "" + toStringAddZero(day) + "/" + toStringAddZero(month) + "/" + String(year) + " " 
   + toStringAddZero(hour) + ":" + toStringAddZero(mins) + ":" + toStringAddZero(sec);
+}
+
+void mqtt_msj(String code,String descript){
+  struct tm *timeinfo;
+  time(&now);
+  timeinfo = localtime(&now);
+  
+  String vProtocol= "100"; 
+  
+  String msj= "{ I:" + deviceId ;
+  
+  
+  + ";" +
+  "L:" + deviceDesciption + ";" +
+  "T:" + timeinfo + ";" +
+  "C:" + code + ";" +
+  "D:" + descript + ";" +
+  "V:" + vProtocol + " }";
+  
+  char message[58];
+  msj.toCharArray(message,58);
+  client.publish(topic, message);
+  
 }
 
 void setup() {
@@ -194,6 +218,7 @@ void loop() {
     //HearBEAT 
     if (millis() - lastMillis >= interval_hb) {
             lastMillis = millis();
-            hbLoop();
+            //hbLoop();
+            mqtt_msj("E602","");
         }
 }
