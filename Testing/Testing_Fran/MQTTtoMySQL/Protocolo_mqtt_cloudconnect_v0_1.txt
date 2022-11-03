@@ -1,0 +1,36 @@
+"I":12345	Descripcion:	ID de dispositivo
+		Opcional:	No
+		Tipo variable:	Word(2B) / Unsigned Long(4B)
+		Valor min/max	0-65535 / 0-4294967295
+
+"F":125		Descripcion:	Date Time
+		Opcional:	No
+		Tipo variable:	Byte
+		Valor min/max	0-255
+		
+"C":125		Descripcion:	Codigo de operacion
+		Opcional:	No
+		Tipo variable:	Byte
+		Valor min/max	0-255
+		
+"D":		Descripcion:	Dato
+		Opcional:	Si
+		Tipo variable:	Boolean	/   Char (1B)	/ Byte (1B)	/ Word(2B)	/ Unsigned Long(4B)	/ Float
+		Valor min/max	0-1	/   -128-127	/ 0-255		/ 0-65535	/ 0-4294967295		/ -3.4028e+38 - 3.4028e+38
+		
+"V":10		Descripcion:	Version del protoocolo
+		Opcional:	No
+		Tipo variable:	Word (2B)
+		Valor min/max:	00100-65535
+
+
+Codigos de operacion
+
+101: Temperatura
+102: Humedad
+103: Presion
+
+Versiones:
+-> V0.1.0 = 00100
+V1.0.0 = 01000
+V1.2.3 = 01203

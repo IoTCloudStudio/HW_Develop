@@ -1,0 +1,56 @@
+"I":12345	Descripcion:	Device ID
+		Opcional:	No
+		Tipo variable:	Unsigned Long(4B)
+		Valor min/max	0-4294967295
+
+"L":12345654	Descripcion:	Log ID
+		Opcional:	No
+		Tipo variable:	Unsigned Long (4B)
+		Valor min/max:	0-4294967295
+
+"T":125		Descripcion:	Timestamp (Epoch time)
+		Opcional:	No
+		Tipo variable:	Unsigned Long (4B)
+		Valor min/max	0-4294967295
+		
+"C":125		Descripcion:	Codigo de operacion
+		Opcional:	No
+		Tipo variable:	Unsigned Char/Byte (1B)
+		Valor min/max	0-255
+		
+"D":		Descripcion:	Dato
+		Opcional:	Si
+		Tipo variable:	Boolean	/   Char (1B)	/ Byte (1B)	/ Word(2B)	/ Unsigned Long(4B)	/ Float
+		Valor min/max	0-1	/   -128-127	/ 0-255		/ 0-65535	/ 0-4294967295		/ -3.4028e+38 - 3.4028e+38
+		
+"V":00100	Descripcion:	Version del protoocolo
+		Opcional:	No
+		Tipo variable:	Unsigned Int (2B)
+		Valor min/max:	00100-65535
+
+Device ID:
+11001
+
+Log ID:
+123
+
+Timestamp:
+1609459200 = 01-01-2021 00:00:00 GMT
+1640995200 = 01-01-2022 00:00:00 GMT
+
+Codigos de operacion:
+101: Temperatura
+102: Humedad
+103: Presion
+
+Dato:
+Temperatura °C (Char): 25 (25°C)
+Humedad (Unsigned Char): 50 (50%) 
+Presion 
+
+Versiones:
+-> V0.1.0 = 00100
+V1.0.0 = 01000
+V1.2.3 = 01203
+
+{"I":2153,"L":123,"T":1609459200,"C":101,"D":25,"V":100}

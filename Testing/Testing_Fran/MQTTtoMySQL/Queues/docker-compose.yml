@@ -1,0 +1,26 @@
+version: "2"
+services:
+  rabbitmq:
+    build:
+      dockerfile: Dockerfile_mq
+      context: ./
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 1883:1883
+        - 15672:15672
+    restart: always
+    environment:
+        TZ: "America/Argentina/Buenos_Aires"
+
+
+  python:
+    build:
+      dockerfile: Dockerfile_py
+      context: ./
+    depends_on:
+        - rabbitmq
+    restart: unless-stopped
+    environment:
+        TZ: "America/Argentina/Buenos_Aires"
+
