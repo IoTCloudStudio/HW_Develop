@@ -2,6 +2,7 @@
 #include <PubSubClient.h>
 #include <time.h>
 #include "timezone.h"
+#include <ArduinoJson.h>
 
 // Set GPIOs for LED and reedswitch
 const int reedSwitch = 4;
@@ -13,7 +14,7 @@ bool changeState = false;
 // Holds reedswitch state (1=opened, 0=close)
 bool state;
 String doorState;
-time_t now;
+
 
 // Auxiliary variables (it will only detect changes that are 1500 milliseconds apart)
 unsigned long previousMillis = 0;
@@ -30,6 +31,7 @@ const char* mqttPassword = "user";                           // We'll use the pr
 const char* subscribetopic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
 const char* topic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
 String deviceId = "1";
+int deviceLog = 0;
 String deviceDesciption = "SensorPuerta1";
 const char* TIME_SERVER = "pool.ntp.org";
 int myTimeZone = ARG; // change this to your time zone (see in timezone.h)
@@ -95,63 +97,28 @@ void reconnect() {
   }
 } //end reconnect()
 
-String toStringAddZero(int data)
-{
-  String st = "";
-  if (data < 10)
-  {
-    st = "0" + String(data);
-  }
-  else
-  {
-    st = String(data);
-  }
-  return st;
-}
-
-String timestamp(){
-  struct tm *timeinfo;
-
-  time(&now);
-  timeinfo = localtime(&now);
-
-  int year = timeinfo->tm_year + 1900;
-  int month = timeinfo->tm_mon;
-  int day = timeinfo->tm_mday;
-  int hour = timeinfo->tm_hour;
-  int mins = timeinfo->tm_min;
-  int sec = timeinfo->tm_sec;
-  int day_of_week = timeinfo->tm_wday;
-
-  Serial.print("Date = " + toStringAddZero(day) + "/" + toStringAddZero(month) + "/" + String(year));
-  Serial.println(" Time = " + toStringAddZero(hour) + ":" + toStringAddZero(mins) + ":" + toStringAddZero(sec));
-  Serial.print("Day is " + String(DAYS_OF_WEEK[day_of_week]));
-  Serial.println(" or " + String(DAYS_OF_WEEK_3[day_of_week]));
-
-  return "" + toStringAddZero(day) + "/" + toStringAddZero(month) + "/" + String(year) + " " 
-  + toStringAddZero(hour) + ":" + toStringAddZero(mins) + ":" + toStringAddZero(sec);
-}
 
 void mqtt_msj(String code,String descript){
-  struct tm *timeinfo;
+  time_t now;
+  struct tm timeinfo;
   time(&now);
-  timeinfo = localtime(&now);
+  String vProtocol= "100";
+  StaticJsonDocument<300> doc;
+  JsonObject JSONencoder = doc.to<JsonObject>();
+
+  deviceLog+=1;
+
+  JSONencoder["I"] = deviceId;
+  JSONencoder["L"] = deviceLog;
+  JSONencoder["T"] = now;
+  JSONencoder["C"] = code;
+  JSONencoder["D"] = descript;
+  JSONencoder["V"] = vProtocol;
   
-  String vProtocol= "100"; 
-  
-  String msj= "{ I:" + deviceId ;
-  
-  
-  + ";" +
-  "L:" + deviceDesciption + ";" +
-  "T:" + timeinfo + ";" +
-  "C:" + code + ";" +
-  "D:" + descript + ";" +
-  "V:" + vProtocol + " }";
-  
-  char message[58];
-  msj.toCharArray(message,58);
-  client.publish(topic, message);
+  char buffer[300];
+  serializeJson(doc, buffer);
+  size_t n = serializeJson(doc, buffer);
+  client.publish(topic, buffer, n);
   
 }
 
@@ -178,12 +145,6 @@ void setup() {
   client.setCallback(callback);
 }
 
-void hbLoop() {
-  String msj= timestamp() + " Test";
-  char message[58];
-  msj.toCharArray(message,58);
-  client.publish(topic, message);
-}
 
 void loop() {
   if (!client.connected()) {
@@ -198,15 +159,15 @@ void loop() {
         state = !state;
         if(state) {
           doorState = "closed";
+          mqtt_msj("R301",doorState);
           
         }
         else{
           doorState = "open";
+          mqtt_msj("E301",doorState);
           
         }
-        char message[58];
-        doorState.toCharArray(message,58);
-        client.publish(topic, message);
+        
         digitalWrite(led, state);
         digitalWrite(BUILTIN_LED, state);
         changeState = false;
@@ -219,6 +180,6 @@ void loop() {
     if (millis() - lastMillis >= interval_hb) {
             lastMillis = millis();
             //hbLoop();
-            mqtt_msj("E602","");
+            mqtt_msj("E602","TEST");
         }
 }

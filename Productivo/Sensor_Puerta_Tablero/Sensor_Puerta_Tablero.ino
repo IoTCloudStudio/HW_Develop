@@ -14,26 +14,40 @@ String deviceId = "1";
 int deviceLog = 0;
 String deviceDesciption = "SensorPuerta1";
 const char* TIME_SERVER = "pool.ntp.org";
-int myTimeZone = ARG; // change this to your time zone (see in timezone.h)
+char code[32] = "";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
 void callback(char* topic, byte* payload, unsigned int length) {
-
-  Serial.print("Message received in topic: ");
-  Serial.print(topic);
-  Serial.print("   length is:");
-  Serial.println(length);
-
-  Serial.print("Data Received From Broker:");
-  for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
+  StaticJsonDocument<300> doc;
+  if (topic = "ALARM/PUERTA1"){
+    deserializeJson(doc, payload, length);
+    strlcpy(code, doc["C"] | "default", sizeof(code));
+    if (strcmp (code,"E301") == 0){
+      Serial.println("PUERTA 1 sonorizando");
+      Serial.println("-----------------------");
+      Serial.println();
+    }
   }
-
-  Serial.println();
-  Serial.println("-----------------------");
-  Serial.println();
+  else   if (topic = "ALARM/PUERTA2"){
+    deserializeJson(doc, payload, length);
+    strlcpy(code, doc["C"] | "default", sizeof(code));
+    if (strcmp (code,"E301") == 0){
+      Serial.println("PUERTA 2 sonorizando");
+      Serial.println("-----------------------");
+      Serial.println();
+    }
+  }
+  else   if (topic = "ALARM/PUERTA3"){
+    deserializeJson(doc, payload, length);
+    strlcpy(code, doc["C"] | "default", sizeof(code));
+    if (strcmp (code,"E301") == 0){
+      Serial.println("PUERTA 3 sonorizando");
+      Serial.println("-----------------------");
+      Serial.println();
+    }
+  }
 
 }
 
