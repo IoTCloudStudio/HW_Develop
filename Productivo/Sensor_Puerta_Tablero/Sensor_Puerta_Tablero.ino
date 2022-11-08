@@ -31,10 +31,17 @@ void callback(char* topic, byte* payload, unsigned int length) {
     strlcpy(code, doc["C"] | "default", sizeof(code));
     if (strcmp (code,"E301") == 0){
       tone(14, 780, 180);
+      digitalWrite(ledPuerta1, 1);
       Serial.println("PUERTA 1 sonorizando");
       Serial.println("-----------------------");
       Serial.println();
       
+    }
+    else if (strcmp (code,"R301") == 0){
+      digitalWrite(ledPuerta1, 0);
+      Serial.println("PUERTA 1 cerrada");
+      Serial.println("-----------------------");
+      Serial.println();
     }
   }
   else   if (topic = "ALARM/PUERTA2"){
@@ -42,7 +49,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
     strlcpy(code, doc["C"] | "default", sizeof(code));
     if (strcmp (code,"E301") == 0){
       tone(14, 780, 180);
+      digitalWrite(ledPuerta2, 1);
       Serial.println("PUERTA 2 sonorizando");
+      Serial.println("-----------------------");
+      Serial.println();
+    }
+    else if (strcmp (code,"R301") == 0){
+      digitalWrite(ledPuerta2, 0);
+      Serial.println("PUERTA 2 cerrada");
       Serial.println("-----------------------");
       Serial.println();
     }
@@ -52,7 +66,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
     strlcpy(code, doc["C"] | "default", sizeof(code));
     if (strcmp (code,"E301") == 0){
       tone(14, 780, 180);
+      digitalWrite(ledPuerta3, 1);
       Serial.println("PUERTA 3 sonorizando");
+      Serial.println("-----------------------");
+      Serial.println();
+    }
+    else if (strcmp (code,"R301") == 0){
+      digitalWrite(ledPuerta3, 0);
+      Serial.println("PUERTA 3 cerrada");
       Serial.println("-----------------------");
       Serial.println();
     }
