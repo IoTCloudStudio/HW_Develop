@@ -2,6 +2,11 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 
+const int ledState = 1;
+const int ledPuerta1 = 2;
+const int ledPuerta2 = 3;
+const int ledPuerta3 = 4;
+
 const char* ssid = "IoT";
 const char* password = "IoTcloud2019";
 const char* mqtt_server_domain = "192.168.170.84"; // Remoto: "testmqtt.iotcloud.studio";
@@ -25,15 +30,18 @@ void callback(char* topic, byte* payload, unsigned int length) {
     deserializeJson(doc, payload, length);
     strlcpy(code, doc["C"] | "default", sizeof(code));
     if (strcmp (code,"E301") == 0){
+      tone(14, 780, 180);
       Serial.println("PUERTA 1 sonorizando");
       Serial.println("-----------------------");
       Serial.println();
+      
     }
   }
   else   if (topic = "ALARM/PUERTA2"){
     deserializeJson(doc, payload, length);
     strlcpy(code, doc["C"] | "default", sizeof(code));
     if (strcmp (code,"E301") == 0){
+      tone(14, 780, 180);
       Serial.println("PUERTA 2 sonorizando");
       Serial.println("-----------------------");
       Serial.println();
@@ -43,6 +51,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     deserializeJson(doc, payload, length);
     strlcpy(code, doc["C"] | "default", sizeof(code));
     if (strcmp (code,"E301") == 0){
+      tone(14, 780, 180);
       Serial.println("PUERTA 3 sonorizando");
       Serial.println("-----------------------");
       Serial.println();
@@ -54,6 +63,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
 void setup() {
 
   Serial.begin(115200);
+  pinMode(ledState, OUTPUT);
+  pinMode(ledPuerta1, OUTPUT);
+  pinMode(ledPuerta2, OUTPUT);
+  pinMode(ledPuerta3, OUTPUT);
+  digitalWrite(ledState, 0);
+  digitalWrite(ledPuerta1, 0);
+  digitalWrite(ledPuerta2, 0);
+  digitalWrite(ledPuerta3, 0);
 
   WiFi.begin(ssid, password);
   Serial.println("Connecting to WiFi..");
@@ -63,6 +80,7 @@ void setup() {
     yield();
   }
   Serial.println("Connected to the WiFi network");
+  digitalWrite(ledState, 1);
 
   client.setServer(mqtt_server_domain, mqtt_server_port);
   client.setCallback(callback);

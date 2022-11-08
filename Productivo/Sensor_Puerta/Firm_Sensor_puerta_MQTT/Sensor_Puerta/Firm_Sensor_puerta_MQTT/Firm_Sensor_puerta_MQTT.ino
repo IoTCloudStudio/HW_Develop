@@ -160,11 +160,13 @@ void loop() {
         if(state) {
           doorState = "closed";
           mqtt_msj("R301",doorState);
+          noTone(14);
           
         }
         else{
           doorState = "open";
           mqtt_msj("E301",doorState);
+          tone(14, 780, 180);
           
         }
         
