@@ -2,20 +2,34 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 
-const int ledState = 1;
-const int ledPuerta1 = 2;
-const int ledPuerta2 = 3;
-const int ledPuerta3 = 4;
+const int ledState = 16;
+const int ledPuerta1 = 5;
+const int ledPuerta2 = 4;
+const int ledPuerta3 = 0;
+int BUTTON_PIN = 13;
 
-const char* ssid = "IoT";
-const char* password = "IoTcloud2019";
-const char* mqtt_server_domain = "192.168.170.84"; // Remoto: "testmqtt.iotcloud.studio";
-const long mqtt_server_port = 1883;// Remoto: 51883;
+const byte TONE_PIN = 12;
+const int ALARM_BEEP_1 = 4186;
+const int ALARM_BEEP_2 = 4699;
+
+const int ALARM_TONE_LENGTH = 200;
+const int ALARM_TONE_PAUSE = 800;
+const int ALARM_TONE_REPEAT = 6;
+boolean alarm = false;
+
+const char* ssid = "CMR";
+const char* password = "Rosario2020";
+const char* mqtt_server_domain = "192.168.2.93";
+const long mqtt_server_port = 1883;
+//const char* ssid = "IoT";
+//const char* password = "IoTcloud2019";
+//const char* mqtt_server_domain = "192.168.170.84"; // Remoto: "testmqtt.iotcloud.studio";//
+//const long mqtt_server_port = 1883;// Remoto: 51883;
 const char* mqttUser = "user";
 const char* mqttPassword = "user";                           // We'll use the prefix to describe a 'family' of devices.
-const char* subscribetopic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
+const char* subscribetopic = "ALARM/#";     // Topics that we will subscribe to within that family.
 const char* topic = "ALARM/#";     // Topics that we will subscribe to within that family.
-String deviceId = "1";
+String deviceId = "0";
 int deviceLog = 0;
 String deviceDesciption = "SensorPuerta1";
 const char* TIME_SERVER = "pool.ntp.org";
@@ -24,13 +38,28 @@ char code[32] = "";
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+void alarmSound() {
+  static unsigned long next = millis();
+  static byte count = 0;
+  if (millis() > next) {
+    next += ALARM_TONE_LENGTH;
+    count++;
+    if (count == ALARM_TONE_REPEAT) {
+      next += ALARM_TONE_PAUSE;
+      count = 0;
+    }
+    tone(TONE_PIN, (count % 2) ? ALARM_BEEP_1 : ALARM_BEEP_2, ALARM_TONE_LENGTH);
+  }
+}
+
 void callback(char* topic, byte* payload, unsigned int length) {
   StaticJsonDocument<300> doc;
-  if (topic = "ALARM/PUERTA1"){
+  Serial.println(topic);
+  if (strcmp (topic,"ALARM/PUERTA1") == 0){
     deserializeJson(doc, payload, length);
     strlcpy(code, doc["C"] | "default", sizeof(code));
     if (strcmp (code,"E301") == 0){
-      tone(14, 780, 180);
+      alarm = true;
       digitalWrite(ledPuerta1, 1);
       Serial.println("PUERTA 1 sonorizando");
       Serial.println("-----------------------");
@@ -44,11 +73,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.println();
     }
   }
-  else   if (topic = "ALARM/PUERTA2"){
+  else   if (strcmp (topic,"ALARM/PUERTA2") == 0){
     deserializeJson(doc, payload, length);
     strlcpy(code, doc["C"] | "default", sizeof(code));
     if (strcmp (code,"E301") == 0){
-      tone(14, 780, 180);
+      alarm = true;
       digitalWrite(ledPuerta2, 1);
       Serial.println("PUERTA 2 sonorizando");
       Serial.println("-----------------------");
@@ -61,11 +90,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.println();
     }
   }
-  else   if (topic = "ALARM/PUERTA3"){
+  else   if (strcmp (topic,"ALARM/PUERTA3") == 0){
     deserializeJson(doc, payload, length);
     strlcpy(code, doc["C"] | "default", sizeof(code));
     if (strcmp (code,"E301") == 0){
-      tone(14, 780, 180);
+      alarm = true;
       digitalWrite(ledPuerta3, 1);
       Serial.println("PUERTA 3 sonorizando");
       Serial.println("-----------------------");
@@ -88,10 +117,12 @@ void setup() {
   pinMode(ledPuerta1, OUTPUT);
   pinMode(ledPuerta2, OUTPUT);
   pinMode(ledPuerta3, OUTPUT);
+  pinMode(BUTTON_PIN,INPUT);
   digitalWrite(ledState, 0);
   digitalWrite(ledPuerta1, 0);
   digitalWrite(ledPuerta2, 0);
   digitalWrite(ledPuerta3, 0);
+  
 
   WiFi.begin(ssid, password);
   Serial.println("Connecting to WiFi..");
@@ -132,5 +163,16 @@ void setup() {
 }
 
 void loop() {
+  
   client.loop();
+  byte valor = digitalRead(BUTTON_PIN);
+  if(valor==HIGH )
+     {
+      alarm = false;
+      Serial.println("--Presionado--");
+     }
+  
+   if (alarm) {
+    alarmSound();
+  }
 }

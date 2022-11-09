@@ -7,6 +7,13 @@
 // Set GPIOs for LED and reedswitch
 const int reedSwitch = 4;
 const int led = 2; //optional
+const byte TONE_PIN = 12;
+const int ALARM_BEEP_1 = 4186;
+const int ALARM_BEEP_2 = 4699;
+
+const int ALARM_TONE_LENGTH = 200;
+const int ALARM_TONE_PAUSE = 800;
+const int ALARM_TONE_REPEAT = 6;
  
 // Detects whenever the door changed state
 bool changeState = false;
@@ -28,9 +35,9 @@ const char* mqtt_server_domain = "192.168.170.84"; // Remoto: "testmqtt.iotcloud
 const long mqtt_server_port = 1883;// Remoto: 51883;
 const char* mqttUser = "user";
 const char* mqttPassword = "user";                           // We'll use the prefix to describe a 'family' of devices.
-const char* subscribetopic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
-const char* topic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
-String deviceId = "1";
+const char* subscribetopic = "ALARM/PUERTA2";     // Topics that we will subscribe to within that family.
+const char* topic = "ALARM/PUERTA3";     // Topics that we will subscribe to within that family.
+String deviceId = "3";
 int deviceLog = 0;
 String deviceDesciption = "SensorPuerta1";
 const char* TIME_SERVER = "pool.ntp.org";
@@ -46,6 +53,20 @@ char msg[50];
 ICACHE_RAM_ATTR void changeDoorStatus() {
   Serial.println("State changed");
   changeState = true;
+}
+
+void alarmSound() {
+  static unsigned long next = millis();
+  static byte count = 0;
+  if (millis() > next) {
+    next += ALARM_TONE_LENGTH;
+    count++;
+    if (count == ALARM_TONE_REPEAT) {
+      next += ALARM_TONE_PAUSE;
+      count = 0;
+    }
+    tone(TONE_PIN, (count % 2) ? ALARM_BEEP_1 : ALARM_BEEP_2, ALARM_TONE_LENGTH);
+  }
 }
 
 void setup_wifi() {
@@ -166,7 +187,7 @@ void loop() {
         else{
           doorState = "open";
           mqtt_msj("E301",doorState);
-          tone(14, 780, 180);
+          
           
         }
         
@@ -177,6 +198,9 @@ void loop() {
         Serial.println(doorState);
       
     }  
+  }
+     if (doorState == "open") {
+    alarmSound();
   }
     //HearBEAT 
     if (millis() - lastMillis >= interval_hb) {
