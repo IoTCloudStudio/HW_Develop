@@ -7,12 +7,20 @@
 // Set GPIOs for LED and reedswitch
 const int reedSwitch = 4;
 const int led = 2; //optional
+const byte TONE_PIN = 12;
+const int ALARM_BEEP_1 = 4186;
+const int ALARM_BEEP_2 = 4699;
+
+const int ALARM_TONE_LENGTH = 200;
+const int ALARM_TONE_PAUSE = 800;
+const int ALARM_TONE_REPEAT = 6;
  
 // Detects whenever the door changed state
 bool changeState = false;
 
 // Holds reedswitch state (1=opened, 0=close)
 bool state;
+bool silenciar=0;
 String doorState;
 
 
@@ -22,19 +30,20 @@ unsigned long lastMillis = 0;
 const long interval_sensor = 1500;
 const long interval_hb = 60000;
 
-const char* ssid = "IoT";
-const char* password = "IoTcloud2019";
-const char* mqtt_server_domain = "192.168.170.84"; // Remoto: "testmqtt.iotcloud.studio";
-const long mqtt_server_port = 1883;// Remoto: 51883;
+const char* ssid = "AntiGORILAS";
+const char* password = "entreri0s*4*3*6*1";
+const char* mqtt_server_domain = "testmqtt.iotcloud.studio"; // Remoto: "testmqtt.iotcloud.studio";
+const long mqtt_server_port = 51883;// Remoto: 51883;
 const char* mqttUser = "user";
 const char* mqttPassword = "user";                           // We'll use the prefix to describe a 'family' of devices.
-const char* subscribetopic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
-const char* topic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
-String deviceId = "1";
+const char* subscribetopic = "ALARM/PUERTA2";     // Topics that we will subscribe to within that family.
+const char* topic = "ALARM/PUERTA3";     // Topics that we will subscribe to within that family.
+String deviceId = "3";
 int deviceLog = 0;
 String deviceDesciption = "SensorPuerta1";
 const char* TIME_SERVER = "pool.ntp.org";
 int myTimeZone = ARG; // change this to your time zone (see in timezone.h)
+char code[32] = "";
 
 
 WiFiClient espClient;
@@ -46,6 +55,20 @@ char msg[50];
 ICACHE_RAM_ATTR void changeDoorStatus() {
   Serial.println("State changed");
   changeState = true;
+}
+
+void alarmSound() {
+  static unsigned long next = millis();
+  static byte count = 0;
+  if (millis() > next) {
+    next += ALARM_TONE_LENGTH;
+    count++;
+    if (count == ALARM_TONE_REPEAT) {
+      next += ALARM_TONE_PAUSE;
+      count = 0;
+    }
+    tone(TONE_PIN, (count % 2) ? ALARM_BEEP_1 : ALARM_BEEP_2, ALARM_TONE_LENGTH);
+  }
 }
 
 void setup_wifi() {
@@ -66,10 +89,29 @@ void setup_wifi() {
   Serial.println(WiFi.localIP());
 }
 
-void callback(char* topic, byte* payload, unsigned int length) 
-{
+void callback(char* topic, byte* payload, unsigned int length) {
+  StaticJsonDocument<300> doc;
   
-} //end callback
+  
+    deserializeJson(doc, payload, length);
+    strlcpy(code, doc["C"] | "default", sizeof(code));
+    if (strcmp (code,"E801") == 0){
+      silenciar = 1;
+      Serial.println("Silenciado");
+      Serial.println("-----------------------");
+      Serial.println();
+      
+    }
+    else if (strcmp (code,"E802") == 0){
+      silenciar = 0;
+      Serial.println("Silenciado");
+      Serial.println("-----------------------");
+      Serial.println();
+      
+    }
+  
+
+}
 
 void reconnect() {
   // Loop until we're reconnected
@@ -121,7 +163,6 @@ void mqtt_msj(String code,String descript){
   client.publish(topic, buffer, n);
   
 }
-
 void setup() {
   // Serial port for debugging purposes
   Serial.begin(115200);
@@ -155,6 +196,7 @@ void loop() {
     unsigned long currentMillis = millis();
     if(currentMillis - previousMillis >= interval_sensor) {
       previousMillis = currentMillis;
+      state = digitalRead(reedSwitch);
       // If a state has occured, invert the current door state   
         state = !state;
         if(state) {
@@ -166,7 +208,7 @@ void loop() {
         else{
           doorState = "open";
           mqtt_msj("E301",doorState);
-          tone(14, 780, 180);
+          
           
         }
         
@@ -177,6 +219,35 @@ void loop() {
         Serial.println(doorState);
       
     }  
+  }
+  unsigned long currentMillis = millis();
+    if(currentMillis - previousMillis >= interval_sensor*4) {
+      previousMillis = currentMillis;
+      state = digitalRead(reedSwitch);
+      // If a state has occured, invert the current door state   
+        state = !state;
+        if(state) {
+          doorState = "closed";
+          mqtt_msj("R301",doorState);
+          noTone(14);
+          
+        }
+        else{
+          doorState = "open";
+          mqtt_msj("E301",doorState);
+          
+          
+        }
+        
+        digitalWrite(led, state);
+        digitalWrite(BUILTIN_LED, state);
+        changeState = false;
+        Serial.println(state);
+        Serial.println(doorState);
+      
+    }  
+     if (doorState == "open" && silenciar==0) {
+    alarmSound();
   }
     //HearBEAT 
     if (millis() - lastMillis >= interval_hb) {
