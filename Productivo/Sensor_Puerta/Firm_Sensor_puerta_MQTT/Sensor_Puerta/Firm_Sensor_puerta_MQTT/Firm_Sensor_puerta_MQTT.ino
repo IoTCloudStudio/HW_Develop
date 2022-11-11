@@ -249,6 +249,9 @@ void loop() {
      if (doorState == "open" && silenciar==0) {
     alarmSound();
   }
+     if (doorState == "open") {
+    alarmSound();
+  }
     //HearBEAT 
     if (millis() - lastMillis >= interval_hb) {
             lastMillis = millis();
