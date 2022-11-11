@@ -4,6 +4,7 @@
 #include "timezone.h"
 #include <ArduinoJson.h>
 
+//mosquitto_pub -h 192.168.170.84 -t ALARM/PUERTA3 -m "{\"I\":3,\"L\":22,\"T\":1668137262,\"C\":\"E801\",\"D\":\"closed\",\"V\":\"100\"}"
 // Set GPIOs for LED and reedswitch
 const int reedSwitch = 4;
 const int led = 2; //optional
@@ -30,17 +31,21 @@ unsigned long lastMillis = 0;
 const long interval_sensor = 1500;
 const long interval_hb = 60000;
 
-const char* ssid = "AntiGORILAS";
-const char* password = "entreri0s*4*3*6*1";
-const char* mqtt_server_domain = "testmqtt.iotcloud.studio"; // Remoto: "testmqtt.iotcloud.studio";
-const long mqtt_server_port = 51883;// Remoto: 51883;
+const char* ssid = "CMR";
+const char* password = "Rosario2020";
+const char* mqtt_server_domain = "192.168.2.93";
+const long mqtt_server_port = 1883;
+//const char* ssid = "IoT";
+//const char* password = "IoTcloud2019";
+//const char* mqtt_server_domain = "192.168.170.84"; // Remoto: "testmqtt.iotcloud.studio";//
+//const long mqtt_server_port = 1883;// Remoto: 51883;
 const char* mqttUser = "user";
 const char* mqttPassword = "user";                           // We'll use the prefix to describe a 'family' of devices.
 const char* subscribetopic = "ALARM/PUERTA2";     // Topics that we will subscribe to within that family.
-const char* topic = "ALARM/PUERTA3";     // Topics that we will subscribe to within that family.
-String deviceId = "3";
+const char* topic = "ALARM/PUERTA2";     // Topics that we will subscribe to within that family.
+String deviceId = "2";
 int deviceLog = 0;
-String deviceDesciption = "SensorPuerta1";
+String deviceDesciption = "SensorPuerta2";
 const char* TIME_SERVER = "pool.ntp.org";
 int myTimeZone = ARG; // change this to your time zone (see in timezone.h)
 char code[32] = "";
@@ -104,7 +109,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }
     else if (strcmp (code,"E802") == 0){
       silenciar = 0;
-      Serial.println("Silenciado");
+      Serial.println("Sin silenciar");
       Serial.println("-----------------------");
       Serial.println();
       
@@ -247,9 +252,6 @@ void loop() {
       
     }  
      if (doorState == "open" && silenciar==0) {
-    alarmSound();
-  }
-     if (doorState == "open") {
     alarmSound();
   }
     //HearBEAT 
