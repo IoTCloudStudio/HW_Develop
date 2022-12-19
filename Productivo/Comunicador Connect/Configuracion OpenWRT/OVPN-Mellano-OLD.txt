@@ -1,0 +1,26 @@
+OVPN
+Username: Mellano_server
+Password: DamianMe11ano2022
+
+
+En el menu system/administration grabar la pass "Me11ano3gC0nn3ct*" y logout. 
+
+VPN Comunicadores
+Username: Mellano-IoTCloudXXX
+Password: DamianMe11ano2022XXX
+
+WIFI
+IoTCloud-MellanoSeguridad
+m3114n0s3gur1d4d
+
+Donde el XXX es el SN del equipo por ejemplo Mellano-IoTCloud010002002150
+
+Firewall
+
+Zk4370
+IP:192.168.0.10
+Puerto int y ext: 4370 
+
+Zk8088
+IP:192.168.0.10
+Puerto int y ext: 8088 

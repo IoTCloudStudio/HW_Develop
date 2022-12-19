@@ -1,0 +1,91 @@
+Installing TFTP Server:
+sudo apt update
+sudo apt install tftpd-hpa
+sudo systemctl status tftpd-hpa
+
+Configuring TFTP Server:
+
+
+En el directorio
+/srv/tftp/
+Debemos colocar el tp_recovery.bin
+
+Ponerse la ip 192.168.0.225
+
+Apagar, mantener apretado el boton WPS/Reset y volver  encender. Debe titilar rapidamente la luz de Internet (2da)
+
+Cambio IP al rango 192.168.1.X
+
+Grabar pass y logout
+
+Conectar a internet (Wifi) y ponerle custom DNS
+
+Firewall forward, input y foward accept.
+
+Buscar packets en software, update list.
+
+opkg update
+opkg install comgt kmod-usb2 kmod-usb-ohci kmod-usb-uhci kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-acm usb-modeswitch luci-proto-3g
+opkg install openvpn-openssl luci-app-openvpn 
+
+reboot
+
+----------------------------------------------------------
+
+por WEB
+
+Crear interfaz "tun0" protocol ummanaged Device "tun0"
+
+
+Ingresar al OPNSense
+
+Crear usuario y tildar la opcion de crear certificado de usuario. En la proxima ventana, choose Existing certificate -> testing2
+VPN-> OpenVPN -> Client Specific override
+	Creamos un IP static para el user
+
+En el dispositivo subir el Certificate OVP
+Editar
+Cambiar tun por tun0
+auth-user-pass /etc/openvpn/IoTcom60.auth
+Abajo
+IoTcom60
+iotcloud
+tildar enabled y start
+
+----------------------------------------------------------
+
+Desbloquear
+
+modem 3g
+
+ZTE Movistar. Recordar volver a conectar para activar
+
+----------------------------------------------------------
+ Huawei USB2
+ ZTE USB4
+ dial number *99#
+
+
+----------------------------------------------------------
+
+-CAmbiar Hostname en solapa system a "3G_Connect"
+-CAmbiar puerto LUCI
+
+ssh root@10.2.2.13
+
+
+/etc/init.d/uhttpd disable
+/etc/init.d/uhttpd stop
+
+/etc/init.d/uhttpd enabled
+/etc/init.d/uhttpd start
+
+
+----------------------------------------------------------
+
+
+# Reboot at 4:30am every day
+# Note: To avoid infinite reboot loop, wait 70 seconds
+# and touch a file in /etc so clock will be set
+# properly to 4:31 on reboot before cron starts.
+30 4 * * * sleep 70 && touch /etc/banner && reboot
