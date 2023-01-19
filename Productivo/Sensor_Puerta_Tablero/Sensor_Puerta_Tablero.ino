@@ -118,6 +118,7 @@ void setup() {
   pinMode(ledPuerta2, OUTPUT);
   pinMode(ledPuerta3, OUTPUT);
   pinMode(BUTTON_PIN,INPUT);
+  pinMode(TONE_PIN, OUTPUT);
   digitalWrite(ledState, 0);
   digitalWrite(ledPuerta1, 0);
   digitalWrite(ledPuerta2, 0);
@@ -170,9 +171,11 @@ void loop() {
      {
       alarm = false;
       Serial.println("--Presionado--");
+      digitalWrite(TONE_PIN, LOW);
      }
   
    if (alarm) {
-    alarmSound();
+    //alarmSound();
+    digitalWrite(TONE_PIN, HIGH);
   }
 }
