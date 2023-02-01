@@ -106,7 +106,7 @@ Pass: Es el SN de atras para adelante (por ejemplo: 150020020010)
 
 SSID: IoT_Cloud_Private
 private950020020010 (ojo q no deja poner mayusculas)
-
+private2019
 
 ---------------------------------------------------
 
