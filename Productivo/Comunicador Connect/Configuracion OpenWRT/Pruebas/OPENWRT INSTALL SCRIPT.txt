@@ -1,0 +1,5 @@
+First install required packages:
+
+opkg update
+opkg install comgt kmod-usb2 kmod-usb-ohci kmod-usb-uhci kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-acm usb-modeswitch luci-proto-3g
+opkg install openvpn-openssl luci-app-openvpn 

@@ -1,0 +1,17 @@
+OVPN
+Username: mellano
+Password: DamianMe11ano2022
+
+
+OVPN Comunicadores
+Username: Mellano-IoTCloud20
+Password: DamianMe11ano202220
+
+
+Ingresar al OPNSense
+
+system->Access-> Crear usuario,contraseña y tildar la opcion de crear certificado de usuario. En la proxima ventana, choose Existing certificate -> OPNSENSEServer-Mellano
+
+VPN-> OpenVPN -> Client Specific override -> Clone rule OPNSENSE-MikrotikMellano -> 
+
+Nombre: Mellano-IoTCloud20

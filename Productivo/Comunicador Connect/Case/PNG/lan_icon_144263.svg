@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="512.000000pt"
+   height="512.000000pt"
+   viewBox="0 0 512.000000 512.000000"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg8"
+   sodipodi:docname="lan_icon_144263.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="972"
+     id="namedview10"
+     showgrid="true"
+     inkscape:zoom="0.71291653"
+     inkscape:cx="-241.91645"
+     inkscape:cy="100.60783"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g3756"
+     showguides="true" />
+  <metadata
+     id="metadata2">
+Created by potrace 1.16, written by Peter Selinger 2001-2019
+<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+  <g
+     transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+     fill="#000000"
+     stroke="none"
+     id="g6">
+    <g
+       id="g3756"
+       transform="matrix(0.99997827,0,0,1.0862516,0.03475866,-275.35409)">
+      <g
+         id="g3762"
+         transform="matrix(2.6086831,0,0,2.6086831,-4127.9417,-10272.162)">
+        <path
+           d="M 2208.2357,4373.4407 1920,4378.4993 v 560 560 h 640 640 v -560 -560 l -285.0371,-5.3614 0.037,-314.6386 h 118 c 348,0 358,2 424,71 66,69 63,37 63,809 0,772 3,740 -63,809 -18,18 -50,42 -72,52 -38,18 -81,19 -825,19 -744,0 -787,-1 -825,-19 -22,-10 -54,-34 -72,-52 -66,-69 -63,-36 -63,-811 0,-785 -3,-744 71,-815 65,-61 76,-63 419,-63 h 115"
+           id="path4"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ccccccccccsssccsccscsc" />
+        <g
+           transform="translate(0,858.49927)"
+           id="g3750">
+          <rect
+             style="stroke-width:6.19144011"
+             transform="scale(1,-1)"
+             y="-4041.9861"
+             x="2428.7686"
+             height="849.53241"
+             width="264.69644"
+             id="rect14" />
+          <rect
+             style="stroke-width:7.5"
+             transform="scale(1,-1)"
+             y="-4394.7739"
+             x="2127.1855"
+             height="629.54828"
+             width="865.62885"
+             id="rect16" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
