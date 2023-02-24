@@ -6,7 +6,7 @@
 
 //mosquitto_pub -h 192.168.170.84 -t ALARM/PUERTA3 -m "{\"I\":3,\"L\":22,\"T\":1668137262,\"C\":\"E801\",\"D\":\"closed\",\"V\":\"100\"}"
 // Set GPIOs for LED and reedswitch
-const int reedSwitch = 4;
+const int reedSwitch = 5;
 const int led = 2; //optional
 const byte TONE_PIN = 12;
 const int ALARM_BEEP_1 = 4186;
@@ -39,13 +39,17 @@ const long mqtt_server_port = 1883;
 //const char* password = "IoTcloud2019";
 //const char* mqtt_server_domain = "192.168.170.84"; // Remoto: "testmqtt.iotcloud.studio";//
 //const long mqtt_server_port = 1883;// Remoto: 51883;
+//const char* ssid = "AntiGORILAS";
+//const char* password = "entreri0s*4*3*6*1";
+//const char* mqtt_server_domain = "testmqtt.iotcloud.studio";//
+//const long mqtt_server_port = 51883;
 const char* mqttUser = "user";
 const char* mqttPassword = "user";                           // We'll use the prefix to describe a 'family' of devices.
-const char* subscribetopic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
-const char* topic = "ALARM/PUERTA1";     // Topics that we will subscribe to within that family.
-String deviceId = "1";
+const char* subscribetopic = "ALARM/PUERTA3";     // Topics that we will subscribe to within that family.
+const char* topic = "ALARM/PUERTA3";     // Topics that we will subscribe to within that family.
+String deviceId = "3";
 int deviceLog = 0;
-String deviceDesciption = "SensorPuerta1";
+String deviceDesciption = "SensorPuerta3";
 const char* TIME_SERVER = "pool.ntp.org";
 int myTimeZone = ARG; // change this to your time zone (see in timezone.h)
 char code[32] = "";
@@ -72,8 +76,7 @@ void alarmSound() {
       next += ALARM_TONE_PAUSE;
       count = 0;
     }
-    //tone(TONE_PIN, (count % 2) ? ALARM_BEEP_1 : ALARM_BEEP_2, ALARM_TONE_LENGTH);
-    digitalWrite(TONE_PIN, HIGH);
+    tone(TONE_PIN, (count % 2) ? ALARM_BEEP_1 : ALARM_BEEP_2, ALARM_TONE_LENGTH);
   }
 }
 
@@ -180,7 +183,6 @@ void setup() {
 
   // Set LED state to match door state
   pinMode(led, OUTPUT);
-  pinMode(TONE_PIN, OUTPUT);
   digitalWrite(led, state);
   digitalWrite(BUILTIN_LED, state);
   
@@ -207,14 +209,14 @@ void loop() {
       // If a state has occured, invert the current door state   
         state = !state;
         if(state) {
-          doorState = "closed";
-          mqtt_msj("R301",doorState);
-          //noTone(14);
-          digitalWrite(TONE_PIN, LOW);
-        }
-        else{
+          
           doorState = "open";
           mqtt_msj("E301",doorState);
+        }
+        else{
+          doorState = "closed";
+          mqtt_msj("R301",doorState);
+          noTone(14);
           
           
         }
@@ -234,16 +236,15 @@ void loop() {
       // If a state has occured, invert the current door state   
         state = !state;
         if(state) {
-          doorState = "closed";
-          mqtt_msj("R301",doorState);
-          //noTone(14);
-          digitalWrite(TONE_PIN, LOW);
           
-        }
-        else{
           doorState = "open";
           mqtt_msj("E301",doorState);
+        }
+        else{
           
+          doorState = "closed";
+          mqtt_msj("R301",doorState);
+          noTone(14);
           
         }
         
