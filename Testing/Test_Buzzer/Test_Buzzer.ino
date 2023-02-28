@@ -11,4 +11,5 @@ void loop()
 {
     tone(14, 780, 180);
     delay(1000);
+    delay(1000);
 }
