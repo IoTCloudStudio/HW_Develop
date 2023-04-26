@@ -134,7 +134,7 @@ ZTE Movistar. Recordar volver a conectar para activar
 ---------------------------------------------------
 
 TESTING
-sudo nmap -p 4370  10.2.2.58
-sudo nmap -p 4370 -sU  10.2.2.58
+sudo nmap -p 4370  10.2.2.65
+sudo nmap -p 4370 -sU  10.2.2.65
 
 
