@@ -78,6 +78,7 @@ Ir a system --> scheduled tasks:copiar y pegar el siguien texto a continuacion e
 # and touch a file in /etc so clock will be set
 # properly to 4:31 on reboot before cron starts.
 30 4 * * * sleep 70 && touch /etc/banner && reboot
+*/5 * * * * mosquitto_pub -h testmqtt.iotcloud.studio -p 51883 -t COMUNICADORES -m "{\"I\":010002002052,\"L\":1,\"T\":1234,\"C\":\"E602\",\"D\":\"TEST\",\"V\":100}"
 
 ---------------------------------------------------
 

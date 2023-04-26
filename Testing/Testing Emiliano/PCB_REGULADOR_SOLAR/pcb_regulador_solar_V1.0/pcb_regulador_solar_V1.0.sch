@@ -1,0 +1,52 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Analog_ADC:INA219AxD U?
+U 1 1 6449A14C
+P 2450 2350
+F 0 "U?" H 2450 2931 50  0000 C CNN
+F 1 "INA219AxD" H 2450 2840 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 3250 2000 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/ina219.pdf" H 2800 2250 50  0001 C CNN
+	1    2450 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 6449A5B6
+P 1000 1100
+F 0 "#PWR?" H 1000 950 50  0001 C CNN
+F 1 "VCC" H 1017 1273 50  0000 C CNN
+F 2 "" H 1000 1100 50  0001 C CNN
+F 3 "" H 1000 1100 50  0001 C CNN
+	1    1000 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L ESP32_NODEMCU:ESP32_NODEMCU U?
+U 1 1 6449C484
+P 5300 2850
+F 0 "U?" H 5300 4417 50  0000 C CNN
+F 1 "ESP32_NODEMCU" H 5300 4326 50  0000 C CNN
+F 2 "MODULE_ESP32_NODEMCU" H 5300 2850 50  0001 L BNN
+F 3 "" H 5300 2850 50  0001 L BNN
+F 4 "Espressif" H 5300 2850 50  0001 L BNN "MANUFACTURER"
+F 5 "Manufacturer Recommendations" H 5300 2850 50  0001 L BNN "STANDARD"
+F 6 "6.6 mm" H 5300 2850 50  0001 L BNN "MAXIMUM_PACKAGE_HEIGHT"
+	1    5300 2850
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
