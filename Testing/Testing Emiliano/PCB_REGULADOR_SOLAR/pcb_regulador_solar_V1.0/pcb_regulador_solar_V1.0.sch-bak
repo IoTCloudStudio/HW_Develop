@@ -14,25 +14,331 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Analog_ADC:INA219AxD U?
-U 1 1 6449A14C
-P 2450 2350
-F 0 "U?" H 2450 2931 50  0000 C CNN
-F 1 "INA219AxD" H 2450 2840 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 3250 2000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/ina219.pdf" H 2800 2250 50  0001 C CNN
-	1    2450 2350
+L power:VCC #PWR?
+U 1 1 6449A5B6
+P 6850 3900
+F 0 "#PWR?" H 6850 3750 50  0001 C CNN
+F 1 "VCC" H 6867 4073 50  0000 C CNN
+F 2 "" H 6850 3900 50  0001 C CNN
+F 3 "" H 6850 3900 50  0001 C CNN
+	1    6850 3900
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:VCC #PWR?
-U 1 1 6449A5B6
-P 1000 1100
-F 0 "#PWR?" H 1000 950 50  0001 C CNN
-F 1 "VCC" H 1017 1273 50  0000 C CNN
-F 2 "" H 1000 1100 50  0001 C CNN
-F 3 "" H 1000 1100 50  0001 C CNN
-	1    1000 1100
+L Transistor_BJT:BC337 Q1
+U 1 1 64548445
+P 6450 1550
+F 0 "Q1" H 6641 1596 50  0000 L CNN
+F 1 "BC337" H 6641 1505 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 6650 1475 50  0001 L CIN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf" H 6450 1550 50  0001 L CNN
+	1    6450 1550
 	1    0    0    -1  
 $EndComp
+$Comp
+L Transistor_BJT:BC337 Q1
+U 1 1 6454A967
+P 6750 4400
+F 0 "Q1" H 6941 4446 50  0000 L CNN
+F 1 "BC337" H 6941 4355 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 6950 4325 50  0001 L CIN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf" H 6750 4400 50  0001 L CNN
+	1    6750 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 6454CD57
+P 5900 1550
+F 0 "R1" V 5693 1550 50  0000 C CNN
+F 1 "10k" V 5784 1550 50  0000 C CNN
+F 2 "" V 5830 1550 50  0001 C CNN
+F 3 "~" H 5900 1550 50  0001 C CNN
+	1    5900 1550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6050 1550 6250 1550
+$Comp
+L power:GND #PWR?
+U 1 1 64552672
+P 6550 1850
+F 0 "#PWR?" H 6550 1600 50  0001 C CNN
+F 1 "GND" H 6555 1677 50  0000 C CNN
+F 2 "" H 6550 1850 50  0001 C CNN
+F 3 "" H 6550 1850 50  0001 C CNN
+	1    6550 1850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6550 1750 6550 1850
+$Comp
+L Device:R R1
+U 1 1 6455508A
+P 6700 1050
+F 0 "R1" V 6493 1050 50  0000 C CNN
+F 1 "10k" V 6584 1050 50  0000 C CNN
+F 2 "" V 6630 1050 50  0001 C CNN
+F 3 "~" H 6700 1050 50  0001 C CNN
+	1    6700 1050
+	0    1    1    0   
+$EndComp
+$Comp
+L Transistor_BJT:BC327 Q2
+U 1 1 645558E5
+P 7250 1050
+F 0 "Q2" H 7441 1004 50  0000 L CNN
+F 1 "BC327" H 7441 1095 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 7450 975 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 7250 1050 50  0001 L CNN
+	1    7250 1050
+	1    0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 64557404
+P 7350 750
+F 0 "#PWR?" H 7350 600 50  0001 C CNN
+F 1 "VCC" H 7367 923 50  0000 C CNN
+F 2 "" H 7350 750 50  0001 C CNN
+F 3 "" H 7350 750 50  0001 C CNN
+	1    7350 750 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:IRF4905 Q3
+U 1 1 64558234
+P 8050 1050
+F 0 "Q3" H 8255 1096 50  0000 L CNN
+F 1 "IRF4905" H 8255 1005 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 8250 975 50  0001 L CIN
+F 3 "http://www.infineon.com/dgdl/irf4905.pdf?fileId=5546d462533600a4015355e32165197c" H 8050 1050 50  0001 L CNN
+	1    8050 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 64558A8A
+P 7350 1600
+F 0 "R1" H 7280 1554 50  0000 R CNN
+F 1 "10k" H 7280 1645 50  0000 R CNN
+F 2 "" V 7280 1600 50  0001 C CNN
+F 3 "~" H 7350 1600 50  0001 C CNN
+	1    7350 1600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6550 1350 6550 1050
+Wire Wire Line
+	6850 1050 7050 1050
+Wire Wire Line
+	7350 1250 7350 1350
+Wire Wire Line
+	7350 1750 6550 1750
+Connection ~ 6550 1750
+Wire Wire Line
+	7850 1050 7850 1350
+Wire Wire Line
+	7850 1350 7350 1350
+Connection ~ 7350 1350
+Wire Wire Line
+	7350 1350 7350 1450
+Wire Wire Line
+	8200 850  8150 850 
+Connection ~ 8150 850 
+Wire Wire Line
+	8150 850  7350 850 
+Wire Wire Line
+	7350 850  7350 750 
+Connection ~ 7350 850 
+$Comp
+L Transistor_BJT:BC337 Q1
+U 1 1 64568F0C
+P 6450 3000
+F 0 "Q1" H 6641 3046 50  0000 L CNN
+F 1 "BC337" H 6641 2955 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 6650 2925 50  0001 L CIN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf" H 6450 3000 50  0001 L CNN
+	1    6450 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 64568F16
+P 5900 3000
+F 0 "R1" V 5693 3000 50  0000 C CNN
+F 1 "10k" V 5784 3000 50  0000 C CNN
+F 2 "" V 5830 3000 50  0001 C CNN
+F 3 "~" H 5900 3000 50  0001 C CNN
+	1    5900 3000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6050 3000 6250 3000
+$Comp
+L power:GND #PWR?
+U 1 1 64568F21
+P 6550 3300
+F 0 "#PWR?" H 6550 3050 50  0001 C CNN
+F 1 "GND" H 6555 3127 50  0000 C CNN
+F 2 "" H 6550 3300 50  0001 C CNN
+F 3 "" H 6550 3300 50  0001 C CNN
+	1    6550 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6550 3200 6550 3300
+$Comp
+L Device:R R1
+U 1 1 64568F2C
+P 6700 2500
+F 0 "R1" V 6493 2500 50  0000 C CNN
+F 1 "10k" V 6584 2500 50  0000 C CNN
+F 2 "" V 6630 2500 50  0001 C CNN
+F 3 "~" H 6700 2500 50  0001 C CNN
+	1    6700 2500
+	0    1    1    0   
+$EndComp
+$Comp
+L Transistor_BJT:BC327 Q2
+U 1 1 64568F36
+P 7250 2500
+F 0 "Q2" H 7441 2454 50  0000 L CNN
+F 1 "BC327" H 7441 2545 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 7450 2425 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 7250 2500 50  0001 L CNN
+	1    7250 2500
+	1    0    0    1   
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 64568F40
+P 7350 2200
+F 0 "#PWR?" H 7350 2050 50  0001 C CNN
+F 1 "VCC" H 7367 2373 50  0000 C CNN
+F 2 "" H 7350 2200 50  0001 C CNN
+F 3 "" H 7350 2200 50  0001 C CNN
+	1    7350 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:IRF4905 Q3
+U 1 1 64568F4A
+P 8050 2500
+F 0 "Q3" H 8255 2546 50  0000 L CNN
+F 1 "IRF4905" H 8255 2455 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 8250 2425 50  0001 L CIN
+F 3 "http://www.infineon.com/dgdl/irf4905.pdf?fileId=5546d462533600a4015355e32165197c" H 8050 2500 50  0001 L CNN
+	1    8050 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 64568F54
+P 7350 3050
+F 0 "R1" H 7280 3004 50  0000 R CNN
+F 1 "10k" H 7280 3095 50  0000 R CNN
+F 2 "" V 7280 3050 50  0001 C CNN
+F 3 "~" H 7350 3050 50  0001 C CNN
+	1    7350 3050
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6550 2800 6550 2500
+Wire Wire Line
+	6850 2500 7050 2500
+Wire Wire Line
+	7350 2700 7350 2800
+Wire Wire Line
+	7350 3200 6550 3200
+Connection ~ 6550 3200
+Wire Wire Line
+	7850 2500 7850 2800
+Wire Wire Line
+	7850 2800 7350 2800
+Connection ~ 7350 2800
+Wire Wire Line
+	7350 2800 7350 2900
+Wire Wire Line
+	8200 2300 8150 2300
+Connection ~ 8150 2300
+Wire Wire Line
+	8150 2300 7350 2300
+Wire Wire Line
+	7350 2300 7350 2200
+Connection ~ 7350 2300
+$Comp
+L Device:R R1
+U 1 1 64582AE8
+P 6850 4050
+F 0 "R1" H 6780 4004 50  0000 R CNN
+F 1 "10k" H 6780 4095 50  0000 R CNN
+F 2 "" V 6780 4050 50  0001 C CNN
+F 3 "~" H 6850 4050 50  0001 C CNN
+	1    6850 4050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 64586055
+P 6400 4400
+F 0 "R2" V 6193 4400 50  0000 C CNN
+F 1 "1k" V 6284 4400 50  0000 C CNN
+F 2 "" V 6330 4400 50  0001 C CNN
+F 3 "~" H 6400 4400 50  0001 C CNN
+	1    6400 4400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 6458717B
+P 7350 4200
+F 0 "R3" V 7143 4200 50  0000 C CNN
+F 1 "3k9" V 7234 4200 50  0000 C CNN
+F 2 "" V 7280 4200 50  0001 C CNN
+F 3 "~" H 7350 4200 50  0001 C CNN
+	1    7350 4200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6850 4200 7200 4200
+Connection ~ 6850 4200
+$Comp
+L Transistor_BJT:BC327 Q?
+U 1 1 64588FE5
+P 7700 4350
+F 0 "Q?" H 7891 4304 50  0000 L CNN
+F 1 "BC327" H 7891 4395 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 7900 4275 50  0001 L CIN
+F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 7700 4350 50  0001 L CNN
+	1    7700 4350
+	1    0    0    1   
+$EndComp
+$Comp
+L Transistor_BJT:BC337 Q?
+U 1 1 6458A8CF
+P 7700 3950
+F 0 "Q?" H 7891 3996 50  0000 L CNN
+F 1 "BC337" H 7891 3905 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 7900 3875 50  0001 L CIN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bc337.pdf" H 7700 3950 50  0001 L CNN
+	1    7700 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6458B767
+P 6850 4600
+F 0 "#PWR?" H 6850 4350 50  0001 C CNN
+F 1 "GND" H 6855 4427 50  0000 C CNN
+F 2 "" H 6850 4600 50  0001 C CNN
+F 3 "" H 6850 4600 50  0001 C CNN
+	1    6850 4600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7500 3950 7500 4200
+Wire Wire Line
+	7500 4200 7500 4350
+Connection ~ 7500 4200
 $EndSCHEMATC
