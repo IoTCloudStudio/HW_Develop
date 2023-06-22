@@ -49,4 +49,19 @@ F 6 "6.6 mm" H 5300 2850 50  0001 L BNN "MAXIMUM_PACKAGE_HEIGHT"
 	1    5300 2850
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector_Generic_MountingPin:Conn_01x06_MountingPin J?
+U 1 1 644AF62C
+P 2900 1250
+F 0 "J?" H 2988 1164 50  0000 L CNN
+F 1 "Conn_01x06_MountingPin" H 2988 1073 50  0000 L CNN
+F 2 "" H 2900 1250 50  0001 C CNN
+F 3 "~" H 2900 1250 50  0001 C CNN
+	1    2900 1250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4500 1850 2700 1850
+Wire Wire Line
+	2700 1850 2700 1550
 $EndSCHEMATC
