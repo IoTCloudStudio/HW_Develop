@@ -1,0 +1,7 @@
+"#","Reference","Qty","Value","Footprint","DNP"
+"1","D1, D2","2","1N5819","Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal",""
+"2","D3, D5","2","3.3","",""
+"3","Q1, Q2","2","BC557","Package_TO_SOT_THT:TO-92_Inline",""
+"4","R1, R3","2","10k","",""
+"5","R2, R4","2","100k","",""
+"6","U1","1","PC817","Package_DIP:DIP-4_W7.62mm",""

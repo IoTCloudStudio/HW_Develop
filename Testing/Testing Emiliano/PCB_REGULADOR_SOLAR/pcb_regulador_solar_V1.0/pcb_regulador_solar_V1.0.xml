@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.kicad_sch</source>
+    <date>mar 26 sep 2023 20:52:41</date>
+    <tool>Eeschema 7.0.6-7.0.6~ubuntu22.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>pcb_regulador_solar_V1.0.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="D1">
+      <value>1N5819</value>
+      <footprint>Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</footprint>
+      <datasheet>http://www.vishay.com/docs/88525/1n5817.pdf</datasheet>
+      <libsource lib="Diode" part="1N5819" description="40V 1A Schottky Barrier Rectifier Diode, DO-41"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="40V 1A Schottky Barrier Rectifier Diode, DO-41"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>caa375c7-9de0-4424-8aaa-6e35d9c7038d</tstamps>
+    </comp>
+    <comp ref="D2">
+      <value>1N5819</value>
+      <footprint>Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</footprint>
+      <datasheet>http://www.vishay.com/docs/88525/1n5817.pdf</datasheet>
+      <libsource lib="Diode" part="1N5819" description="40V 1A Schottky Barrier Rectifier Diode, DO-41"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="40V 1A Schottky Barrier Rectifier Diode, DO-41"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>15c3a00a-58db-4a1d-929b-6ee041b867df</tstamps>
+    </comp>
+    <comp ref="D3">
+      <value>3.3</value>
+      <libsource lib="Device" part="D_Zener" description="Zener diode"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="Zener diode"/>
+      <property name="ki_keywords" value="diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0cc48e74-ba2b-4d02-8d78-3b4629811cc2</tstamps>
+    </comp>
+    <comp ref="D5">
+      <value>3.3</value>
+      <libsource lib="Device" part="D_Zener" description="Zener diode"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="Zener diode"/>
+      <property name="ki_keywords" value="diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fd5154a4-ffad-4f41-bc1e-f21288e323fe</tstamps>
+    </comp>
+    <comp ref="Q1">
+      <value>BC557</value>
+      <footprint>Package_TO_SOT_THT:TO-92_Inline</footprint>
+      <datasheet>https://www.onsemi.com/pub/Collateral/BC556BTA-D.pdf</datasheet>
+      <libsource lib="Transistor_BJT" part="BC557" description="0.1A Ic, 45V Vce, PNP Small Signal Transistor, TO-92"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="0.1A Ic, 45V Vce, PNP Small Signal Transistor, TO-92"/>
+      <property name="ki_keywords" value="PNP Transistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c2100bab-1c67-4724-8353-f5cf1ec14736</tstamps>
+    </comp>
+    <comp ref="Q2">
+      <value>BC557</value>
+      <footprint>Package_TO_SOT_THT:TO-92_Inline</footprint>
+      <datasheet>https://www.onsemi.com/pub/Collateral/BC556BTA-D.pdf</datasheet>
+      <libsource lib="Transistor_BJT" part="BC557" description="0.1A Ic, 45V Vce, PNP Small Signal Transistor, TO-92"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="0.1A Ic, 45V Vce, PNP Small Signal Transistor, TO-92"/>
+      <property name="ki_keywords" value="PNP Transistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7c84a723-ec9f-4506-bcfc-233ce25439b4</tstamps>
+    </comp>
+    <comp ref="R1">
+      <value>10k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9f758f8c-bdb4-487e-88c5-bf8f1027d746</tstamps>
+    </comp>
+    <comp ref="R2">
+      <value>100k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5c3cf37a-6ac6-4ff4-b9f1-8ffeb455ebe6</tstamps>
+    </comp>
+    <comp ref="R3">
+      <value>10k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>13cf4527-1b8e-48df-ba24-ac7a83bf9b94</tstamps>
+    </comp>
+    <comp ref="R4">
+      <value>100k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b156229b-0cb1-4487-80d8-9a6a5f30fc2f</tstamps>
+    </comp>
+    <comp ref="U1">
+      <value>PC817</value>
+      <footprint>Package_DIP:DIP-4_W7.62mm</footprint>
+      <datasheet>http://www.soselectronic.cz/a_info/resource/d/pc817.pdf</datasheet>
+      <libsource lib="Isolator" part="PC817" description="DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="ki_description" value="DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"/>
+      <property name="ki_keywords" value="NPN DC Optocoupler"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>24de27db-18de-4b3e-b63d-85b51542b6a9</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Device" part="D_Zener">
+      <description>Zener diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D_Zener</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Diode" part="1N5819">
+      <description>40V 1A Schottky Barrier Rectifier Diode, DO-41</description>
+      <docs>http://www.vishay.com/docs/88525/1n5817.pdf</docs>
+      <footprints>
+        <fp>D*DO?41*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">1N5819</field>
+        <field name="Footprint">Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</field>
+        <field name="Datasheet">http://www.vishay.com/docs/88525/1n5817.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Isolator" part="PC817">
+      <description>DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4</description>
+      <docs>http://www.soselectronic.cz/a_info/resource/d/pc817.pdf</docs>
+      <footprints>
+        <fp>DIP*W7.62mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">PC817</field>
+        <field name="Footprint">Package_DIP:DIP-4_W7.62mm</field>
+        <field name="Datasheet">http://www.soselectronic.cz/a_info/resource/d/pc817.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+        <pin num="3" name="" type="passive"/>
+        <pin num="4" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Transistor_BJT" part="BC557">
+      <description>0.1A Ic, 45V Vce, PNP Small Signal Transistor, TO-92</description>
+      <docs>https://www.onsemi.com/pub/Collateral/BC556BTA-D.pdf</docs>
+      <footprints>
+        <fp>TO?92*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">BC557</field>
+        <field name="Footprint">Package_TO_SOT_THT:TO-92_Inline</field>
+        <field name="Datasheet">https://www.onsemi.com/pub/Collateral/BC556BTA-D.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="C" type="passive"/>
+        <pin num="2" name="B" type="input"/>
+        <pin num="3" name="E" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Device">
+      <uri>/usr/share/kicad/symbols//Device.kicad_sym</uri>
+    </library>
+    <library logical="Diode">
+      <uri>/usr/share/kicad/symbols//Diode.kicad_sym</uri>
+    </library>
+    <library logical="Isolator">
+      <uri>/usr/share/kicad/symbols//Isolator.kicad_sym</uri>
+    </library>
+    <library logical="Transistor_BJT">
+      <uri>/usr/share/kicad/symbols//Transistor_BJT.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="+3.3V">
+      <node ref="D2" pin="2" pinfunction="A" pintype="passive"/>
+    </net>
+    <net code="3" name="GND">
+      <node ref="D3" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="D5" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R2" pin="1" pintype="passive"/>
+      <node ref="R4" pin="1" pintype="passive"/>
+    </net>
+    <net code="4" name="Net-(D2-K)">
+      <node ref="D2" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="Q1" pin="3" pinfunction="E" pintype="passive"/>
+    </net>
+    <net code="5" name="Net-(D3-K)">
+      <node ref="D3" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="Q1" pin="1" pinfunction="C" pintype="passive"/>
+      <node ref="R2" pin="2" pintype="passive"/>
+    </net>
+    <net code="6" name="Net-(D5-K)">
+      <node ref="D5" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="Q2" pin="1" pinfunction="C" pintype="passive"/>
+      <node ref="R4" pin="2" pintype="passive"/>
+    </net>
+    <net code="7" name="Net-(Q1-B)">
+      <node ref="Q1" pin="2" pinfunction="B" pintype="input"/>
+      <node ref="R1" pin="2" pintype="passive"/>
+    </net>
+    <net code="8" name="Net-(Q2-B)">
+      <node ref="Q2" pin="2" pinfunction="B" pintype="input"/>
+      <node ref="R3" pin="2" pintype="passive"/>
+    </net>
+    <net code="9" name="unconnected-(D1-A-Pad2)">
+      <node ref="D1" pin="2" pinfunction="A" pintype="passive"/>
+    </net>
+    <net code="10" name="unconnected-(D1-K-Pad1)">
+      <node ref="D1" pin="1" pinfunction="K" pintype="passive"/>
+    </net>
+    <net code="11" name="unconnected-(Q2-E-Pad3)">
+      <node ref="Q2" pin="3" pinfunction="E" pintype="passive"/>
+    </net>
+    <net code="12" name="unconnected-(R1-Pad1)">
+      <node ref="R1" pin="1" pintype="passive"/>
+    </net>
+    <net code="13" name="unconnected-(R3-Pad1)">
+      <node ref="R3" pin="1" pintype="passive"/>
+    </net>
+    <net code="14" name="unconnected-(U1-Pad1)">
+      <node ref="U1" pin="1" pintype="passive"/>
+    </net>
+    <net code="15" name="unconnected-(U1-Pad2)">
+      <node ref="U1" pin="2" pintype="passive"/>
+    </net>
+    <net code="16" name="unconnected-(U1-Pad3)">
+      <node ref="U1" pin="3" pintype="passive"/>
+    </net>
+    <net code="17" name="unconnected-(U1-Pad4)">
+      <node ref="U1" pin="4" pintype="passive"/>
+    </net>
+  </nets>
+</export>
