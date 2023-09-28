@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="E">
   <design>
-    <source>/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.kicad_sch</source>
-    <date>mar 26 sep 2023 20:52:41</date>
-    <tool>Eeschema 7.0.6-7.0.6~ubuntu22.04.1</tool>
+    <source>/home/jmrg/Documentos/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.kicad_sch</source>
+    <date>jue 28 sep 2023 15:45:01</date>
+    <tool>Eeschema 7.0.7-7.0.7~ubuntu20.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
         <title/>
@@ -24,13 +24,123 @@
     </sheet>
   </design>
   <components>
+    <comp ref="C1">
+      <value>100nf</value>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>cb377052-2c91-4854-8809-6159d65b6274</tstamps>
+    </comp>
+    <comp ref="C2">
+      <value>10nf</value>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7cc4d2df-c7de-4696-a770-59bd8f18ce20</tstamps>
+    </comp>
+    <comp ref="C3">
+      <value>47u 16v</value>
+      <libsource lib="Device" part="C_Polarized" description="Polarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Polarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>67d9fd54-355c-4d1d-b5c0-8b26e09f2af3</tstamps>
+    </comp>
+    <comp ref="C4">
+      <value>22u 25v</value>
+      <libsource lib="Device" part="C_Polarized" description="Polarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Polarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>58372e38-f8e9-44e2-940a-28db2554116f</tstamps>
+    </comp>
+    <comp ref="C5">
+      <value>100nf</value>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>024e1033-69cf-409f-8959-5d6c47e67058</tstamps>
+    </comp>
+    <comp ref="C6">
+      <value>10nf</value>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>10c5c5ea-f4a5-48db-a9fe-6c2325f9376f</tstamps>
+    </comp>
+    <comp ref="C7">
+      <value>10nf</value>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c01272c0-980e-4e70-a56f-22e0a847be39</tstamps>
+    </comp>
+    <comp ref="C8">
+      <value>100nf</value>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1c51b5f3-e1c8-4dea-a1fb-d4e259cd8d54</tstamps>
+    </comp>
+    <comp ref="C9">
+      <value>1000u 25v</value>
+      <libsource lib="Device" part="C_Polarized" description="Polarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Polarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>df232f65-f5c2-4143-bc86-cd5bfc6a56ab</tstamps>
+    </comp>
+    <comp ref="C10">
+      <value>100n</value>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0ea211ef-2b6c-46f2-8973-ff6ddc8dc7e8</tstamps>
+    </comp>
+    <comp ref="C11">
+      <value>100nf</value>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8f771422-a856-4e40-82fc-ab7bfd784be5</tstamps>
+    </comp>
     <comp ref="D1">
       <value>1N5819</value>
       <footprint>Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</footprint>
       <datasheet>http://www.vishay.com/docs/88525/1n5817.pdf</datasheet>
       <libsource lib="Diode" part="1N5819" description="40V 1A Schottky Barrier Rectifier Diode, DO-41"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="40V 1A Schottky Barrier Rectifier Diode, DO-41"/>
       <property name="ki_keywords" value="diode Schottky"/>
       <sheetpath names="/" tstamps="/"/>
@@ -42,7 +152,7 @@
       <datasheet>http://www.vishay.com/docs/88525/1n5817.pdf</datasheet>
       <libsource lib="Diode" part="1N5819" description="40V 1A Schottky Barrier Rectifier Diode, DO-41"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="40V 1A Schottky Barrier Rectifier Diode, DO-41"/>
       <property name="ki_keywords" value="diode Schottky"/>
       <sheetpath names="/" tstamps="/"/>
@@ -52,21 +162,107 @@
       <value>3.3</value>
       <libsource lib="Device" part="D_Zener" description="Zener diode"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="Zener diode"/>
       <property name="ki_keywords" value="diode"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>0cc48e74-ba2b-4d02-8d78-3b4629811cc2</tstamps>
     </comp>
+    <comp ref="D4">
+      <value>LED ROJO</value>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>008ef4c2-6c89-40b1-b73f-ba7fcba5bbb8</tstamps>
+    </comp>
     <comp ref="D5">
-      <value>3.3</value>
+      <value>1N5819</value>
+      <footprint>Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</footprint>
+      <datasheet>http://www.vishay.com/docs/88525/1n5817.pdf</datasheet>
+      <libsource lib="Diode" part="1N5819" description="40V 1A Schottky Barrier Rectifier Diode, DO-41"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="40V 1A Schottky Barrier Rectifier Diode, DO-41"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5fe3184e-7e72-423b-acca-0898f399892f</tstamps>
+    </comp>
+    <comp ref="D6">
+      <value>18v</value>
       <libsource lib="Device" part="D_Zener" description="Zener diode"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="Zener diode"/>
       <property name="ki_keywords" value="diode"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>fd5154a4-ffad-4f41-bc1e-f21288e323fe</tstamps>
+      <tstamps>99649ef2-145f-48d5-90f4-fdd8b147aaf5</tstamps>
+    </comp>
+    <comp ref="D7">
+      <value>LED VERDE</value>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode"/>
+      <property name="ki_keywords" value="LED diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6b0020a6-4b9f-4c2f-b81d-83f5621ab6d7</tstamps>
+    </comp>
+    <comp ref="D8">
+      <value>3.3</value>
+      <libsource lib="Device" part="D_Zener" description="Zener diode"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Zener diode"/>
+      <property name="ki_keywords" value="diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2f978a27-cb44-4b38-a59e-9076c3528520</tstamps>
+    </comp>
+    <comp ref="D9">
+      <value>1N5822</value>
+      <footprint>Diode_THT:D_DO-201AD_P15.24mm_Horizontal</footprint>
+      <datasheet>http://www.vishay.com/docs/88526/1n5820.pdf</datasheet>
+      <libsource lib="Diode" part="1N5822" description="40V 3A Schottky Barrier Rectifier Diode, DO-201AD"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="40V 3A Schottky Barrier Rectifier Diode, DO-201AD"/>
+      <property name="ki_keywords" value="diode Schottky"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bcfc6a6d-b822-4985-92aa-e2bbe80c1322</tstamps>
+    </comp>
+    <comp ref="D10">
+      <value>1.5KE18</value>
+      <footprint>Diode_THT:D_DO-201AE_P15.24mm_Horizontal</footprint>
+      <datasheet>https://www.vishay.com/docs/88301/15ke.pdf</datasheet>
+      <libsource lib="Diode" part="1.5KExxA" description="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE"/>
+      <property name="ki_keywords" value="diode TVS voltage suppressor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ad2b2dcd-a593-4304-b286-7bfd2aed5291</tstamps>
+    </comp>
+    <comp ref="J1">
+      <value>Conn_01x03_Pin</value>
+      <libsource lib="Connector" part="Conn_01x03_Pin" description="Generic connector, single row, 01x03, script generated"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Generic connector, single row, 01x03, script generated"/>
+      <property name="ki_keywords" value="connector"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bebd37f4-1991-472d-aa42-9667cafcc736</tstamps>
+    </comp>
+    <comp ref="J2">
+      <value>Screw_Terminal_01x02</value>
+      <libsource lib="Connector" part="Screw_Terminal_01x02" description="Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <property name="ki_keywords" value="screw terminal"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b5fd0c45-cace-4bb0-ad17-9bee090321b8</tstamps>
     </comp>
     <comp ref="Q1">
       <value>BC557</value>
@@ -74,7 +270,7 @@
       <datasheet>https://www.onsemi.com/pub/Collateral/BC556BTA-D.pdf</datasheet>
       <libsource lib="Transistor_BJT" part="BC557" description="0.1A Ic, 45V Vce, PNP Small Signal Transistor, TO-92"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="0.1A Ic, 45V Vce, PNP Small Signal Transistor, TO-92"/>
       <property name="ki_keywords" value="PNP Transistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -86,17 +282,65 @@
       <datasheet>https://www.onsemi.com/pub/Collateral/BC556BTA-D.pdf</datasheet>
       <libsource lib="Transistor_BJT" part="BC557" description="0.1A Ic, 45V Vce, PNP Small Signal Transistor, TO-92"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="0.1A Ic, 45V Vce, PNP Small Signal Transistor, TO-92"/>
       <property name="ki_keywords" value="PNP Transistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>7c84a723-ec9f-4506-bcfc-233ce25439b4</tstamps>
     </comp>
+    <comp ref="Q3">
+      <value>2N3904</value>
+      <footprint>Package_TO_SOT_THT:TO-92_Inline</footprint>
+      <datasheet>https://www.onsemi.com/pub/Collateral/2N3903-D.PDF</datasheet>
+      <libsource lib="Transistor_BJT" part="2N3904" description="0.2A Ic, 40V Vce, Small Signal NPN Transistor, TO-92"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="0.2A Ic, 40V Vce, Small Signal NPN Transistor, TO-92"/>
+      <property name="ki_keywords" value="NPN Transistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>979bd051-8781-423d-8553-23f4f5b249e3</tstamps>
+    </comp>
+    <comp ref="Q4">
+      <value>2N3904</value>
+      <footprint>Package_TO_SOT_THT:TO-92_Inline</footprint>
+      <datasheet>https://www.onsemi.com/pub/Collateral/2N3903-D.PDF</datasheet>
+      <libsource lib="Transistor_BJT" part="2N3904" description="0.2A Ic, 40V Vce, Small Signal NPN Transistor, TO-92"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="0.2A Ic, 40V Vce, Small Signal NPN Transistor, TO-92"/>
+      <property name="ki_keywords" value="NPN Transistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6d46f573-b713-466d-864b-edc0635168ec</tstamps>
+    </comp>
+    <comp ref="Q5">
+      <value>2N3904</value>
+      <footprint>Package_TO_SOT_THT:TO-92_Inline</footprint>
+      <datasheet>https://www.onsemi.com/pub/Collateral/2N3903-D.PDF</datasheet>
+      <libsource lib="Transistor_BJT" part="2N3904" description="0.2A Ic, 40V Vce, Small Signal NPN Transistor, TO-92"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="0.2A Ic, 40V Vce, Small Signal NPN Transistor, TO-92"/>
+      <property name="ki_keywords" value="NPN Transistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2ac6b3cf-0880-4119-911c-b81b2c292410</tstamps>
+    </comp>
+    <comp ref="Q6">
+      <value>IRF4905</value>
+      <footprint>Package_TO_SOT_THT:TO-220-3_Vertical</footprint>
+      <datasheet>http://www.infineon.com/dgdl/irf4905.pdf?fileId=5546d462533600a4015355e32165197c</datasheet>
+      <libsource lib="Transistor_FET" part="IRF4905" description="-74A Id, -55V Vds, Single P-Channel HEXFET Power MOSFET, 20mOhm Ron, TO-220AB"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="-74A Id, -55V Vds, Single P-Channel HEXFET Power MOSFET, 20mOhm Ron, TO-220AB"/>
+      <property name="ki_keywords" value="Single P-Channel HEXFET Power MOSFET"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f14d0a5d-7514-4b01-8982-2f657c2ec5b6</tstamps>
+    </comp>
     <comp ref="R1">
       <value>10k</value>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="Resistor"/>
       <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -106,7 +350,7 @@
       <value>100k</value>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="Resistor"/>
       <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -116,21 +360,241 @@
       <value>10k</value>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="Resistor"/>
       <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>13cf4527-1b8e-48df-ba24-ac7a83bf9b94</tstamps>
     </comp>
     <comp ref="R4">
-      <value>100k</value>
+      <value>47k</value>
       <libsource lib="Device" part="R" description="Resistor"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="Resistor"/>
       <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>b156229b-0cb1-4487-80d8-9a6a5f30fc2f</tstamps>
+      <tstamps>8ddd120a-c634-450b-90fb-f7b096a8c3fe</tstamps>
+    </comp>
+    <comp ref="R5">
+      <value>10k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>927e61ff-7b44-4c98-8b81-666571414fb4</tstamps>
+    </comp>
+    <comp ref="R6">
+      <value>10k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>806419a5-7657-464a-bea6-4765b9e4ec29</tstamps>
+    </comp>
+    <comp ref="R7">
+      <value>1k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5a7aaf09-17c1-45cc-8f7f-54e5192e18c4</tstamps>
+    </comp>
+    <comp ref="R8">
+      <value>1k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1fc73ef4-3334-47ee-88b1-718b42477a25</tstamps>
+    </comp>
+    <comp ref="R9">
+      <value>220k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>140109cb-cc29-46ce-a400-e8c52c4e8801</tstamps>
+    </comp>
+    <comp ref="R10">
+      <value>10k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d7fede17-b2be-4989-b505-2d9656eadbe6</tstamps>
+    </comp>
+    <comp ref="R11">
+      <value>10k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5cda6dee-a292-405a-80a4-be11d1fa745d</tstamps>
+    </comp>
+    <comp ref="R12">
+      <value>220k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a71a6eb6-e301-4857-9593-7fc64d0ccd0b</tstamps>
+    </comp>
+    <comp ref="R13">
+      <value>10k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a211bb28-2fd6-43ce-a2e9-62bd7721a320</tstamps>
+    </comp>
+    <comp ref="R14">
+      <value>220k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>23828d59-e15d-4ae0-abc0-63fe31530c07</tstamps>
+    </comp>
+    <comp ref="R15">
+      <value>220k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8232ad23-c8ad-4b7e-bdc6-84a99713af6f</tstamps>
+    </comp>
+    <comp ref="R16">
+      <value>10k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1a3d49d9-5601-4f26-9079-1a5b7670be98</tstamps>
+    </comp>
+    <comp ref="R17">
+      <value>470k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0bd36acd-99c9-4a57-880a-d19502f9c495</tstamps>
+    </comp>
+    <comp ref="R18">
+      <value>220k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6f726a57-757c-4e22-95ba-66f4f5d5b924</tstamps>
+    </comp>
+    <comp ref="R19">
+      <value>470k</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fb25b854-1941-482d-862b-89bc07093e65</tstamps>
+    </comp>
+    <comp ref="R20">
+      <value>0.1 (0.5W)</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>065b7400-e183-4b23-9ab7-b90fe0797547</tstamps>
+    </comp>
+    <comp ref="R21">
+      <value>0.1 (0.5W)</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a60365ae-d152-45dc-ab55-5a790af21589</tstamps>
+    </comp>
+    <comp ref="R22">
+      <value>10k (1%)</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>22958129-b32f-4a41-af3c-aebd96b66b05</tstamps>
+    </comp>
+    <comp ref="R23">
+      <value>220k (1%)</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7c25bd49-6128-405e-a1d4-dfa78f381e19</tstamps>
+    </comp>
+    <comp ref="R24">
+      <value>1M</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2efd136c-3b03-44f4-abb9-c4de5295527b</tstamps>
+    </comp>
+    <comp ref="R25">
+      <value>0,1 (2w)</value>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Resistor"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>dfafa97a-eaa1-4c23-abf1-5e49c7d8d5b5</tstamps>
+    </comp>
+    <comp ref="SW1">
+      <value>RESET MANUAL</value>
+      <libsource lib="Switch" part="SW_SPST" description="Single Pole Single Throw (SPST) switch"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Single Pole Single Throw (SPST) switch"/>
+      <property name="ki_keywords" value="switch lever"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6cec3325-3d50-4b1d-aad2-215a04ae853e</tstamps>
     </comp>
     <comp ref="U1">
       <value>PC817</value>
@@ -138,14 +602,159 @@
       <datasheet>http://www.soselectronic.cz/a_info/resource/d/pc817.pdf</datasheet>
       <libsource lib="Isolator" part="PC817" description="DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"/>
       <property name="Sheetname" value=""/>
-      <property name="Sheetfile" value="/home/jmrg/Git/HW_Develop/Testing/Testing Emiliano/PCB_REGULADOR_SOLAR/pcb_regulador_solar_V1.0/pcb_regulador_solar_V1.0.sch"/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
       <property name="ki_description" value="DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"/>
       <property name="ki_keywords" value="NPN DC Optocoupler"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>24de27db-18de-4b3e-b63d-85b51542b6a9</tstamps>
     </comp>
+    <comp ref="U2">
+      <value>NE555P</value>
+      <footprint>Package_DIP:DIP-8_W7.62mm</footprint>
+      <datasheet>http://www.ti.com/lit/ds/symlink/ne555.pdf</datasheet>
+      <libsource lib="Timer" part="NE555P" description="Precision Timers, 555 compatible,  PDIP-8"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Precision Timers, 555 compatible,  PDIP-8"/>
+      <property name="ki_keywords" value="single timer 555"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>44df5732-86a0-4f2a-bfa0-aa2138b59a63</tstamps>
+    </comp>
+    <comp ref="U3">
+      <value>PC817</value>
+      <footprint>Package_DIP:DIP-4_W7.62mm</footprint>
+      <datasheet>http://www.soselectronic.cz/a_info/resource/d/pc817.pdf</datasheet>
+      <libsource lib="Isolator" part="PC817" description="DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"/>
+      <property name="ki_keywords" value="NPN DC Optocoupler"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>608c025f-18b3-440a-87f2-ff1baa7315c7</tstamps>
+    </comp>
+    <comp ref="U4">
+      <value>LM358</value>
+      <footprint>Package_DIP:DIP-8_W7.62mm</footprint>
+      <datasheet>http://www.ti.com/lit/ds/symlink/lm2904-n.pdf</datasheet>
+      <libsource lib="Amplifier_Operational" part="LM358" description="Low-Power, Dual Operational Amplifiers, DIP-8/SOIC-8/TO-99-8"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Low-Power, Dual Operational Amplifiers, DIP-8/SOIC-8/TO-99-8"/>
+      <property name="ki_keywords" value="dual opamp"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b3f7eddb-74f9-42d2-9acf-382f28310122 9939b74e-0c6d-4f68-b821-41de020df030</tstamps>
+    </comp>
+    <comp ref="U5">
+      <value>INA219AxD</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23-8</footprint>
+      <datasheet>http://www.ti.com/lit/ds/symlink/ina219.pdf</datasheet>
+      <libsource lib="Sensor_Energy" part="INA219AxD" description="Zero-Drift, Bidirectional Current/Power Monitor (0-26V) With I2C Interface, SOIC-8"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="pcb_regulador_solar_V1.0.kicad_sch"/>
+      <property name="ki_description" value="Zero-Drift, Bidirectional Current/Power Monitor (0-26V) With I2C Interface, SOIC-8"/>
+      <property name="ki_keywords" value="ADC I2C 16-Bit Oversampling Current Shunt"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ce6ec5e5-9d4c-434a-8632-8ae52fbe296e</tstamps>
+    </comp>
   </components>
   <libparts>
+    <libpart lib="Amplifier_Operational" part="LM358">
+      <description>Low-Power, Dual Operational Amplifiers, DIP-8/SOIC-8/TO-99-8</description>
+      <docs>http://www.ti.com/lit/ds/symlink/lm2904-n.pdf</docs>
+      <footprints>
+        <fp>SOIC*3.9x4.9mm*P1.27mm*</fp>
+        <fp>DIP*W7.62mm*</fp>
+        <fp>TO*99*</fp>
+        <fp>OnSemi*Micro8*</fp>
+        <fp>TSSOP*3x3mm*P0.65mm*</fp>
+        <fp>TSSOP*4.4x3mm*P0.65mm*</fp>
+        <fp>MSOP*3x3mm*P0.65mm*</fp>
+        <fp>SSOP*3.9x4.9mm*P0.635mm*</fp>
+        <fp>LFCSP*2x2mm*P0.5mm*</fp>
+        <fp>*SIP*</fp>
+        <fp>SOIC*5.3x6.2mm*P1.27mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">LM358</field>
+        <field name="Datasheet">http://www.ti.com/lit/ds/symlink/lm2904-n.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="output"/>
+        <pin num="2" name="-" type="input"/>
+        <pin num="3" name="+" type="input"/>
+        <pin num="4" name="V-" type="power_in"/>
+        <pin num="5" name="+" type="input"/>
+        <pin num="6" name="-" type="input"/>
+        <pin num="7" name="" type="output"/>
+        <pin num="8" name="V+" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="Conn_01x03_Pin">
+      <description>Generic connector, single row, 01x03, script generated</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x03_Pin</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="Screw_Terminal_01x02">
+      <description>Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>TerminalBlock*:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Screw_Terminal_01x02</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C_Polarized">
+      <description>Polarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C_Polarized</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
     <libpart lib="Device" part="D_Zener">
       <description>Zener diode</description>
       <docs>~</docs>
@@ -158,6 +767,24 @@
       <fields>
         <field name="Reference">D</field>
         <field name="Value">D_Zener</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="LED">
+      <description>Light emitting diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>LED*</fp>
+        <fp>LED_SMD:*</fp>
+        <fp>LED_THT:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED</field>
         <field name="Datasheet">~</field>
       </fields>
       <pins>
@@ -181,6 +808,23 @@
         <pin num="2" name="" type="passive"/>
       </pins>
     </libpart>
+    <libpart lib="Diode" part="1.5KExxA">
+      <description>1500W unidirectional TRANSZORB® Transient Voltage Suppressor, DO-201AE</description>
+      <docs>https://www.vishay.com/docs/88301/15ke.pdf</docs>
+      <footprints>
+        <fp>D?DO?201AE*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">1.5KExxA</field>
+        <field name="Footprint">Diode_THT:D_DO-201AE_P15.24mm_Horizontal</field>
+        <field name="Datasheet">https://www.vishay.com/docs/88301/15ke.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="A1" type="passive"/>
+        <pin num="2" name="A2" type="passive"/>
+      </pins>
+    </libpart>
     <libpart lib="Diode" part="1N5819">
       <description>40V 1A Schottky Barrier Rectifier Diode, DO-41</description>
       <docs>http://www.vishay.com/docs/88525/1n5817.pdf</docs>
@@ -192,6 +836,23 @@
         <field name="Value">1N5819</field>
         <field name="Footprint">Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal</field>
         <field name="Datasheet">http://www.vishay.com/docs/88525/1n5817.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Diode" part="1N5822">
+      <description>40V 3A Schottky Barrier Rectifier Diode, DO-201AD</description>
+      <docs>http://www.vishay.com/docs/88526/1n5820.pdf</docs>
+      <footprints>
+        <fp>D*DO?201AD*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">1N5822</field>
+        <field name="Footprint">Diode_THT:D_DO-201AD_P15.24mm_Horizontal</field>
+        <field name="Datasheet">http://www.vishay.com/docs/88526/1n5820.pdf</field>
       </fields>
       <pins>
         <pin num="1" name="K" type="passive"/>
@@ -217,6 +878,83 @@
         <pin num="4" name="" type="passive"/>
       </pins>
     </libpart>
+    <libpart lib="Sensor_Energy" part="INA219AxD">
+      <description>Zero-Drift, Bidirectional Current/Power Monitor (0-26V) With I2C Interface, SOIC-8</description>
+      <docs>http://www.ti.com/lit/ds/symlink/ina219.pdf</docs>
+      <footprints>
+        <fp>SOIC*3.9x4.9mm*P1.27mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">INA219AxD</field>
+        <field name="Footprint">Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</field>
+        <field name="Datasheet">http://www.ti.com/lit/ds/symlink/ina219.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="A1" type="input"/>
+        <pin num="2" name="A0" type="input"/>
+        <pin num="3" name="SDA" type="bidirectional"/>
+        <pin num="4" name="SCL" type="input"/>
+        <pin num="5" name="VS" type="power_in"/>
+        <pin num="6" name="GND" type="power_in"/>
+        <pin num="7" name="IN-" type="input"/>
+        <pin num="8" name="IN+" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="Switch" part="SW_SPST">
+      <description>Single Pole Single Throw (SPST) switch</description>
+      <docs>~</docs>
+      <fields>
+        <field name="Reference">SW</field>
+        <field name="Value">SW_SPST</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="A" type="passive"/>
+        <pin num="2" name="B" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Timer" part="NE555P">
+      <description>Precision Timers, 555 compatible,  PDIP-8</description>
+      <docs>http://www.ti.com/lit/ds/symlink/ne555.pdf</docs>
+      <footprints>
+        <fp>DIP*W7.62mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">NE555P</field>
+        <field name="Footprint">Package_DIP:DIP-8_W7.62mm</field>
+        <field name="Datasheet">http://www.ti.com/lit/ds/symlink/ne555.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="TR" type="input"/>
+        <pin num="3" name="Q" type="output"/>
+        <pin num="4" name="R" type="input"/>
+        <pin num="5" name="CV" type="input"/>
+        <pin num="6" name="THR" type="input"/>
+        <pin num="7" name="DIS" type="input"/>
+        <pin num="8" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Transistor_BJT" part="2N3904">
+      <description>0.2A Ic, 40V Vce, Small Signal NPN Transistor, TO-92</description>
+      <docs>https://www.onsemi.com/pub/Collateral/2N3903-D.PDF</docs>
+      <footprints>
+        <fp>TO?92*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">2N3904</field>
+        <field name="Footprint">Package_TO_SOT_THT:TO-92_Inline</field>
+        <field name="Datasheet">https://www.onsemi.com/pub/Collateral/2N3903-D.PDF</field>
+      </fields>
+      <pins>
+        <pin num="1" name="E" type="passive"/>
+        <pin num="2" name="B" type="passive"/>
+        <pin num="3" name="C" type="passive"/>
+      </pins>
+    </libpart>
     <libpart lib="Transistor_BJT" part="BC557">
       <description>0.1A Ic, 45V Vce, PNP Small Signal Transistor, TO-92</description>
       <docs>https://www.onsemi.com/pub/Collateral/BC556BTA-D.pdf</docs>
@@ -235,8 +973,32 @@
         <pin num="3" name="E" type="passive"/>
       </pins>
     </libpart>
+    <libpart lib="Transistor_FET" part="IRF4905">
+      <description>-74A Id, -55V Vds, Single P-Channel HEXFET Power MOSFET, 20mOhm Ron, TO-220AB</description>
+      <docs>http://www.infineon.com/dgdl/irf4905.pdf?fileId=5546d462533600a4015355e32165197c</docs>
+      <footprints>
+        <fp>TO?220*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">IRF4905</field>
+        <field name="Footprint">Package_TO_SOT_THT:TO-220-3_Vertical</field>
+        <field name="Datasheet">http://www.infineon.com/dgdl/irf4905.pdf?fileId=5546d462533600a4015355e32165197c</field>
+      </fields>
+      <pins>
+        <pin num="1" name="G" type="input"/>
+        <pin num="2" name="D" type="passive"/>
+        <pin num="3" name="S" type="passive"/>
+      </pins>
+    </libpart>
   </libparts>
   <libraries>
+    <library logical="Amplifier_Operational">
+      <uri>/usr/share/kicad/symbols//Amplifier_Operational.kicad_sym</uri>
+    </library>
+    <library logical="Connector">
+      <uri>/usr/share/kicad/symbols//Connector.kicad_sym</uri>
+    </library>
     <library logical="Device">
       <uri>/usr/share/kicad/symbols//Device.kicad_sym</uri>
     </library>
@@ -246,68 +1008,250 @@
     <library logical="Isolator">
       <uri>/usr/share/kicad/symbols//Isolator.kicad_sym</uri>
     </library>
+    <library logical="Sensor_Energy">
+      <uri>/usr/share/kicad/symbols//Sensor_Energy.kicad_sym</uri>
+    </library>
+    <library logical="Switch">
+      <uri>/usr/share/kicad/symbols//Switch.kicad_sym</uri>
+    </library>
+    <library logical="Timer">
+      <uri>/usr/share/kicad/symbols//Timer.kicad_sym</uri>
+    </library>
     <library logical="Transistor_BJT">
       <uri>/usr/share/kicad/symbols//Transistor_BJT.kicad_sym</uri>
+    </library>
+    <library logical="Transistor_FET">
+      <uri>/usr/share/kicad/symbols//Transistor_FET.kicad_sym</uri>
     </library>
   </libraries>
   <nets>
     <net code="1" name="+3.3V">
       <node ref="D2" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="U5" pin="5" pinfunction="VS" pintype="power_in"/>
     </net>
-    <net code="3" name="GND">
-      <node ref="D3" pin="2" pinfunction="A" pintype="passive"/>
-      <node ref="D5" pin="2" pinfunction="A" pintype="passive"/>
-      <node ref="R2" pin="1" pintype="passive"/>
+    <net code="2" name="+5V">
+      <node ref="C1" pin="2" pintype="passive"/>
+      <node ref="C11" pin="2" pintype="passive"/>
+      <node ref="J1" pin="1" pinfunction="Pin_1" pintype="passive"/>
       <node ref="R4" pin="1" pintype="passive"/>
+      <node ref="R8" pin="1" pintype="passive"/>
+      <node ref="R9" pin="2" pintype="passive"/>
+      <node ref="SW1" pin="1" pinfunction="A" pintype="passive"/>
+      <node ref="U2" pin="4" pinfunction="R" pintype="input"/>
+      <node ref="U2" pin="8" pinfunction="VCC" pintype="power_in"/>
+      <node ref="U3" pin="4" pintype="passive"/>
+      <node ref="U4" pin="8" pinfunction="V+" pintype="power_in"/>
     </net>
-    <net code="4" name="Net-(D2-K)">
+    <net code="3" name="ADC V">
+      <node ref="D8" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="R18" pin="1" pintype="passive"/>
+      <node ref="R19" pin="2" pintype="passive"/>
+    </net>
+    <net code="4" name="GND">
+      <node ref="C1" pin="1" pintype="passive"/>
+      <node ref="C10" pin="2" pintype="passive"/>
+      <node ref="C11" pin="1" pintype="passive"/>
+      <node ref="C2" pin="2" pintype="passive"/>
+      <node ref="C4" pin="2" pintype="passive"/>
+      <node ref="C5" pin="1" pintype="passive"/>
+      <node ref="C6" pin="1" pintype="passive"/>
+      <node ref="C7" pin="2" pintype="passive"/>
+      <node ref="C8" pin="1" pintype="passive"/>
+      <node ref="C9" pin="2" pintype="passive"/>
+      <node ref="D3" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="D8" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="Q2" pin="1" pinfunction="C" pintype="passive"/>
+      <node ref="Q3" pin="1" pinfunction="E" pintype="passive"/>
+      <node ref="Q4" pin="1" pinfunction="E" pintype="passive"/>
+      <node ref="Q5" pin="1" pinfunction="E" pintype="passive"/>
+      <node ref="R17" pin="2" pintype="passive"/>
+      <node ref="R19" pin="1" pintype="passive"/>
+      <node ref="R2" pin="1" pintype="passive"/>
+      <node ref="R20" pin="2" pintype="passive"/>
+      <node ref="R21" pin="2" pintype="passive"/>
+      <node ref="R22" pin="1" pintype="passive"/>
+      <node ref="R24" pin="2" pintype="passive"/>
+      <node ref="R5" pin="1" pintype="passive"/>
+      <node ref="R6" pin="1" pintype="passive"/>
+      <node ref="U2" pin="1" pinfunction="GND" pintype="power_in"/>
+      <node ref="U3" pin="2" pintype="passive"/>
+      <node ref="U4" pin="4" pinfunction="V-" pintype="power_in"/>
+      <node ref="U5" pin="6" pinfunction="GND" pintype="power_in"/>
+    </net>
+    <net code="5" name="Net-(D1-K)">
+      <node ref="C3" pin="1" pintype="passive"/>
+      <node ref="D1" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="R5" pin="2" pintype="passive"/>
+      <node ref="SW1" pin="2" pinfunction="B" pintype="passive"/>
+    </net>
+    <net code="6" name="Net-(D2-K)">
       <node ref="D2" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="Q1" pin="3" pinfunction="E" pintype="passive"/>
     </net>
-    <net code="5" name="Net-(D3-K)">
+    <net code="7" name="Net-(D4-A)">
+      <node ref="D4" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R4" pin="2" pintype="passive"/>
+    </net>
+    <net code="8" name="Net-(D4-K)">
+      <node ref="D4" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="Q2" pin="3" pinfunction="E" pintype="passive"/>
+    </net>
+    <net code="9" name="Net-(D5-A)">
+      <node ref="C3" pin="2" pintype="passive"/>
+      <node ref="D5" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R6" pin="2" pintype="passive"/>
+      <node ref="R7" pin="1" pintype="passive"/>
+    </net>
+    <net code="10" name="Net-(D6-A)">
+      <node ref="D6" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R12" pin="2" pintype="passive"/>
+      <node ref="R13" pin="2" pintype="passive"/>
+      <node ref="R14" pin="2" pintype="passive"/>
+    </net>
+    <net code="11" name="Net-(D6-K)">
+      <node ref="D6" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="J1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="Q6" pin="3" pinfunction="S" pintype="passive"/>
+      <node ref="R14" pin="1" pintype="passive"/>
+    </net>
+    <net code="12" name="Net-(D7-K)">
+      <node ref="D7" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="R17" pin="1" pintype="passive"/>
+    </net>
+    <net code="13" name="Net-(D9-K)">
+      <node ref="D9" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="R25" pin="1" pintype="passive"/>
+      <node ref="U5" pin="8" pinfunction="IN+" pintype="input"/>
+    </net>
+    <net code="14" name="Net-(D10-A1)">
+      <node ref="C5" pin="2" pintype="passive"/>
+      <node ref="D10" pin="1" pinfunction="A1" pintype="passive"/>
+      <node ref="D5" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="D7" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="J2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="Q6" pin="2" pinfunction="D" pintype="passive"/>
+      <node ref="R16" pin="2" pintype="passive"/>
+      <node ref="R18" pin="2" pintype="passive"/>
+    </net>
+    <net code="15" name="Net-(D10-A2)">
+      <node ref="C6" pin="2" pintype="passive"/>
+      <node ref="D10" pin="2" pinfunction="A2" pintype="passive"/>
+      <node ref="J2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="R20" pin="1" pintype="passive"/>
+      <node ref="R21" pin="1" pintype="passive"/>
+      <node ref="U4" pin="3" pinfunction="+" pintype="input"/>
+    </net>
+    <net code="16" name="Net-(Q1-B)">
+      <node ref="Q1" pin="2" pinfunction="B" pintype="input"/>
+      <node ref="R1" pin="2" pintype="passive"/>
+    </net>
+    <net code="17" name="Net-(Q2-B)">
+      <node ref="Q2" pin="2" pinfunction="B" pintype="input"/>
+      <node ref="R3" pin="2" pintype="passive"/>
+    </net>
+    <net code="18" name="Net-(Q3-B)">
+      <node ref="Q3" pin="2" pinfunction="B" pintype="passive"/>
+      <node ref="R7" pin="2" pintype="passive"/>
+    </net>
+    <net code="19" name="Net-(Q3-C)">
+      <node ref="C8" pin="2" pintype="passive"/>
+      <node ref="Q3" pin="3" pinfunction="C" pintype="passive"/>
+      <node ref="R24" pin="1" pintype="passive"/>
+      <node ref="U1" pin="2" pintype="passive"/>
+      <node ref="U2" pin="2" pinfunction="TR" pintype="input"/>
+    </net>
+    <net code="20" name="Net-(Q4-B)">
+      <node ref="Q4" pin="2" pinfunction="B" pintype="passive"/>
+      <node ref="R10" pin="1" pintype="passive"/>
+    </net>
+    <net code="21" name="Net-(Q4-C)">
+      <node ref="C4" pin="1" pintype="passive"/>
+      <node ref="Q4" pin="3" pinfunction="C" pintype="passive"/>
+      <node ref="R9" pin="1" pintype="passive"/>
+      <node ref="U1" pin="3" pintype="passive"/>
+    </net>
+    <net code="22" name="Net-(Q5-B)">
+      <node ref="Q5" pin="2" pinfunction="B" pintype="passive"/>
+      <node ref="R11" pin="2" pintype="passive"/>
+    </net>
+    <net code="23" name="Net-(Q5-C)">
+      <node ref="Q5" pin="3" pinfunction="C" pintype="passive"/>
+      <node ref="R12" pin="1" pintype="passive"/>
+    </net>
+    <net code="24" name="Net-(Q6-G)">
+      <node ref="Q6" pin="1" pinfunction="G" pintype="input"/>
+      <node ref="R13" pin="1" pintype="passive"/>
+    </net>
+    <net code="25" name="Net-(R8-Pad2)">
+      <node ref="R8" pin="2" pintype="passive"/>
+      <node ref="U1" pin="1" pintype="passive"/>
+    </net>
+    <net code="26" name="Net-(R15-Pad2)">
+      <node ref="R15" pin="2" pintype="passive"/>
+      <node ref="U3" pin="3" pintype="passive"/>
+    </net>
+    <net code="27" name="Net-(R16-Pad1)">
+      <node ref="R16" pin="1" pintype="passive"/>
+      <node ref="U3" pin="1" pintype="passive"/>
+    </net>
+    <net code="28" name="Net-(U2-CV)">
+      <node ref="C2" pin="1" pintype="passive"/>
+      <node ref="U2" pin="5" pinfunction="CV" pintype="input"/>
+    </net>
+    <net code="29" name="Net-(U2-DIS)">
+      <node ref="R10" pin="2" pintype="passive"/>
+      <node ref="R11" pin="1" pintype="passive"/>
+      <node ref="R15" pin="1" pintype="passive"/>
+      <node ref="U1" pin="4" pintype="passive"/>
+      <node ref="U2" pin="7" pinfunction="DIS" pintype="input"/>
+    </net>
+    <net code="30" name="Net-(U2-Q)">
+      <node ref="R1" pin="1" pintype="passive"/>
+      <node ref="R3" pin="1" pintype="passive"/>
+      <node ref="U2" pin="3" pinfunction="Q" pintype="output"/>
+    </net>
+    <net code="31" name="Net-(U2-THR)">
+      <node ref="C7" pin="1" pintype="passive"/>
+      <node ref="R23" pin="2" pintype="passive"/>
+      <node ref="U2" pin="6" pinfunction="THR" pintype="input"/>
+      <node ref="U4" pin="1" pintype="output"/>
+    </net>
+    <net code="32" name="Net-(U4A--)">
+      <node ref="R22" pin="2" pintype="passive"/>
+      <node ref="R23" pin="1" pintype="passive"/>
+      <node ref="U4" pin="2" pinfunction="-" pintype="input"/>
+    </net>
+    <net code="33" name="Net-(U5-IN-)">
+      <node ref="C10" pin="1" pintype="passive"/>
+      <node ref="C9" pin="1" pintype="passive"/>
+      <node ref="R25" pin="2" pintype="passive"/>
+      <node ref="U5" pin="7" pinfunction="IN-" pintype="input"/>
+    </net>
+    <net code="34" name="ON{slash}OFF">
+      <node ref="D1" pin="2" pinfunction="A" pintype="passive"/>
+    </net>
+    <net code="35" name="PIN DIGITAL MICRO">
       <node ref="D3" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="Q1" pin="1" pinfunction="C" pintype="passive"/>
       <node ref="R2" pin="2" pintype="passive"/>
     </net>
-    <net code="6" name="Net-(D5-K)">
-      <node ref="D5" pin="1" pinfunction="K" pintype="passive"/>
-      <node ref="Q2" pin="1" pinfunction="C" pintype="passive"/>
-      <node ref="R4" pin="2" pintype="passive"/>
+    <net code="36" name="VCC">
+      <node ref="J1" pin="3" pinfunction="Pin_3" pintype="passive"/>
     </net>
-    <net code="7" name="Net-(Q1-B)">
-      <node ref="Q1" pin="2" pinfunction="B" pintype="input"/>
-      <node ref="R1" pin="2" pintype="passive"/>
+    <net code="37" name="unconnected-(D9-A-Pad2)">
+      <node ref="D9" pin="2" pinfunction="A" pintype="passive"/>
     </net>
-    <net code="8" name="Net-(Q2-B)">
-      <node ref="Q2" pin="2" pinfunction="B" pintype="input"/>
-      <node ref="R3" pin="2" pintype="passive"/>
+    <net code="38" name="unconnected-(U5-A0-Pad2)">
+      <node ref="U5" pin="2" pinfunction="A0" pintype="input"/>
     </net>
-    <net code="9" name="unconnected-(D1-A-Pad2)">
-      <node ref="D1" pin="2" pinfunction="A" pintype="passive"/>
+    <net code="39" name="unconnected-(U5-A1-Pad1)">
+      <node ref="U5" pin="1" pinfunction="A1" pintype="input"/>
     </net>
-    <net code="10" name="unconnected-(D1-K-Pad1)">
-      <node ref="D1" pin="1" pinfunction="K" pintype="passive"/>
+    <net code="40" name="unconnected-(U5-SCL-Pad4)">
+      <node ref="U5" pin="4" pinfunction="SCL" pintype="input"/>
     </net>
-    <net code="11" name="unconnected-(Q2-E-Pad3)">
-      <node ref="Q2" pin="3" pinfunction="E" pintype="passive"/>
-    </net>
-    <net code="12" name="unconnected-(R1-Pad1)">
-      <node ref="R1" pin="1" pintype="passive"/>
-    </net>
-    <net code="13" name="unconnected-(R3-Pad1)">
-      <node ref="R3" pin="1" pintype="passive"/>
-    </net>
-    <net code="14" name="unconnected-(U1-Pad1)">
-      <node ref="U1" pin="1" pintype="passive"/>
-    </net>
-    <net code="15" name="unconnected-(U1-Pad2)">
-      <node ref="U1" pin="2" pintype="passive"/>
-    </net>
-    <net code="16" name="unconnected-(U1-Pad3)">
-      <node ref="U1" pin="3" pintype="passive"/>
-    </net>
-    <net code="17" name="unconnected-(U1-Pad4)">
-      <node ref="U1" pin="4" pintype="passive"/>
+    <net code="41" name="unconnected-(U5-SDA-Pad3)">
+      <node ref="U5" pin="3" pinfunction="SDA" pintype="bidirectional"/>
     </net>
   </nets>
 </export>
