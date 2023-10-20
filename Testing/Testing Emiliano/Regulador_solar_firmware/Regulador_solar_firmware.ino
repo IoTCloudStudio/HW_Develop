@@ -1,0 +1,422 @@
+#include <DHTesp.h>
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include <time.h>
+#include "timezone.h"
+#include <ArduinoJson.h>
+#include <Wire.h>
+#include <Adafruit_INA219.h>
+Adafruit_INA219 ina219_A(0x44);  //dirección 0x44
+Adafruit_INA219 ina219_B;        // dirección(0x40)
+TaskHandle_t Tarea_1;
+DHTesp dht;
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+// ENTRADAS DEL MICRO:
+#define SENS_OUT1 34   //Mide tensíon de salida 1
+#define SENS_OUT2 35   //MIde tensión de salida 2
+#define ALARM_OUT1 33  //Avisa cuando la salida 1 se corta por sobrecorriente
+#define ALARM_OUT2 26  //Avisa cuando la salida 2 se corta por sobrecorriente
+#define PIN_TEMP 14        //Sensor de temperatura y humedad
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+// SALIDAS DEL MICRO:
+#define ONOFF_OUT1 25     // Emite un pulso que enciende o apaga la salida 1
+#define ONOFF_OUT2 27     // Emite un pulso que enciende o apaga la salida 2
+#define PWM 13            // Controla la carga (y descarga) de batería por PWM
+#define RESET_MODEM 12    // Emite un pulso que resetea la alimentación del Módem
+#define CORTE_INPANEL 32  // En estado alto enciende Mosfet de entrada de panel. Se apaga cuando no se genera energía para aislar entrada.
+#define LED_ESTADO 4      // (AZUL) Muestra estado de conexión
+#define LED_BAT 15        // (VERDE) Muestra estado de carga y descarga de la batería
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+//VARIABLES Y CONSTANTES GENERALES:
+#define CTE_SHUNT 4 // Cantidad de R de Shunt 0.1 Ohm en paralelo
+#define divisor  0.164     // Coeficiente del divisor de tensíon = R2/(R1+R2)
+#define V_FLOTE 13.8  
+#define I_FLOTE 10   // mA
+float I_load = 0;  // Corriente de carga total (Consumo interno más salidas): I_load = I_gen + I_bat
+float I_bat = 0;   // (I_bat>0 : DESCARGANDO)  (I_bat<0: CARGANDO)
+float Iabs_bat = 0;
+float I_gen = 0;  // Corriente generada en la salida del convertidor DC/DC
+float V_bat = 0;
+float Vbat_min = 11.6; //Tensión de corte de las salidas
+float V_reinicio = 13; //Tension de reinicio automatico de salidas
+float VCC = 0;   //Tensión de alimentación principal (batería más generada)
+float V_out1 = 0;   //Tensión de salida 1
+float V_out2 = 0;   //Tensión de salida 2
+float P_load = 0;  // Potencia total consumida por la carga: P_load = I_load*VCC
+float P_gen = 0;
+byte Estado_bat = 0;  // 0 = Desconectada; 1 = Cargando; 2 = Descargando
+unsigned long prevMillis_High = 0;
+unsigned long prevMillis_Low = 0;
+boolean ledState1 = false; // led verde batería
+unsigned long prevMillis_blink2 = 0;
+boolean ledState2 = false; //led azul
+boolean outState1 = false;  // Estado de salida 1
+boolean outState2 = false; // Estado de salida 2
+boolean outState3 = false; // Estado salida reset módem
+boolean corte_bat = false;
+boolean mem_out1 = false;
+boolean mem_out2 = false;
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Variables y Constantes de PWM:
+int valorPWM = 200;
+#define CANAL 0
+#define PREC 9       // Precisión de 9 bits implica valores entre 0 y 511
+#define FREC 5000    // Frecuencia en HZ
+#define I_MAX 1400   //Corriente máxima de carga [mA]
+#define PWM_MAX 511  // 2^PREC - 1
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+//VARIABLES Y CONSTANTES DE CONEXIÓN Y REPORTE:
+/*const char* ssid = "ufi_26220"; 
+const char* password = "1234567890";
+const char* mqtt_server_domain = "testmqtt.iotcloud.studio"; 
+const long mqtt_server_port = 51883;*/
+
+/*const char* ssid = "IoT"; 
+const char* password = "IoTcloud2019";
+const char* mqtt_server_domain = "192.168.170.84"; //local 
+const long mqtt_server_port = 1883;//local */
+
+const char* ssid = "Fibertel WiFi288 2.4GHz";
+const char* password = "0143512984";
+const char* mqtt_server_domain = "testmqtt.iotcloud.studio";  // Remoto
+const long mqtt_server_port = 51883;                          // Remoto
+
+const char* mqttUser = "user";
+const char* mqttPassword = "user";
+const char* subscribetopic = "TEST/UPS";
+const char* topic = "TEST/UPS";
+String deviceId = "667";
+int deviceLog = 0;
+String deviceDesciption = "PruebaUPS";
+const char* TIME_SERVER = "8.8.8.8";
+int myTimeZone = ARG;  // change this to your time zone (see in timezone.h)
+char code[32] = "";
+unsigned long previousMillis = 0;
+unsigned long lastMillis = 0;
+const long interval_sensor = 300000;
+WiFiClient espClient;
+PubSubClient client(espClient);
+long lastMsg = 0;
+char msg[50];
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------
+void setup_wifi() {
+  delay(100);
+  // We start by connecting to a WiFi network
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  randomSeed(micros());
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+void reconnect() {
+  // Loop until we're reconnected
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    // Create a random client ID
+    // deviceId += String(random(0xffff), HEX);
+    // Attempt to connect
+    //if you MQTT broker has deviceId,username and password
+    //please change following line to    if (client.connect(deviceId,userName,passWord))
+    if (client.connect(deviceId.c_str())) {
+      Serial.println("connected");
+      //once connected to MQTT broker, subscribe command if any
+      client.subscribe(subscribetopic);
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
+}  //end reconnect()
+//------------------------------------------------------------------------------------------------------------------------------------------------------------
+void mqtt_msj(String code, String descript) {
+  time_t now;
+  struct tm timeinfo;
+  time(&now);
+  String vProtocol = "100";
+  StaticJsonDocument<300> doc;
+  JsonObject JSONencoder = doc.to<JsonObject>();
+
+  deviceLog += 1;
+
+  JSONencoder["I"] = deviceId;
+  JSONencoder["L"] = deviceLog;
+  JSONencoder["T"] = now;
+  JSONencoder["C"] = code;
+  JSONencoder["D"] = descript;
+  JSONencoder["V"] = vProtocol;
+
+  char buffer[300];
+  serializeJson(doc, buffer);
+  size_t n = serializeJson(doc, buffer);
+  client.publish(topic, buffer, n);
+}
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------
+void callback(char* topic, byte* payload, unsigned int length) {
+  //Serial.print("entro") ;
+  StaticJsonDocument<300> doc;
+  deserializeJson(doc, payload, length);
+  strlcpy(code, doc["C"] | "default", sizeof(code));
+  if (strcmp(code, "R801") == 0) {
+   Pulse(ONOFF_OUT1);
+  
+  } 
+
+  //if (strcmp(code, "E801") == 0) {
+   // digitalWrite(ONOFF_OUT1, HIGH);
+    //Serial.println("E801");
+  //} else if (strcmp(code, "R801") == 0) {
+   // digitalWrite(ONOFF_OUT1, HIGH);
+    //Serial.println("R801");
+  //}
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+//Mide la tensión en el PIN indicado
+float mideTension(byte PIN){
+   int RawValue =0;
+   long AcumValue=0;
+   for(int i=0;i<100;i++){
+      RawValue = analogRead(PIN);
+       AcumValue= AcumValue + RawValue;
+      delay(0.1);
+   }
+   float tension = (AcumValue/ 100)* 0.00081 / divisor ;
+   return tension;
+}
+//--------------------------------------------------------------------------------------------------------------------------------------------------------
+//Funcion de medición de corriente de batería:
+float mideCorrienteBAT() {
+  int RawValue = 0;
+  long AcumValue = 0;
+  float corriente = 0;
+  for (int i = 0; i < 50; i++) {
+    RawValue = ina219_B.getCurrent_mA();
+    AcumValue = AcumValue + RawValue;
+    delay(1);
+  }
+  corriente = (AcumValue / 50)*CTE_SHUNT;
+  return corriente;
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+//Genera un Pulso en el Pin indicado:
+void Pulse(int PIN) {
+digitalWrite(PIN, HIGH);
+delay(500);
+digitalWrite(PIN, LOW);
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+//Funcion parpadeo led carga batería (verde):
+void blink1(int interval_off) {
+  unsigned long Millis= millis();
+  if((Millis-prevMillis_High >= 100) & ledState1){
+    ledState1=false;
+    digitalWrite(LED_BAT, LOW);
+    prevMillis_Low = Millis;
+  }
+   if((Millis-prevMillis_Low >= interval_off) & !ledState1){
+    ledState1=true;
+    digitalWrite(LED_BAT, HIGH);
+    prevMillis_High = Millis;
+  }
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+//Funcion parpadeo led de estado (azul):
+void blink2() {
+  unsigned long Millis= millis();
+  if(Millis-prevMillis_blink2 >= 500){
+    prevMillis_blink2 = Millis;
+  if (ledState2==LOW){ledState2= HIGH;}
+  else{ledState2= LOW;}
+  digitalWrite(LED_ESTADO,ledState2);
+  }
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+//Controla el PWM en funcion de la corriente de carga:
+void ajustaPWMcargador() {
+  float I_dif = Iabs_bat - I_MAX;
+  float Iabs_dif = abs(I_dif);
+  if (!I_dif == 0) {
+    if ((Iabs_dif > 10) & (Iabs_bat > I_MAX)) {
+      if (valorPWM >= 20) {
+        valorPWM = valorPWM - 20;
+        ledcWrite(CANAL, valorPWM);
+        Serial.print("PWM: ");
+        Serial.println(valorPWM);
+      }
+    }
+    if ((Iabs_dif > 10) & (Iabs_bat < I_MAX)) {
+      if (valorPWM <= (PWM_MAX - 20)) {
+        valorPWM = valorPWM + 20;
+        ledcWrite(CANAL, valorPWM);
+        Serial.print("PWM: ");
+        Serial.println(valorPWM);
+      }
+    }
+    if ((Iabs_dif <= 10) & (Iabs_bat > I_MAX)) {
+      if (valorPWM > 0) {
+        valorPWM--;
+        delay(1);
+        ledcWrite(CANAL, valorPWM);
+        Serial.print("PWM: ");
+        Serial.println(valorPWM);
+      }
+    }
+    if ((Iabs_dif <= 10) & (Iabs_bat < I_MAX)) {
+      if (valorPWM < PWM_MAX) {
+        valorPWM++;
+        delay(1);
+        ledcWrite(CANAL, valorPWM);
+        Serial.print("PWM: ");
+        Serial.println(valorPWM);
+      }
+    }
+  }
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+//SETUP:
+void setup() {
+  xTaskCreatePinnedToCore (loop_Tarea1,"Tarea1",10000,NULL,1,&Tarea_1,0);
+  Serial.begin(115200);
+  configTime(myTimeZone, 0, TIME_SERVER);  // get UTC time via NTP
+  setup_wifi();
+  client.setServer(mqtt_server_domain, mqtt_server_port);
+  client.setCallback(callback);
+  //Serial.print("paso");
+  ledcSetup(CANAL, FREC, PREC);  //configuración PWM
+  ledcAttachPin(PWM, CANAL);
+  ledcWrite(CANAL, valorPWM);
+  pinMode(ONOFF_OUT1, OUTPUT);
+  digitalWrite(ONOFF_OUT1, LOW);
+  pinMode(ONOFF_OUT2, OUTPUT);
+  digitalWrite(ONOFF_OUT2, LOW);
+  pinMode(CORTE_INPANEL, OUTPUT);
+  digitalWrite(CORTE_INPANEL, HIGH);
+  pinMode(RESET_MODEM, OUTPUT);
+  digitalWrite(RESET_MODEM, LOW);
+  pinMode(LED_ESTADO, OUTPUT);
+  digitalWrite(LED_ESTADO, LOW);
+  pinMode(LED_BAT, OUTPUT);
+  
+  if (!ina219_A.begin()) {
+    Serial.println("Failed to find INA219_A chip");
+    while (1) { delay(10); }
+  }
+  if (!ina219_B.begin()) {
+    Serial.println("Failed to find INA219_B chip");
+    while (1) { delay(10); }
+  }
+  dht.setup(PIN_TEMP,DHTesp::DHT11);
+  delay(500);
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//LOOP EN NÚCLEO 0:
+void loop_Tarea1 (void*pvParameters) {
+
+for(;;){
+  //Serial.print("Tarea 1 se corre en el núcleo: ");
+  //Serial.println(String (xPortGetCoreID()));
+  VCC = ina219_A.getBusVoltage_V();
+  I_gen = CTE_SHUNT *ina219_A.getCurrent_mA();
+  P_gen =  ina219_A.getPower_mW();
+  if (I_gen <= 0) {digitalWrite(CORTE_INPANEL, LOW);}  // simulo diodo ideal con MOSFET
+  else{digitalWrite(CORTE_INPANEL, HIGH);}
+  float shuntvoltage_B = ina219_B.getShuntVoltage_mV();
+  float busvoltage_B = ina219_B.getBusVoltage_V();
+  V_bat = busvoltage_B + (shuntvoltage_B / 1000);
+  I_bat = mideCorrienteBAT();
+  Iabs_bat = abs(I_bat);
+  if (Iabs_bat < 1) { Estado_bat = 0; digitalWrite(LED_BAT, LOW);} // Batería desconectada
+  else {
+    if (I_bat < 0) { 
+      if ((V_bat>=V_FLOTE)& Iabs_bat<= I_FLOTE) {Estado_bat = 3; digitalWrite(LED_BAT, HIGH);} //Batería cargada
+      else{Estado_bat = 1; ajustaPWMcargador(); blink1(100);} // Batería cargando
+      }  
+    if (I_bat > 0) { Estado_bat = 2; ledcWrite(CANAL, 511);blink1(2000);}   // Batería descargando
+  }
+  
+  I_load = I_gen + I_bat;
+  P_load = I_load * VCC;
+  
+  V_out1 = mideTension (SENS_OUT1);
+  //Serial.println("VOUT1 = " V_out1);
+  if (V_out1 >= 4){outState1 = true;}
+  else{outState1 = false;}
+  V_out2 = mideTension (SENS_OUT2);
+ // Serial.println("VOUT2 = " V_out2 );
+   if (V_out2 >= 4){outState2 = true;}
+  else{outState2 = false;}
+  if ((V_bat <Vbat_min) & (Estado_bat == 2)) { 
+    corte_bat = true;
+    mem_out1 = outState1;
+    mem_out2 = outState2;
+    if(outState1==true){Pulse(ONOFF_OUT1);}
+    if(outState2==true){Pulse(ONOFF_OUT2);}
+     }
+  if (corte_bat & V_bat>=V_reinicio){
+    corte_bat = false;
+    outState1 = mem_out1;
+    outState2 = mem_out2;
+    if(outState1==true){Pulse(ONOFF_OUT1);}
+    if(outState2==true){Pulse(ONOFF_OUT2);}
+  }
+   if (!client.connected()) {
+    blink2();
+  }else {digitalWrite(LED_ESTADO,HIGH);}
+  TempAndHumidity data = dht.getTempAndHumidity();
+  Serial.println("Temperatura: " + String(data.temperature, 2)+ "C");
+  Serial.println("Humedad: " + String(data.humidity, 1)+ "%");
+ /* Serial.print("Tension VCC: "); Serial.print(VCC); Serial.println(" V");
+  Serial.print("Tension de bateria: "); Serial.print(V_bat); Serial.println(" V");  
+  Serial.print("Corriente generada: "); Serial.print(I_gen); Serial.println(" mA");
+  Serial.print("Corriente de bateria: "); Serial.print(I_bat); Serial.println(" mA");
+  Serial.print("Corriente total de carga : "); Serial.print(I_load); Serial.println(" mA");
+  Serial.print("Potencia generada: "); Serial.print(P_gen); Serial.println(" mW");
+  Serial.print("Potencia total de carga: "); Serial.print(P_load); Serial.println(" mW");
+  */// delay(500);
+  
+}
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//LOOP EN NÚCLEO 1:
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+  //Serial.print("paso2 ");
+  digitalWrite(LED_ESTADO, HIGH);
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= interval_sensor) {
+    previousMillis = currentMillis;
+   if (Estado_bat == 1) {
+      mqtt_msj(" Bateria cargando: I_bat (mA) = ", dtostrf(Iabs_bat, 4, 2, msg));
+      mqtt_msj("V_bat (V): ", dtostrf(V_bat, 4, 2, msg));
+    }
+    if (Estado_bat == 2) {
+      mqtt_msj("Bateria descargando: I_bat (mA) = ", dtostrf(Iabs_bat, 4, 2, msg));
+      mqtt_msj("V_bat (V): ", dtostrf(V_bat, 4, 2, msg));
+    }
+    if (Estado_bat == 0) { mqtt_msj("Bateria desconectada : I_bat (mA) = ", dtostrf(Iabs_bat, 4, 2, msg)); }
+
+    mqtt_msj("VCC (V): ", dtostrf(VCC, 4, 2, msg));
+    mqtt_msj("I_gen (mA): ", dtostrf(I_gen, 4, 2, msg));
+    mqtt_msj("I_load (mA): ", dtostrf(I_load, 4, 2, msg));
+    mqtt_msj("P_gen (mW): ", dtostrf(P_gen, 4, 2, msg));
+    mqtt_msj("P_load(mW): ", dtostrf(P_load, 4, 2, msg));
+    //Serial.println(" ");
+  }
+}
