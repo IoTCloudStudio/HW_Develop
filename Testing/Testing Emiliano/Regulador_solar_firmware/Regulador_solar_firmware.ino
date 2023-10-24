@@ -173,18 +173,18 @@ void callback(char* topic, byte* payload, unsigned int length) {
   StaticJsonDocument<300> doc;
   deserializeJson(doc, payload, length);
   strlcpy(code, doc["C"] | "default", sizeof(code));
-  if (strcmp(code, "R801") == 0) {
+  if (strcmp(code, "E801") & !outState1) {
    Pulse(ONOFF_OUT1);
-  
+  }
+  if (strcmp(code, "R801") & outState1) {
+   Pulse(ONOFF_OUT1);
   } 
-
-  //if (strcmp(code, "E801") == 0) {
-   // digitalWrite(ONOFF_OUT1, HIGH);
-    //Serial.println("E801");
-  //} else if (strcmp(code, "R801") == 0) {
-   // digitalWrite(ONOFF_OUT1, HIGH);
-    //Serial.println("R801");
-  //}
+  if (strcmp(code, "E802") & !outState2) {
+   Pulse(ONOFF_OUT2);
+  }
+  if (strcmp(code, "R802") & outState2) {
+   Pulse(ONOFF_OUT2);
+  } 
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
 //Mide la tensión en el PIN indicado
