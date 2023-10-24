@@ -6,53 +6,48 @@
 #include <ESP8266WiFi.h>
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
-#include <WiFiManager.h>         // https://github.com/tzapu/WiFiManager
+#include <WiFiManager.h>       // https://github.com/tzapu/WiFiManager
 
+
+String deviceId = "20000001";
+String device_name = "IoT_Cloud_";
+String ap_pass = "";
+ 
 // Set web server port number to 80
 WiFiServer server(80);
 
 // Variable to store the HTTP request
 String header;
 
-// Auxiliar variables to store the current output state
-String output5State = "off";
-String output4State = "off";
-
-// Assign output variables to GPIO pins
-const int output5 = 5;
-const int output4 = 4;
+String invertirCadena(String s) {
+  String temporal = "";
+  for (int m = s.length() - 1; m >= 0; m--)
+    temporal += s[m];
+  return temporal;
+}
 
 void setup() {
   Serial.begin(115200);
   
-  // Initialize the output variables as outputs
-  pinMode(output5, OUTPUT);
-  pinMode(output4, OUTPUT);
-  // Set outputs to LOW
-  digitalWrite(output5, LOW);
-  digitalWrite(output4, LOW);
-
+  device_name = device_name + deviceId;
+  const char* device_name_char=device_name.c_str();
+  ap_pass = invertirCadena(deviceId);
+  const char* ap_pass_char=ap_pass.c_str();
+  
   // WiFiManager
   // Local intialization. Once its business is done, there is no need to keep it around
   WiFiManager wifiManager;
-  
-  // Uncomment and run it once, if you want to erase all the stored information
-  //wifiManager.resetSettings();
-  
-  // set custom ip for portal
-  //wifiManager.setAPConfig(IPAddress(10,0,1,1), IPAddress(10,0,1,1), IPAddress(255,255,255,0));
+  wifiManager.setAPStaticIPConfig(IPAddress(192,168,200,1), IPAddress(192,168,200,1), IPAddress(255,255,255,0));
+  wifiManager.setMinimumSignalQuality(30);
+  wifiManager.setClass("invert"); // dark theme
+  wifiManager.setConfigPortalTimeout(180);
 
-  // fetches ssid and pass from eeprom and tries to connect
-  // if it does not connect it starts an access point with the specified name
-  // here  "AutoConnectAP"
-  // and goes into a blocking loop awaiting configuration
-  wifiManager.autoConnect("AutoConnectAP");
-  // or use this for auto generated name ESP + ChipID
-  //wifiManager.autoConnect();
+
+  wifiManager.autoConnect(device_name_char, ap_pass_char);
+  
   
   // if you get here you have connected to the WiFi
   Serial.println("Connected.");
-  
   server.begin();
 }
 
@@ -78,24 +73,7 @@ void loop(){
             client.println("Connection: close");
             client.println();
             
-            // turns the GPIOs on and off
-            if (header.indexOf("GET /5/on") >= 0) {
-              Serial.println("GPIO 5 on");
-              output5State = "on";
-              digitalWrite(output5, HIGH);
-            } else if (header.indexOf("GET /5/off") >= 0) {
-              Serial.println("GPIO 5 off");
-              output5State = "off";
-              digitalWrite(output5, LOW);
-            } else if (header.indexOf("GET /4/on") >= 0) {
-              Serial.println("GPIO 4 on");
-              output4State = "on";
-              digitalWrite(output4, HIGH);
-            } else if (header.indexOf("GET /4/off") >= 0) {
-              Serial.println("GPIO 4 off");
-              output4State = "off";
-              digitalWrite(output4, LOW);
-            }
+
             
             // Display the HTML web page
             client.println("<!DOCTYPE html><html>");
@@ -109,27 +87,10 @@ void loop(){
             client.println(".button2 {background-color: #77878A;}</style></head>");
             
             // Web Page Heading
-            client.println("<body><h1>ESP8266 Web Server</h1>");
-            
-            // Display current state, and ON/OFF buttons for GPIO 5  
-            client.println("<p>GPIO 5 - State " + output5State + "</p>");
-            // If the output5State is off, it displays the ON button       
-            if (output5State=="off") {
-              client.println("<p><a href=\"/5/on\"><button class=\"button\">ON</button></a></p>");
-            } else {
-              client.println("<p><a href=\"/5/off\"><button class=\"button button2\">OFF</button></a></p>");
-            } 
+            client.println("<body><h1>IoT Cloud Config tool</h1>");
+ 
                
-            // Display current state, and ON/OFF buttons for GPIO 4  
-            client.println("<p>GPIO 4 - State " + output4State + "</p>");
-            // If the output4State is off, it displays the ON button       
-            if (output4State=="off") {
-              client.println("<p><a href=\"/4/on\"><button class=\"button\">ON</button></a></p>");
-            } else {
-              client.println("<p><a href=\"/4/off\"><button class=\"button button2\">OFF</button></a></p>");
-            }
-            client.println("</body></html>");
-            
+             
             // The HTTP response ends with another blank line
             client.println();
             // Break out of the while loop
