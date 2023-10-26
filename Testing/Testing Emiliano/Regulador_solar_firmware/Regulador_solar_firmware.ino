@@ -1,3 +1,7 @@
+#include <FS.h> 
+#ifdef ESP32
+  #include <SPIFFS.h>
+#endif
 #include <DHTesp.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
@@ -5,6 +9,7 @@
 #include "timezone.h"
 #include <ArduinoJson.h>
 #include <Wire.h>
+#include <WiFiManager.h> 
 #include <Adafruit_INA219.h>
 Adafruit_INA219 ina219_A(0x44);  //dirección 0x44
 Adafruit_INA219 ina219_B;        // dirección(0x40)
@@ -82,8 +87,8 @@ const char* password = "IoTcloud2019";
 const char* mqtt_server_domain = "192.168.170.84"; //local 
 const long mqtt_server_port = 1883;//local */
 
-const char* ssid = "Fibertel WiFi288 2.4GHz";
-const char* password = "0143512984";
+/*const char* ssid = "Fibertel WiFi288 2.4GHz";
+const char* password = "0143512984";*/
 const char* mqtt_server_domain = "testmqtt.iotcloud.studio";  // Remoto
 const long mqtt_server_port = 51883;                          // Remoto
 
@@ -91,7 +96,18 @@ const char* mqttUser = "user";
 const char* mqttPassword = "user";
 const char* subscribetopic = "TEST/UPS";
 const char* topic = "TEST/UPS";
-String deviceId = "667";
+String deviceId = "20000001";
+String device_name = "IoT_Cloud_";
+String ap_pass = "";
+char mqtt_server[40] = "testmqtt.iotcloud.studio";;
+char mqtt_port[6] = "51883";
+char api_token[34] = "";
+//default custom static IP
+char static_ip[16] = "192.168.0.123";
+char static_gw[16] = "192.168.0.1";
+char static_sn[16] = "255.255.255.0";
+char static_dns[16] = "8.8.8.8";
+
 int deviceLog = 0;
 String deviceDesciption = "PruebaUPS";
 const char* TIME_SERVER = "8.8.8.8";
@@ -104,24 +120,7 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 long lastMsg = 0;
 char msg[50];
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------
-void setup_wifi() {
-  delay(100);
-  // We start by connecting to a WiFi network
-  //Serial.print("Connecting to ");
-  //Serial.println(ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    //Serial.print(".");
-  }
-  randomSeed(micros());
-  //Serial.println("");
-  //Serial.println("WiFi connected");
-  //Serial.println("IP address: ");
-  //Serial.println(WiFi.localIP());
-}
-//------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
@@ -293,10 +292,26 @@ void ajustaPWMcargador() {
   }
 }
 
+//flag for saving data
+bool shouldSaveConfig = false;
+
+//callback notifying us of the need to save config
+void saveConfigCallback () {
+  Serial.println("Should save config");
+  shouldSaveConfig = true;
+}
+
+String invertirCadena(String s) {
+  String temporal = "";
+  for (int m = s.length() - 1; m >= 0; m--)
+    temporal += s[m];
+  return temporal;
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
 //SETUP:
 void setup() {
-  //Serial.begin(115200);
+  Serial.begin(115200);
   xTaskCreatePinnedToCore (loop_Tarea1,"Tarea1",10000,NULL,1,&Tarea_1,0);
 
   //Serial.print("paso");
@@ -315,6 +330,176 @@ void setup() {
   digitalWrite(LED_ESTADO, LOW);
   pinMode(LED_BAT, OUTPUT);
   digitalWrite(LED_BAT, LOW);
+
+   //-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ device_name = device_name + deviceId;
+  const char* device_name_char=device_name.c_str();
+  ap_pass = invertirCadena(deviceId);
+  const char* ap_pass_char=ap_pass.c_str();
+
+  //read configuration from FS json
+  Serial.println("mounting FS...");
+
+  if (SPIFFS.begin()) {
+    Serial.println("mounted file system");
+    if (SPIFFS.exists("/config.json")) {
+      //file exists, reading and loading
+      Serial.println("reading config file");
+      File configFile = SPIFFS.open("/config.json", "r");
+      if (configFile) {
+        Serial.println("opened config file");
+        size_t size = configFile.size();
+        // Allocate a buffer to store contents of the file.
+        std::unique_ptr<char[]> buf(new char[size]);
+
+        configFile.readBytes(buf.get(), size);
+ #if defined(ARDUINOJSON_VERSION_MAJOR) && ARDUINOJSON_VERSION_MAJOR >= 6
+        DynamicJsonDocument json(1024);
+        auto deserializeError = deserializeJson(json, buf.get());
+        serializeJson(json, Serial);
+        if ( ! deserializeError ) {
+#else
+        DynamicJsonBuffer jsonBuffer;
+        JsonObject& json = jsonBuffer.parseObject(buf.get());
+        json.printTo(Serial);
+        if (json.success()) {
+#endif
+          Serial.println("\nparsed json");
+
+          strcpy(mqtt_server, json["mqtt_server"]);
+          strcpy(mqtt_port, json["mqtt_port"]);
+          //strcpy(api_token, json["api_token"]);
+
+          if (json["ip"]) {
+            Serial.println("setting custom ip from config");
+            strcpy(static_ip, json["ip"]);
+            strcpy(static_gw, json["gateway"]);
+            strcpy(static_sn, json["subnet"]);
+            //strcpy(static_dns, json["DNS1"]);
+            Serial.println(static_ip);
+          } else {
+            Serial.println("no custom ip in config");
+          }
+        } else {
+          Serial.println("failed to load json config");
+        }
+      }
+    }
+  } else {
+    Serial.println("failed to mount FS");
+  }
+  //end read
+  Serial.println(static_ip);
+  //Serial.println(api_token);
+  Serial.println(mqtt_server);
+
+
+  // The extra parameters to be configured (can be either global or just in the setup)
+  // After connecting, parameter.getValue() will get you the configured value
+  // id/name placeholder/prompt default length
+  //WiFiManagerParameter custom_text("<p>This is just a text paragraph</p>");
+  
+  WiFiManagerParameter custom_mqtt_server("server", "mqtt server", mqtt_server, 40);
+  WiFiManagerParameter custom_mqtt_port("port", "mqtt port", mqtt_port, 5);
+  //WiFiManagerParameter custom_api_token("apikey", "API token", api_token, 34);
+
+  //WiFiManager
+  //Local intialization. Once its business is done, there is no need to keep it around
+  WiFiManager wifiManager;
+
+  //set config save notify callback
+  wifiManager.setSaveConfigCallback(saveConfigCallback);
+  wifiManager.setShowStaticFields(true);  // show Static IP  user Field 
+ //wifiManager.setShowDnsFields(true); // show DNS  user Field
+  //set static ip
+  IPAddress _ip, _gw, _sn,_dns;
+  _ip.fromString(static_ip);
+  _gw.fromString(static_gw);
+  _sn.fromString(static_sn);
+  //_dns.fromString(static_dns);
+
+  wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn);
+  //wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
+
+  //add all your parameters here
+  //wifiManager.addParameter(&custom_text);
+  wifiManager.addParameter(&custom_mqtt_server);
+  wifiManager.addParameter(&custom_mqtt_port);
+  //wifiManager.addParameter(&custom_api_token);
+
+  //reset settings - for testing
+  //wifiManager.resetSettings();
+
+  //set minimu quality of signal so it ignores AP's under that quality
+  //defaults to 8%
+  wifiManager.setMinimumSignalQuality(30);
+
+  //sets timeout until configuration portal gets turned off
+  //useful to make it all retry or go to sleep
+  //in seconds
+  wifiManager.setTimeout(180);
+  wifiManager.setConfigPortalTimeout(120);
+  
+  
+  //fetches ssid and pass and tries to connect
+  //if it does not connect it starts an access point with the specified name
+  //here  "AutoConnectAP"
+  //and goes into a blocking loop awaiting configuration
+  if (!wifiManager.autoConnect(device_name_char, ap_pass_char)) {
+    Serial.println("failed to connect and hit timeout");
+    delay(3000);
+    //reset and try again, or maybe put it to deep sleep
+    ESP.restart();
+    delay(5000);
+  }
+
+  //if you get here you have connected to the WiFi
+  Serial.println("connected...yeey :)");
+
+  //read updated parameters
+  strcpy(mqtt_server, custom_mqtt_server.getValue());
+  strcpy(mqtt_port, custom_mqtt_port.getValue());
+  //strcpy(api_token, custom_api_token.getValue());
+
+  //save the custom parameters to FS
+  if (shouldSaveConfig) {
+    Serial.println("saving config");
+ #if defined(ARDUINOJSON_VERSION_MAJOR) && ARDUINOJSON_VERSION_MAJOR >= 6
+    DynamicJsonDocument json(1024);
+#else
+    DynamicJsonBuffer jsonBuffer;
+    JsonObject& json = jsonBuffer.createObject();
+#endif
+    json["mqtt_server"] = mqtt_server;
+    json["mqtt_port"] = mqtt_port;
+    //json["api_token"] = api_token;
+
+    json["ip"] = WiFi.localIP().toString();
+    json["gateway"] = WiFi.gatewayIP().toString();
+    json["subnet"] = WiFi.subnetMask().toString();
+    //json["dns"] = WiFi.subnetMask().toString();
+
+    File configFile = SPIFFS.open("/config.json", "w");
+    if (!configFile) {
+      Serial.println("failed to open config file for writing");
+    }
+
+ #if defined(ARDUINOJSON_VERSION_MAJOR) && ARDUINOJSON_VERSION_MAJOR >= 6
+    serializeJson(json, Serial);
+    serializeJson(json, configFile);
+#else
+    json.printTo(Serial);
+    json.printTo(configFile);
+#endif
+    configFile.close();
+    //end save
+  }
+
+  Serial.println("local ip");
+  Serial.println(WiFi.localIP());
+  Serial.println(WiFi.gatewayIP());
+  Serial.println(WiFi.subnetMask());
+  //-------------------------------------------------------------------------------------------------------------------------------------------------------------
   
   if (!ina219_A.begin()) {
     //Serial.println("Failed to find INA219_A chip");
@@ -325,7 +510,7 @@ void setup() {
     while (1) { delay(10); }
   }
   configTime(myTimeZone, 0, TIME_SERVER);  // get UTC time via NTP
-  setup_wifi();
+ 
   client.setServer(mqtt_server_domain, mqtt_server_port);
   client.setCallback(callback);
   dht.setup(PIN_TEMP,DHTesp::DHT11);
