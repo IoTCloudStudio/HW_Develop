@@ -5,8 +5,9 @@
 #ifdef ESP32
   #include <SPIFFS.h>
 #endif
-
+#include <PubSubClient.h>
 #include <ArduinoJson.h>          //https://github.com/bblanchon/ArduinoJson
+#include <DNSServer.h>
 
 //define your default values here, if there are different values in config.json, they are overwritten.
 String deviceId = "20000001";
@@ -15,12 +16,17 @@ String ap_pass = "";
 //length should be max size + 1
 char mqtt_server[40] = "testmqtt.iotcloud.studio";;
 char mqtt_port[6] = "51883";
+int mqtt_port_1 =51883;
 char api_token[34] = "";
 //default custom static IP
 char static_ip[16] = "192.168.0.123";
 char static_gw[16] = "192.168.0.1";
 char static_sn[16] = "255.255.255.0";
 char static_dns[16] = "8.8.8.8";
+IPAddress ipAddr;
+WiFiManager wifiManager;
+WiFiClient espClient;
+PubSubClient client(espClient);
 
 
 //flag for saving data
@@ -39,9 +45,29 @@ String invertirCadena(String s) {
   return temporal;
 }
 
+void reconnect() {
+  // Loop until we're reconnected
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    // Attempt to connect
+    // If you do not want to use a username and password, change next line to
+    // if (client.connect("ESP8266Client")) {
+    if (client.connect("ESP8266Client")) {
+      Serial.println("connected");
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
+}
+
+
 void setup() {
   // put your setup code here, to run once:
-  WiFi.mode(WIFI_STA);
+  
   Serial.begin(115200);
   Serial.println();
 
@@ -120,7 +146,7 @@ void setup() {
 
   //WiFiManager
   //Local intialization. Once its business is done, there is no need to keep it around
-  WiFiManager wifiManager;
+  
 
   //set config save notify callback
   wifiManager.setSaveConfigCallback(saveConfigCallback);
@@ -132,14 +158,14 @@ void setup() {
   _gw.fromString(static_gw);
   _sn.fromString(static_sn);
   //_dns.fromString(static_dns);
-
-  wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn);
-  //wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
+  _dns.fromString("8.8.8.8");
+  //wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,);
+  wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
 
   //add all your parameters here
   //wifiManager.addParameter(&custom_text);
-  wifiManager.addParameter(&custom_mqtt_server);
-  wifiManager.addParameter(&custom_mqtt_port);
+  //wifiManager.addParameter(&custom_mqtt_server);
+  //wifiManager.addParameter(&custom_mqtt_port);
   //wifiManager.addParameter(&custom_api_token);
 
   //reset settings - for testing
@@ -153,8 +179,7 @@ void setup() {
   //useful to make it all retry or go to sleep
   //in seconds
   wifiManager.setTimeout(180);
-  wifiManager.setConfigPortalTimeout(120);
-  
+ wifiManager.setConfigPortalTimeout(120);
   
   //fetches ssid and pass and tries to connect
   //if it does not connect it starts an access point with the specified name
@@ -167,13 +192,18 @@ void setup() {
     ESP.restart();
     delay(5000);
   }
+ wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
+        if (WiFi.hostByName(mqtt_server, ipAddr) != 1)
+        Serial.printf("ERROR: Unable to resolve host name- %s\n",mqtt_server);
+    else
+        Serial.printf("INFO: Host name resolved successfuly - %s\n", ipAddr.toString().c_str());
 
   //if you get here you have connected to the WiFi
   Serial.println("connected...yeey :)");
 
   //read updated parameters
-  strcpy(mqtt_server, custom_mqtt_server.getValue());
-  strcpy(mqtt_port, custom_mqtt_port.getValue());
+  //strcpy(mqtt_server, custom_mqtt_server.getValue());
+  //strcpy(mqtt_port, custom_mqtt_port.getValue());
   //strcpy(api_token, custom_api_token.getValue());
 
   //save the custom parameters to FS
@@ -210,12 +240,23 @@ void setup() {
     //end save
   }
 
+  WiFi.mode(WIFI_STA);
+
+    // snipped
+    ipAddr=181,117,205,30;
+    
+  
   Serial.println("local ip");
   Serial.println(WiFi.localIP());
   Serial.println(WiFi.gatewayIP());
   Serial.println(WiFi.subnetMask());
+  Serial.println(WiFi.dnsIP());
+   client.setServer(mqtt_server,  51883);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
 }

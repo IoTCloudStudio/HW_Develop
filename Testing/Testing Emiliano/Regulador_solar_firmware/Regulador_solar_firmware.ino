@@ -416,10 +416,10 @@ void setup() {
   _ip.fromString(static_ip);
   _gw.fromString(static_gw);
   _sn.fromString(static_sn);
-  //_dns.fromString(static_dns);
+  _dns.fromString(static_dns);
 
-  wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn);
-  //wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
+  //wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn);
+  wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
 
   //add all your parameters here
   //wifiManager.addParameter(&custom_text);
@@ -499,16 +499,10 @@ void setup() {
   Serial.println(WiFi.localIP());
   Serial.println(WiFi.gatewayIP());
   Serial.println(WiFi.subnetMask());
+  Serial.println(WiFi.dnsIP());
   //-------------------------------------------------------------------------------------------------------------------------------------------------------------
   
-  if (!ina219_A.begin()) {
-    //Serial.println("Failed to find INA219_A chip");
-    while (1) { delay(10); }
-  }
-  if (!ina219_B.begin()) {
-    //Serial.println("Failed to find INA219_B chip");
-    while (1) { delay(10); }
-  }
+
   configTime(myTimeZone, 0, TIME_SERVER);  // get UTC time via NTP
  
   client.setServer(mqtt_server_domain, mqtt_server_port);
