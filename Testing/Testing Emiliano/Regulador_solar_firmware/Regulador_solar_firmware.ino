@@ -2,6 +2,8 @@
 #ifdef ESP32
   #include <SPIFFS.h>
 #endif
+#include <WiFiManager.h> 
+#include <DNSServer.h>
 #include <DHTesp.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
@@ -9,7 +11,6 @@
 #include "timezone.h"
 #include <ArduinoJson.h>
 #include <Wire.h>
-#include <WiFiManager.h> 
 #include <Adafruit_INA219.h>
 Adafruit_INA219 ina219_A(0x44);  //dirección 0x44
 Adafruit_INA219 ina219_B;        // dirección(0x40)
@@ -107,6 +108,7 @@ char static_ip[16] = "192.168.0.123";
 char static_gw[16] = "192.168.0.1";
 char static_sn[16] = "255.255.255.0";
 char static_dns[16] = "8.8.8.8";
+IPAddress ipAddr;
 
 int deviceLog = 0;
 String deviceDesciption = "PruebaUPS";
@@ -115,7 +117,8 @@ int myTimeZone = ARG;  // change this to your time zone (see in timezone.h)
 char code[32] = "";
 unsigned long previousMillis = 0;
 unsigned long lastMillis = 0;
-const long interval_sensor = 30000;
+const long interval_sensor = 3600;
+WiFiManager wifiManager;
 WiFiClient espClient;
 PubSubClient client(espClient);
 long lastMsg = 0;
@@ -131,11 +134,11 @@ void reconnect() {
     //if you MQTT broker has deviceId,username and password
     //please change following line to    if (client.connect(deviceId,userName,passWord))
     if (client.connect(deviceId.c_str())) {
-      //Serial.println("connected");
+      Serial.println("connected");
       //once connected to MQTT broker, subscribe command if any
       client.subscribe(subscribetopic);
     } else {
-      //Serial.print("failed, rc=");
+      Serial.print("failed, rc=");
       //Serial.print(client.state());
       //Serial.println(" try again in 5 seconds");
       // Wait 5 seconds before retrying
@@ -405,7 +408,7 @@ void setup() {
 
   //WiFiManager
   //Local intialization. Once its business is done, there is no need to keep it around
-  WiFiManager wifiManager;
+  
 
   //set config save notify callback
   wifiManager.setSaveConfigCallback(saveConfigCallback);
@@ -452,6 +455,11 @@ void setup() {
     ESP.restart();
     delay(5000);
   }
+   wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
+        if (WiFi.hostByName(mqtt_server, ipAddr) != 1)
+        Serial.printf("ERROR: Unable to resolve host name- %s\n",mqtt_server);
+    else
+        Serial.printf("INFO: Host name resolved successfuly - %s\n", ipAddr.toString().c_str());
 
   //if you get here you have connected to the WiFi
   Serial.println("connected...yeey :)");
@@ -494,7 +502,7 @@ void setup() {
     configFile.close();
     //end save
   }
-
+  WiFi.mode(WIFI_STA);
   Serial.println("local ip");
   Serial.println(WiFi.localIP());
   Serial.println(WiFi.gatewayIP());
@@ -502,10 +510,17 @@ void setup() {
   Serial.println(WiFi.dnsIP());
   //-------------------------------------------------------------------------------------------------------------------------------------------------------------
   
-
+  if (!ina219_A.begin()) {
+    //Serial.println("Failed to find INA219_A chip");
+    while (1) { delay(10); }
+  }
+  if (!ina219_B.begin()) {
+    //Serial.println("Failed to find INA219_B chip");
+    while (1) { delay(10); }
+  }
   configTime(myTimeZone, 0, TIME_SERVER);  // get UTC time via NTP
  
-  client.setServer(mqtt_server_domain, mqtt_server_port);
+  client.setServer(mqtt_server, 51883);
   client.setCallback(callback);
   dht.setup(PIN_TEMP,DHTesp::DHT11);
   delay(500);
