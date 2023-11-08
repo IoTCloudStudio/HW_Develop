@@ -317,23 +317,6 @@ void setup() {
   Serial.begin(115200);
   xTaskCreatePinnedToCore (loop_Tarea1,"Tarea1",10000,NULL,1,&Tarea_1,0);
 
-  //Serial.print("paso");
-  ledcSetup(CANAL, FREC, PREC);  //configuración PWM
-  ledcAttachPin(PWM, CANAL);
-  ledcWrite(CANAL, valorPWM);
-  pinMode(ONOFF_OUT1, OUTPUT);
-  digitalWrite(ONOFF_OUT1, LOW);
-  pinMode(ONOFF_OUT2, OUTPUT);
-  digitalWrite(ONOFF_OUT2, LOW);
-  pinMode(CORTE_INPANEL, OUTPUT);
-  digitalWrite(CORTE_INPANEL, LOW);
-  pinMode(RESET_MODEM, OUTPUT);
-  digitalWrite(RESET_MODEM, LOW);
-  pinMode(LED_ESTADO, OUTPUT);
-  digitalWrite(LED_ESTADO, LOW);
-  pinMode(LED_BAT, OUTPUT);
-  digitalWrite(LED_BAT, LOW);
-
    //-------------------------------------------------------------------------------------------------------------------------------------------------------------
  device_name = device_name + deviceId;
   const char* device_name_char=device_name.c_str();
@@ -510,7 +493,32 @@ void setup() {
   Serial.println(WiFi.dnsIP());
   //-------------------------------------------------------------------------------------------------------------------------------------------------------------
   
-  if (!ina219_A.begin()) {
+  configTime(myTimeZone, 0, TIME_SERVER);  // get UTC time via NTP
+ 
+  client.setServer(mqtt_server, 51883);
+  client.setCallback(callback);
+  
+  delay(500);
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//LOOP EN NÚCLEO 0:
+void loop_Tarea1 (void*pvParameters) {
+ledcSetup(CANAL, FREC, PREC);  //configuración PWM
+  ledcAttachPin(PWM, CANAL);
+  ledcWrite(CANAL, valorPWM);
+  pinMode(ONOFF_OUT1, OUTPUT);
+  digitalWrite(ONOFF_OUT1, LOW);
+  pinMode(ONOFF_OUT2, OUTPUT);
+  digitalWrite(ONOFF_OUT2, LOW);
+  pinMode(CORTE_INPANEL, OUTPUT);
+  digitalWrite(CORTE_INPANEL, LOW);
+  pinMode(RESET_MODEM, OUTPUT);
+  digitalWrite(RESET_MODEM, LOW);
+  pinMode(LED_ESTADO, OUTPUT);
+  digitalWrite(LED_ESTADO, LOW);
+  pinMode(LED_BAT, OUTPUT);
+  digitalWrite(LED_BAT, LOW);
+ if (!ina219_A.begin()) {
     //Serial.println("Failed to find INA219_A chip");
     while (1) { delay(10); }
   }
@@ -518,26 +526,23 @@ void setup() {
     //Serial.println("Failed to find INA219_B chip");
     while (1) { delay(10); }
   }
-  configTime(myTimeZone, 0, TIME_SERVER);  // get UTC time via NTP
- 
-  client.setServer(mqtt_server, 51883);
-  client.setCallback(callback);
   dht.setup(PIN_TEMP,DHTesp::DHT11);
   delay(500);
-}
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-//LOOP EN NÚCLEO 0:
-void loop_Tarea1 (void*pvParameters) {
-
 for(;;){
+   /*if (client.connected()) {
+   Serial.print("conectado ");;
+  }
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();*/
   //Serial.print("Tarea 1 se corre en el núcleo: ");
   //Serial.println(String (xPortGetCoreID()));
    I_gen = CTE_SHUNT *ina219_A.getCurrent_mA();
   if (I_gen > 10) {digitalWrite(CORTE_INPANEL, HIGH);}  // simulo diodo ideal con MOSFET
   else{digitalWrite(CORTE_INPANEL, LOW);}
-  digitalWrite(ONOFF_OUT1, LOW);
-  VCC = ina219_A.getBusVoltage_V();
-  P_gen =  ina219_A.getPower_mW();
+  //VCC = ina219_A.getBusVoltage_V();
+  //P_gen =  ina219_A.getPower_mW();
   
   float shuntvoltage_B = ina219_B.getShuntVoltage_mV();
   float busvoltage_B = ina219_B.getBusVoltage_V();
@@ -554,8 +559,8 @@ for(;;){
     if (I_bat > 0) { Estado_bat = 2; ledcWrite(CANAL, 511);blink1(2000);}   // Batería descargando
   }
   
-  I_load = I_gen + I_bat;
-  P_load = I_load * VCC;
+  //I_load = I_gen + I_bat;
+  //P_load = I_load * VCC;
   
   V_out1 = mideTension (SENS_OUT1);
   //Serial.println("VOUT1 = " V_out1);
@@ -608,25 +613,26 @@ void loop() {
   client.loop();
   //Serial.print("paso2 ");
   unsigned long currentMillis = millis();
-  if (currentMillis - previousMillis >= interval_sensor) {
+ if (currentMillis - previousMillis >= interval_sensor) {
     previousMillis = currentMillis;
    if (Estado_bat == 1) {
-      mqtt_msj(" Cargando: I_bat (mA) = ", dtostrf(Iabs_bat, 4, 2, msg));
-      mqtt_msj("V_bat (V): ", dtostrf(V_bat, 4, 2, msg));
+      mqtt_msj("Carg(mA)", dtostrf(Iabs_bat, 4, 2, msg));
+      
     }
     if (Estado_bat == 2) {
-      mqtt_msj("Descargando: I_bat (mA) = ", dtostrf(Iabs_bat, 4, 2, msg));
-      mqtt_msj("V_bat (V): ", dtostrf(V_bat, 4, 2, msg));
+      mqtt_msj("Desc(mA)", dtostrf(Iabs_bat, 4, 2, msg));
+      
     }
-    if (Estado_bat == 0) { mqtt_msj("Desconectada : I_bat (mA) = ", dtostrf(Iabs_bat, 4, 2, msg)); }
-    if (Estado_bat == 3) { mqtt_msj("Flote : I_bat (mA) = ", dtostrf(Iabs_bat, 4, 2, msg)); }
+    if (Estado_bat == 0) { mqtt_msj("NObat", dtostrf(Iabs_bat, 4, 2, msg)); }
+    if (Estado_bat == 3) { mqtt_msj("Flote", dtostrf(Iabs_bat, 4, 2, msg)); }
 
     //mqtt_msj("VCC (V): ", dtostrf(VCC, 4, 2, msg));
-    mqtt_msj("I_gen (mA): ", dtostrf(I_gen, 4, 2, msg));
-    mqtt_msj("I_load (mA): ", dtostrf(I_load, 4, 2, msg));
-    mqtt_msj("Temp: ", dtostrf(temperatura, 4, 2, msg));
-    mqtt_msj("Hum. (%): ", dtostrf(humedad, 4, 2, msg));
-    mqtt_msj("V_out1(V): ", dtostrf(V_out1, 4, 2, msg));
+    mqtt_msj("Vbat (V)", dtostrf(V_bat, 4, 2, msg));
+    mqtt_msj("Igen(mA)", dtostrf(I_gen, 4, 2, msg));
+    mqtt_msj("Iload(mA)", dtostrf(I_load, 4, 2, msg));
+    mqtt_msj("Temp", dtostrf(temperatura, 4, 2, msg));
+    mqtt_msj("Hum(%)", dtostrf(humedad, 4, 2, msg));
+    mqtt_msj("Vout1(V)", dtostrf(V_out1, 4, 2, msg));
     //mqtt_msj("P_gen (mW): ", dtostrf(P_gen, 4, 2, msg));
     //mqtt_msj("P_load(mW): ", dtostrf(P_load, 4, 2, msg));
     //Serial.println(" ");
