@@ -74,10 +74,19 @@ int valorPWM = 200;
 #define CANAL 0
 #define PREC 9       // Precisión de 9 bits implica valores entre 0 y 511
 #define FREC 5000    // Frecuencia en HZ
-#define I_MAX 2000   //Corriente máxima de carga [mA]
+#define I_MAX 1500   //Corriente máxima de carga [mA]
 #define PWM_MAX 511  // 2^PREC - 1
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 //VARIABLES Y CONSTANTES DE CONEXIÓN Y REPORTE:
+String deviceId = "20000001";
+String device_name = "IoT_Cloud_";
+String ap_pass = "";
+const char* operacion="0"; // 0 testing 1 productivo
+const char* modelo="11";
+char* topic_base;
+char* topic_concat;
+char* topic_sub_concat;
+
 /*const char* ssid = "ufi_26220"; 
 const char* password = "1234567890";
 const char* mqtt_server_domain = "testmqtt.iotcloud.studio"; 
@@ -95,11 +104,8 @@ const long mqtt_server_port = 51883;                          // Remoto
 
 const char* mqttUser = "user";
 const char* mqttPassword = "user";
-const char* subscribetopic = "TEST/UPS";
-const char* topic = "TEST/UPS";
-String deviceId = "20000001";
-String device_name = "IoT_Cloud_";
-String ap_pass = "";
+
+
 char mqtt_server[40] = "testmqtt.iotcloud.studio";;
 char mqtt_port[6] = "51883";
 char api_token[34] = "";
@@ -117,7 +123,7 @@ int myTimeZone = ARG;  // change this to your time zone (see in timezone.h)
 char code[32] = "";
 unsigned long previousMillis = 0;
 unsigned long lastMillis = 0;
-const long interval_sensor = 3600;
+const long interval_sensor = 30000;
 WiFiManager wifiManager;
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -127,6 +133,7 @@ char msg[50];
 void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
+    const char* subscribetopic= topic_sub_concat;
     //Serial.print("Attempting MQTT connection...");
     // Create a random client ID
     // deviceId += String(random(0xffff), HEX);
@@ -148,6 +155,8 @@ void reconnect() {
 }  //end reconnect()
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 void mqtt_msj(String code, String descript) {
+  
+  const char* topic=topic_concat;
   time_t now;
   struct tm timeinfo;
   time(&now);
@@ -322,6 +331,18 @@ void setup() {
   const char* device_name_char=device_name.c_str();
   ap_pass = invertirCadena(deviceId);
   const char* ap_pass_char=ap_pass.c_str();
+
+  char* deviceId_C;
+  deviceId.toCharArray(deviceId_C,8);
+  strcat (topic_base,operacion);
+  strcat (topic_base,"/");
+  strcat (topic_base,modelo);
+  strcat (topic_base,"/");
+  topic_concat=strcat (topic_base,deviceId_C);
+  topic_sub_concat = topic_concat;
+  strcat (topic_concat,"/0");
+  strcat (topic_sub_concat,"/1");
+  
 
   //read configuration from FS json
   Serial.println("mounting FS...");
