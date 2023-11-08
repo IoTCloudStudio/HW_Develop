@@ -175,16 +175,16 @@ void callback(char* topic, byte* payload, unsigned int length) {
   StaticJsonDocument<300> doc;
   deserializeJson(doc, payload, length);
   strlcpy(code, doc["C"] | "default", sizeof(code));
-  if (strcmp(code, "E801") & !outState1) {
+  if (strcmp(code, "E801")==0 & !outState1) {
    Pulse(ONOFF_OUT1);
   }
-  if (strcmp(code, "R801") & outState1) {
+  if (strcmp(code, "R801")==0 & outState1) {
    Pulse(ONOFF_OUT1);
   } 
-  if (strcmp(code, "E802") & !outState2) {
+  if (strcmp(code, "E802")==0 & !outState2) {
    Pulse(ONOFF_OUT2);
   }
-  if (strcmp(code, "R802") & outState2) {
+  if (strcmp(code, "R802")==0 & outState2) {
    Pulse(ONOFF_OUT2);
   } 
 }
