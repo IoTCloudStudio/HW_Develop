@@ -123,7 +123,7 @@ int myTimeZone = ARG;  // change this to your time zone (see in timezone.h)
 char code[32] = "";
 unsigned long previousMillis = 0;
 unsigned long lastMillis = 0;
-const long interval_sensor = 30000;
+const long interval_sensor = 300000;
 WiFiManager wifiManager;
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -133,7 +133,7 @@ char msg[50];
 void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
-    const char* subscribetopic= topic_sub_concat;
+    const char* subscribetopic= "0/11/20000001/1"; //topic_sub_concat;
     //Serial.print("Attempting MQTT connection...");
     // Create a random client ID
     // deviceId += String(random(0xffff), HEX);
@@ -156,7 +156,7 @@ void reconnect() {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 void mqtt_msj(String code, String descript) {
   
-  const char* topic=topic_concat;
+  const char* topic="0/11/20000001/0";//topic_concat;
   time_t now;
   struct tm timeinfo;
   time(&now);
@@ -332,7 +332,7 @@ void setup() {
   ap_pass = invertirCadena(deviceId);
   const char* ap_pass_char=ap_pass.c_str();
 
-  char* deviceId_C;
+ /* char* deviceId_C;
   deviceId.toCharArray(deviceId_C,8);
   strcat (topic_base,operacion);
   strcat (topic_base,"/");
@@ -342,7 +342,7 @@ void setup() {
   topic_sub_concat = topic_concat;
   strcat (topic_concat,"/0");
   strcat (topic_sub_concat,"/1");
-  
+  */
 
   //read configuration from FS json
   Serial.println("mounting FS...");
@@ -650,7 +650,7 @@ void loop() {
     //mqtt_msj("VCC (V): ", dtostrf(VCC, 4, 2, msg));
     mqtt_msj("Vbat (V)", dtostrf(V_bat, 4, 2, msg));
     mqtt_msj("Igen(mA)", dtostrf(I_gen, 4, 2, msg));
-    mqtt_msj("Iload(mA)", dtostrf(I_load, 4, 2, msg));
+    //mqtt_msj("Iload(mA)", dtostrf(I_load, 4, 2, msg));
     mqtt_msj("Temp", dtostrf(temperatura, 4, 2, msg));
     mqtt_msj("Hum(%)", dtostrf(humedad, 4, 2, msg));
     mqtt_msj("Vout1(V)", dtostrf(V_out1, 4, 2, msg));
