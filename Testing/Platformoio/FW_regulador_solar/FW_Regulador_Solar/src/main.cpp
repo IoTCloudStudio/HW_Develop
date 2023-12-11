@@ -1,21 +1,21 @@
-#include <FS.h> 
+#include <LittleFS.h>
+#include <WiFi.h>
+#include <WiFiManager.h> 
 #ifdef ESP32
   #include <SPIFFS.h>
 #endif
-#include <WiFiManager.h> 
+
 #include <DNSServer.h>
 #include <DHTesp.h>
-#include <WiFi.h>
 #include <PubSubClient.h>
 #include <time.h>
-#include "timezone.h"
 #include <ArduinoJson.h>
 #include <Wire.h>
 #include <Adafruit_INA219.h>
 Adafruit_INA219 ina219_A(0x44);  //dirección 0x44
 Adafruit_INA219 ina219_B;        // dirección(0x40)
 TaskHandle_t Tarea_1;
-DHTesp dht;
+//DHTesp dht;
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 // ENTRADAS DEL MICRO:
 #define SENS_OUT1 34   //Mide tensíon de salida 1
@@ -29,14 +29,16 @@ DHTesp dht;
 // SALIDAS DEL MICRO:
 #define ONOFF_OUT1 27     // Emite un pulso que enciende o apaga la salida 1
 #define ONOFF_OUT2 25     // Emite un pulso que enciende o apaga la salida 2
-#define PWM 13            // Controla la carga (y descarga) de batería por PWM
+#define PWM   18//13            // Controla la carga (y descarga) de batería por PWM
 #define RESET_MODEM 12    // Emite un pulso que resetea la alimentación del Módem
 #define CORTE_INPANEL 32  // En estado alto enciende Mosfet de entrada de panel. Se apaga cuando no se genera energía para aislar entrada.
 #define LED_ESTADO 4      // (AZUL) Muestra estado de conexión
 #define LED_BAT 15        // (VERDE) Muestra estado de carga y descarga de la batería
+#define CORTE_BAT 17     // En estado alto apaga el mosfet y corta la entrada de batería
+#define OUT1 23
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 //VARIABLES Y CONSTANTES GENERALES:
-#define CTE_SHUNT 4 // Cantidad de R de Shunt 0.1 Ohm en paralelo
+#define CTE_SHUNT 1 //4 // Cantidad de R de Shunt 0.1 Ohm en paralelo
 #define DIVISOR  0.164     // Coeficiente del divisor de tensíon = R2/(R1+R2)=47k/(240k+47K)
 #define SENSIB_1 0.00088   // Volt/muestra del ADC
 #define SENSIB_2 0.00099   // Volt/muestra del ADC (reajuste para medir tensión de 5V)
@@ -74,11 +76,11 @@ int valorPWM = 200;
 #define CANAL 0
 #define PREC 9       // Precisión de 9 bits implica valores entre 0 y 511
 #define FREC 5000    // Frecuencia en HZ
-#define I_MAX 1500   //Corriente máxima de carga [mA]
+#define I_MAX 700   //Corriente máxima de carga [mA]
 #define PWM_MAX 511  // 2^PREC - 1
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 //VARIABLES Y CONSTANTES DE CONEXIÓN Y REPORTE:
-String deviceId = "20000001";
+String deviceId = "20000002";
 String device_name = "IoT_Cloud_";
 String ap_pass = "";
 const char* operacion="0"; // 0 testing 1 productivo
@@ -97,34 +99,38 @@ const char* password = "IoTcloud2019";
 const char* mqtt_server_domain = "192.168.170.84"; //local 
 const long mqtt_server_port = 1883;//local */
 
-/*const char* ssid = "Fibertel WiFi288 2.4GHz";
-const char* password = "0143512984";*/
-const char* mqtt_server_domain = "testmqtt.iotcloud.studio";  // Remoto
-const long mqtt_server_port = 51883;                          // Remoto
+/*const char* ssid = "JOIN-IoTCloud-NUBE"; 
+const char* password = "IoTcloud2019DC";
+const char* mqtt_server_domain = "testmqtt.iotcloud.studio";   //"192.168.170.84"; //local 
+const long mqtt_server_port = 51883;*/
+
+const char* ssid = "29300000000020WF";
+const char* password = "admin3382";
+const char* mqtt_server_domain = "192.168.0.1";  // Remoto
+const long mqtt_server_port = 1883;                       // Remoto
 
 const char* mqttUser = "user";
 const char* mqttPassword = "user";
 
-
-char mqtt_server[40] = "testmqtt.iotcloud.studio";;
+/*
+char mqtt_server[40] = "192.168.0.1";
 char mqtt_port[6] = "51883";
 char api_token[34] = "";
 //default custom static IP
-char static_ip[16] = "192.168.0.123";
+char static_ip[16] = "192.168.0.20";
 char static_gw[16] = "192.168.0.1";
 char static_sn[16] = "255.255.255.0";
-char static_dns[16] = "8.8.8.8";
+char static_dns[16] = "192.168.0.1";
 IPAddress ipAddr;
-
+*/
 int deviceLog = 0;
 String deviceDesciption = "PruebaUPS";
-const char* TIME_SERVER = "8.8.8.8";
-int myTimeZone = ARG;  // change this to your time zone (see in timezone.h)
+const char* TIME_SERVER = "192.168.0.1";
 char code[32] = "";
 unsigned long previousMillis = 0;
 unsigned long lastMillis = 0;
-const long interval_sensor = 300000;
-WiFiManager wifiManager;
+const long interval_sensor = 600000; 
+//WiFiManager wifiManager;
 WiFiClient espClient;
 PubSubClient client(espClient);
 long lastMsg = 0;
@@ -133,7 +139,7 @@ char msg[50];
 void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
-    const char* subscribetopic= "0/11/20000001/1"; //topic_sub_concat;
+    const char* subscribetopic= "0/11/20000002/1"; //topic_sub_concat;
     //Serial.print("Attempting MQTT connection...");
     // Create a random client ID
     // deviceId += String(random(0xffff), HEX);
@@ -146,7 +152,7 @@ void reconnect() {
       client.subscribe(subscribetopic);
     } else {
       Serial.print("failed, rc=");
-      //Serial.print(client.state());
+      Serial.print(client.state());
       //Serial.println(" try again in 5 seconds");
       // Wait 5 seconds before retrying
       delay(5000);
@@ -156,7 +162,7 @@ void reconnect() {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 void mqtt_msj(String code, String descript) {
   
-  const char* topic="0/11/20000001/0";//topic_concat;
+  const char* topic="0/11/20000002/0";//topic_concat;
   time_t now;
   struct tm timeinfo;
   time(&now);
@@ -177,6 +183,31 @@ void mqtt_msj(String code, String descript) {
   serializeJson(doc, buffer);
   size_t n = serializeJson(doc, buffer);
   client.publish(topic, buffer, n);
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+void setup_wifi() {
+   delay(100);
+  // We start by connecting to a WiFi network
+    Serial.print("Connecting to ");
+    Serial.println(ssid);
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) 
+    {
+      delay(500);
+      Serial.print(".");
+    }
+  randomSeed(micros());
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+//Genera un Pulso en el Pin indicado:
+void Pulse(int PIN) {
+digitalWrite(PIN, HIGH);
+delay(200);
+digitalWrite(PIN, LOW);
 }
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------
 void callback(char* topic, byte* payload, unsigned int length) {
@@ -228,13 +259,7 @@ float mideCorrienteBAT() {
   corriente = (AcumValue / 50)*CTE_SHUNT;
   return corriente;
 }
-//---------------------------------------------------------------------------------------------------------------------------------------------------------
-//Genera un Pulso en el Pin indicado:
-void Pulse(int PIN) {
-digitalWrite(PIN, HIGH);
-delay(200);
-digitalWrite(PIN, LOW);
-}
+
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
 //Funcion parpadeo led carga batería (verde):
 void blink1(int interval_off) {
@@ -319,6 +344,112 @@ String invertirCadena(String s) {
     temporal += s[m];
   return temporal;
 }
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+//LOOP EN NÚCLEO 0:
+void loop_Tarea1 (void*pvParameters) {
+ledcSetup(CANAL, FREC, PREC);  //configuración PWM
+  ledcAttachPin(PWM, CANAL);
+  ledcWrite(CANAL, valorPWM);
+  pinMode(ONOFF_OUT1, OUTPUT);
+  digitalWrite(ONOFF_OUT1, LOW);
+  pinMode(ONOFF_OUT2, OUTPUT);
+  digitalWrite(ONOFF_OUT2, LOW);
+  pinMode(CORTE_INPANEL, OUTPUT);
+  digitalWrite(CORTE_INPANEL, LOW);
+  pinMode(RESET_MODEM, OUTPUT);
+  digitalWrite(RESET_MODEM, LOW);
+  pinMode(LED_ESTADO, OUTPUT);
+  digitalWrite(LED_ESTADO, LOW);
+  pinMode(LED_BAT, OUTPUT);
+  digitalWrite(LED_BAT, LOW);
+  pinMode(OUT1, OUTPUT);
+  digitalWrite(OUT1, HIGH);
+ if (!ina219_A.begin()) {
+    //Serial.println("Failed to find INA219_A chip");
+    while (1) { delay(10); }
+  }
+  if (!ina219_B.begin()) {
+    //Serial.println("Failed to find INA219_B chip");
+    while (1) { delay(10); }
+  }
+  //dht.setup(PIN_TEMP,DHTesp::DHT11);
+  delay(500);
+for(;;){
+   /*if (client.connected()) {
+   Serial.print("conectado ");;
+  }
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();*/
+  //Serial.print("Tarea 1 se corre en el núcleo: ");
+  //Serial.println(String (xPortGetCoreID()));
+   I_gen = CTE_SHUNT *ina219_A.getCurrent_mA();
+  if (I_gen > 10) {digitalWrite(CORTE_INPANEL, HIGH);}  // simulo diodo ideal con MOSFET
+  else{digitalWrite(CORTE_INPANEL, LOW);}
+  VCC = ina219_A.getBusVoltage_V();
+  //P_gen =  ina219_A.getPower_mW();
+  
+  float shuntvoltage_B = ina219_B.getShuntVoltage_mV();
+  float busvoltage_B = ina219_B.getBusVoltage_V();
+  V_bat = busvoltage_B + (shuntvoltage_B / 1000);
+
+  I_bat = mideCorrienteBAT();
+  Iabs_bat = abs(I_bat);
+  if (Iabs_bat < 1) { Estado_bat = 0; digitalWrite(LED_BAT, LOW);} // Batería desconectada
+  else {
+    if (I_bat < 0) { 
+      if ((V_bat>=V_FLOTE)& Iabs_bat<= I_FLOTE) {Estado_bat = 3; digitalWrite(LED_BAT, HIGH);} //Batería cargada
+      else{Estado_bat = 1; ajustaPWMcargador(); blink1(100);} // Batería cargando
+      }  
+    if (I_bat > 0) { Estado_bat = 2; ledcWrite(CANAL, 511);blink1(2000);}   // Batería descargando
+  }
+  
+  //I_load = I_gen + I_bat;
+  //P_load = I_load * VCC;
+  
+  V_out1 = mideTension (SENS_OUT1);
+  //Serial.println("VOUT1 = " V_out1);
+  if (V_out1 >= 4){outState1 = true;}
+  else{outState1 = false;}
+  V_out2 = mideTension (SENS_OUT2);
+ // Serial.println("VOUT2 = " V_out2 );
+   if (V_out2 >= 4){outState2 = true;}
+  else{outState2 = false;}
+  if ((!corte_bat)&(V_bat <Vbat_min) & (Estado_bat == 2)) { //Corte de salidas por batería baja
+    corte_bat = true;
+    mem_out1 = outState1;
+    mem_out2 = outState2;
+    if(outState1){Pulse(ONOFF_OUT1);}
+    if(outState2){Pulse(ONOFF_OUT2);}
+     }
+  if (corte_bat & V_bat>=V_reinicio){   //Reinicio de salidas con memoria
+    corte_bat = false;
+    outState1 = mem_out1;
+    outState2 = mem_out2;
+    if(outState1){Pulse(ONOFF_OUT1);}
+    if(outState2){Pulse(ONOFF_OUT2);}
+  }
+   if (!client.connected()) {
+    blink2();                        //parpadeo led azul
+  }else {digitalWrite(LED_ESTADO,HIGH);}  
+  //TempAndHumidity data = dht.getTempAndHumidity();
+  temperatura = 35; //data.temperature;
+  humedad = 45;  //data.humidity;
+ // Serial.println("Temperatura: " + String(data.temperature, 2)+ "C");
+ // Serial.println("Humedad: " + String(data.humidity, 1)+ "%");
+ /* Serial.print("Tension VCC: "); Serial.print(VCC); Serial.println(" V");
+  Serial.print("Tension de bateria: "); Serial.print(V_bat); Serial.println(" V");  
+  Serial.print("Corriente generada: "); Serial.print(I_gen); Serial.println(" mA");
+  Serial.print("Corriente de bateria: "); Serial.print(I_bat); Serial.println(" mA");
+  Serial.print("Corriente total de carga : "); Serial.print(I_load); Serial.println(" mA");
+  Serial.print("Potencia generada: "); Serial.print(P_gen); Serial.println(" mW");
+  Serial.print("Potencia total de carga: "); Serial.print(P_load); Serial.println(" mW");
+  */ delay(10);
+  
+}
+}
+
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
 //SETUP:
@@ -331,6 +462,8 @@ void setup() {
   const char* device_name_char=device_name.c_str();
   ap_pass = invertirCadena(deviceId);
   const char* ap_pass_char=ap_pass.c_str();
+  setup_wifi();
+
 
  /* char* deviceId_C;
   deviceId.toCharArray(deviceId_C,8);
@@ -345,7 +478,8 @@ void setup() {
   */
 
   //read configuration from FS json
-  Serial.println("mounting FS...");
+  
+  /*Serial.println("mounting FS...");
 
   if (SPIFFS.begin()) {
     Serial.println("mounted file system");
@@ -406,17 +540,17 @@ void setup() {
   // id/name placeholder/prompt default length
   //WiFiManagerParameter custom_text("<p>This is just a text paragraph</p>");
   
-  WiFiManagerParameter custom_mqtt_server("server", "mqtt server", mqtt_server, 40);
-  WiFiManagerParameter custom_mqtt_port("port", "mqtt port", mqtt_port, 5);
+  //WiFiManagerParameter custom_mqtt_server("server", "mqtt server", mqtt_server, 40);
+  //WiFiManagerParameter custom_mqtt_port("port", "mqtt port", mqtt_port, 5);
   //WiFiManagerParameter custom_api_token("apikey", "API token", api_token, 34);
 
   //WiFiManager
   //Local intialization. Once its business is done, there is no need to keep it around
   
-
+setup_wifi();
   //set config save notify callback
-  wifiManager.setSaveConfigCallback(saveConfigCallback);
-  wifiManager.setShowStaticFields(true);  // show Static IP  user Field 
+  //wifiManager.setSaveConfigCallback(saveConfigCallback);
+  //wifiManager.setShowStaticFields(false);  // show Static IP  user Field 
  //wifiManager.setShowDnsFields(true); // show DNS  user Field
   //set static ip
   IPAddress _ip, _gw, _sn,_dns;
@@ -426,40 +560,40 @@ void setup() {
   _dns.fromString(static_dns);
 
   //wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn);
-  wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
+  //wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
 
   //add all your parameters here
   //wifiManager.addParameter(&custom_text);
-  wifiManager.addParameter(&custom_mqtt_server);
-  wifiManager.addParameter(&custom_mqtt_port);
+ // wifiManager.addParameter(&custom_mqtt_server);
+  //wifiManager.addParameter(&custom_mqtt_port);
   //wifiManager.addParameter(&custom_api_token);
 
   //reset settings - for testing
-  //wifiManager.resetSettings();
+ // wifiManager.resetSettings();
 
   //set minimu quality of signal so it ignores AP's under that quality
   //defaults to 8%
-  wifiManager.setMinimumSignalQuality(30);
+  //wifiManager.setMinimumSignalQuality(30);
 
   //sets timeout until configuration portal gets turned off
   //useful to make it all retry or go to sleep
   //in seconds
-  wifiManager.setTimeout(180);
-  wifiManager.setConfigPortalTimeout(120);
+  //wifiManager.setTimeout(180);
+  //wifiManager.setConfigPortalTimeout(120);
   
   
   //fetches ssid and pass and tries to connect
   //if it does not connect it starts an access point with the specified name
   //here  "AutoConnectAP"
   //and goes into a blocking loop awaiting configuration
-  if (!wifiManager.autoConnect(device_name_char, ap_pass_char)) {
-    Serial.println("failed to connect and hit timeout");
-    delay(3000);
+  //if (!wifiManager.autoConnect(device_name_char, ap_pass_char)) {
+    //Serial.println("failed to connect and hit timeout");
+    //delay(3000);
     //reset and try again, or maybe put it to deep sleep
-    ESP.restart();
-    delay(5000);
-  }
-   wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
+    //ESP.restart();
+    //delay(5000);
+  //}
+ /*  wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
         if (WiFi.hostByName(mqtt_server, ipAddr) != 1)
         Serial.printf("ERROR: Unable to resolve host name- %s\n",mqtt_server);
     else
@@ -469,8 +603,8 @@ void setup() {
   Serial.println("connected...yeey :)");
 
   //read updated parameters
-  strcpy(mqtt_server, custom_mqtt_server.getValue());
-  strcpy(mqtt_port, custom_mqtt_port.getValue());
+  //strcpy(mqtt_server, custom_mqtt_server.getValue());
+  //strcpy(mqtt_port, custom_mqtt_port.getValue());
   //strcpy(api_token, custom_api_token.getValue());
 
   //save the custom parameters to FS
@@ -506,123 +640,21 @@ void setup() {
     configFile.close();
     //end save
   }
-  WiFi.mode(WIFI_STA);
+  //WiFi.mode(WIFI_STA);
   Serial.println("local ip");
   Serial.println(WiFi.localIP());
   Serial.println(WiFi.gatewayIP());
   Serial.println(WiFi.subnetMask());
   Serial.println(WiFi.dnsIP());
+  */
   //-------------------------------------------------------------------------------------------------------------------------------------------------------------
   
-  configTime(myTimeZone, 0, TIME_SERVER);  // get UTC time via NTP
+  //configTime(myTimeZone, 0, TIME_SERVER);  // get UTC time via NTP
  
-  client.setServer(mqtt_server, 51883);
+  client.setServer(mqtt_server_domain, 1883);
   client.setCallback(callback);
   
   delay(500);
-}
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------
-//LOOP EN NÚCLEO 0:
-void loop_Tarea1 (void*pvParameters) {
-ledcSetup(CANAL, FREC, PREC);  //configuración PWM
-  ledcAttachPin(PWM, CANAL);
-  ledcWrite(CANAL, valorPWM);
-  pinMode(ONOFF_OUT1, OUTPUT);
-  digitalWrite(ONOFF_OUT1, LOW);
-  pinMode(ONOFF_OUT2, OUTPUT);
-  digitalWrite(ONOFF_OUT2, LOW);
-  pinMode(CORTE_INPANEL, OUTPUT);
-  digitalWrite(CORTE_INPANEL, LOW);
-  pinMode(RESET_MODEM, OUTPUT);
-  digitalWrite(RESET_MODEM, LOW);
-  pinMode(LED_ESTADO, OUTPUT);
-  digitalWrite(LED_ESTADO, LOW);
-  pinMode(LED_BAT, OUTPUT);
-  digitalWrite(LED_BAT, LOW);
- if (!ina219_A.begin()) {
-    //Serial.println("Failed to find INA219_A chip");
-    while (1) { delay(10); }
-  }
-  if (!ina219_B.begin()) {
-    //Serial.println("Failed to find INA219_B chip");
-    while (1) { delay(10); }
-  }
-  dht.setup(PIN_TEMP,DHTesp::DHT11);
-  delay(500);
-for(;;){
-   /*if (client.connected()) {
-   Serial.print("conectado ");;
-  }
-  if (!client.connected()) {
-    reconnect();
-  }
-  client.loop();*/
-  //Serial.print("Tarea 1 se corre en el núcleo: ");
-  //Serial.println(String (xPortGetCoreID()));
-   I_gen = CTE_SHUNT *ina219_A.getCurrent_mA();
-  if (I_gen > 10) {digitalWrite(CORTE_INPANEL, HIGH);}  // simulo diodo ideal con MOSFET
-  else{digitalWrite(CORTE_INPANEL, LOW);}
-  //VCC = ina219_A.getBusVoltage_V();
-  //P_gen =  ina219_A.getPower_mW();
-  
-  float shuntvoltage_B = ina219_B.getShuntVoltage_mV();
-  float busvoltage_B = ina219_B.getBusVoltage_V();
-  V_bat = busvoltage_B + (shuntvoltage_B / 1000);
-
-  I_bat = mideCorrienteBAT();
-  Iabs_bat = abs(I_bat);
-  if (Iabs_bat < 1) { Estado_bat = 0; digitalWrite(LED_BAT, LOW);} // Batería desconectada
-  else {
-    if (I_bat < 0) { 
-      if ((V_bat>=V_FLOTE)& Iabs_bat<= I_FLOTE) {Estado_bat = 3; digitalWrite(LED_BAT, HIGH);} //Batería cargada
-      else{Estado_bat = 1; ajustaPWMcargador(); blink1(100);} // Batería cargando
-      }  
-    if (I_bat > 0) { Estado_bat = 2; ledcWrite(CANAL, 511);blink1(2000);}   // Batería descargando
-  }
-  
-  //I_load = I_gen + I_bat;
-  //P_load = I_load * VCC;
-  
-  V_out1 = mideTension (SENS_OUT1);
-  //Serial.println("VOUT1 = " V_out1);
-  if (V_out1 >= 4){outState1 = true;}
-  else{outState1 = false;}
-  V_out2 = mideTension (SENS_OUT2);
- // Serial.println("VOUT2 = " V_out2 );
-   if (V_out2 >= 4){outState2 = true;}
-  else{outState2 = false;}
-  if ((!corte_bat)&(V_bat <Vbat_min) & (Estado_bat == 2)) { //Corte de salidas por batería baja
-    corte_bat = true;
-    mem_out1 = outState1;
-    mem_out2 = outState2;
-    if(outState1){Pulse(ONOFF_OUT1);}
-    if(outState2){Pulse(ONOFF_OUT2);}
-     }
-  if (corte_bat & V_bat>=V_reinicio){   //Reinicio de salidas con memoria
-    corte_bat = false;
-    outState1 = mem_out1;
-    outState2 = mem_out2;
-    if(outState1){Pulse(ONOFF_OUT1);}
-    if(outState2){Pulse(ONOFF_OUT2);}
-  }
-   if (!client.connected()) {
-    blink2();                        //parpadeo led azul
-  }else {digitalWrite(LED_ESTADO,HIGH);}  
-  TempAndHumidity data = dht.getTempAndHumidity();
-  temperatura = data.temperature;
-  humedad = data.humidity;
- // Serial.println("Temperatura: " + String(data.temperature, 2)+ "C");
- // Serial.println("Humedad: " + String(data.humidity, 1)+ "%");
- /* Serial.print("Tension VCC: "); Serial.print(VCC); Serial.println(" V");
-  Serial.print("Tension de bateria: "); Serial.print(V_bat); Serial.println(" V");  
-  Serial.print("Corriente generada: "); Serial.print(I_gen); Serial.println(" mA");
-  Serial.print("Corriente de bateria: "); Serial.print(I_bat); Serial.println(" mA");
-  Serial.print("Corriente total de carga : "); Serial.print(I_load); Serial.println(" mA");
-  Serial.print("Potencia generada: "); Serial.print(P_gen); Serial.println(" mW");
-  Serial.print("Potencia total de carga: "); Serial.print(P_load); Serial.println(" mW");
-  */ delay(10);
-  
-}
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -637,23 +669,23 @@ void loop() {
  if (currentMillis - previousMillis >= interval_sensor) {
     previousMillis = currentMillis;
    if (Estado_bat == 1) {
-      mqtt_msj("Carg(mA)", dtostrf(Iabs_bat, 4, 2, msg));
+      mqtt_msj("C", dtostrf(Iabs_bat, 4, 2, msg));
       
     }
     if (Estado_bat == 2) {
-      mqtt_msj("Desc(mA)", dtostrf(Iabs_bat, 4, 2, msg));
+      mqtt_msj("D", dtostrf(Iabs_bat, 4, 2, msg)); // descargando
       
     }
-    if (Estado_bat == 0) { mqtt_msj("NObat", dtostrf(Iabs_bat, 4, 2, msg)); }
-    if (Estado_bat == 3) { mqtt_msj("Flote", dtostrf(Iabs_bat, 4, 2, msg)); }
+    if (Estado_bat == 0) { mqtt_msj("NB", dtostrf(Iabs_bat, 4, 2, msg)); } //bat desconectada
+    if (Estado_bat == 3) { mqtt_msj("F", dtostrf(Iabs_bat, 4, 2, msg)); } // flote
 
     //mqtt_msj("VCC (V): ", dtostrf(VCC, 4, 2, msg));
-    mqtt_msj("Vb", dtostrf(V_bat, 4, 2, msg));
-    mqtt_msj("I", dtostrf(I_gen, 4, 2, msg));
+    mqtt_msj("Vb", dtostrf(V_bat, 4, 2, msg));  
+    mqtt_msj("Ig", dtostrf(I_gen, 4, 2, msg));
     //mqtt_msj("Iload(mA)", dtostrf(I_load, 4, 2, msg));
     mqtt_msj("T", dtostrf(temperatura, 4, 2, msg));
     mqtt_msj("H", dtostrf(humedad, 4, 2, msg));
-    mqtt_msj("Vo", dtostrf(V_out1, 4, 2, msg));
+    mqtt_msj("Vo", dtostrf(VCC, 4, 2, msg));
     //mqtt_msj("P_gen (mW): ", dtostrf(P_gen, 4, 2, msg));
     //mqtt_msj("P_load(mW): ", dtostrf(P_load, 4, 2, msg));
     //Serial.println(" ");
