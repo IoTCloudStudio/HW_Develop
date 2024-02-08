@@ -17,10 +17,10 @@ const int ALARM_TONE_PAUSE = 800;
 const int ALARM_TONE_REPEAT = 6;
 boolean alarm = false;
 
-const char* ssid = "CMR";
-const char* password = "Rosario2020";
-const char* mqtt_server_domain = "192.168.2.93";
-const long mqtt_server_port = 1883;
+const char* ssid = "292000000000WF";
+const char* password = "admin3382";
+const char* mqtt_server_domain = "192.168.0.1";
+const long mqtt_server_port = 51883;
 //const char* ssid = "IoT";
 //const char* password = "IoTcloud2019";
 //const char* mqtt_server_domain = "192.168.170.84"; // Remoto: "testmqtt.iotcloud.studio";//

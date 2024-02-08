@@ -1,13 +1,14 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-const char* ssid ="AntiGORILAS"; //replace this with your wifi  name
-const char* password ="entreri0s*4*3*6*1"; //replace with your wifi password
-const char* broker = "testmqtt.iotcloud.studio"; //replace this with IP address of machine 
+const char* ssid ="2920wf"; //replace this with your wifi  name
+const char* password ="admin3382"; //replace with your wifi password
+const char* broker = "181.117.205.30"; //replace this with IP address of machine 
 //on which broker is installed
 const int port = 51883;
 const char* mqttUser = "user";
 const char* mqttPassword = "user";
+IPAddress server(181, 117, 205, 30);
 
 WiFiClient wifiClient;
 PubSubClient client(wifiClient);
@@ -25,7 +26,7 @@ Serial.print(".");
 }
 Serial.println("Connected to WiFi");
 Serial.println("ESP8266 AS PUBLISHER");
-client.setServer(broker, port); //default port for mqtt is 1883
+client.setServer(server, 51883); //default port for mqtt is 1883
 }
 
 void loop()
@@ -65,7 +66,7 @@ Serial.print(".");
 Serial.println("Connected to AP");
 }
 Serial.print("Connecting to Broker …");
-Serial.print("192.168.43.220");
+//Serial.print("192.168.43.220");
 
 if ( client.connect("ESP8266 Device" ) )
 {

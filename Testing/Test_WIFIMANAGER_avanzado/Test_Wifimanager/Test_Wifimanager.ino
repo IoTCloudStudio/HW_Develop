@@ -1,12 +1,12 @@
-#include <FS.h>                   //this needs to be first, or it all crashes and burns...
+#include <FS.h>  //this needs to be first, or it all crashes and burns...
 
-#include <WiFiManager.h>          //https://github.com/tzapu/WiFiManager
+#include <WiFiManager.h>  //https://github.com/tzapu/WiFiManager
 
 #ifdef ESP32
-  #include <SPIFFS.h>
+#include <SPIFFS.h>
 #endif
 #include <PubSubClient.h>
-#include <ArduinoJson.h>          //https://github.com/bblanchon/ArduinoJson
+#include <ArduinoJson.h>  //https://github.com/bblanchon/ArduinoJson
 #include <DNSServer.h>
 
 //define your default values here, if there are different values in config.json, they are overwritten.
@@ -14,9 +14,10 @@ String deviceId = "20000001";
 String device_name = "IoT_Cloud_";
 String ap_pass = "";
 //length should be max size + 1
-char mqtt_server[40] = "testmqtt.iotcloud.studio";;
+char mqtt_server[40] = "181.117.205.30";
+;
 char mqtt_port[6] = "51883";
-int mqtt_port_1 =51883;
+int mqtt_port_1 = 51883;
 char api_token[34] = "";
 //default custom static IP
 char static_ip[16] = "192.168.0.123";
@@ -33,7 +34,7 @@ PubSubClient client(espClient);
 bool shouldSaveConfig = false;
 
 //callback notifying us of the need to save config
-void saveConfigCallback () {
+void saveConfigCallback() {
   Serial.println("Should save config");
   shouldSaveConfig = true;
 }
@@ -67,16 +68,16 @@ void reconnect() {
 
 void setup() {
   // put your setup code here, to run once:
-  
+
   Serial.begin(115200);
   Serial.println();
 
   //clean FS, for testing
   //SPIFFS.format();
   device_name = device_name + deviceId;
-  const char* device_name_char=device_name.c_str();
+  const char* device_name_char = device_name.c_str();
   ap_pass = invertirCadena(deviceId);
-  const char* ap_pass_char=ap_pass.c_str();
+  const char* ap_pass_char = ap_pass.c_str();
 
   //read configuration from FS json
   Serial.println("mounting FS...");
@@ -94,11 +95,11 @@ void setup() {
         std::unique_ptr<char[]> buf(new char[size]);
 
         configFile.readBytes(buf.get(), size);
- #if defined(ARDUINOJSON_VERSION_MAJOR) && ARDUINOJSON_VERSION_MAJOR >= 6
+#if defined(ARDUINOJSON_VERSION_MAJOR) && ARDUINOJSON_VERSION_MAJOR >= 6
         DynamicJsonDocument json(1024);
         auto deserializeError = deserializeJson(json, buf.get());
         serializeJson(json, Serial);
-        if ( ! deserializeError ) {
+        if (!deserializeError) {
 #else
         DynamicJsonBuffer jsonBuffer;
         JsonObject& json = jsonBuffer.parseObject(buf.get());
@@ -139,28 +140,28 @@ void setup() {
   // After connecting, parameter.getValue() will get you the configured value
   // id/name placeholder/prompt default length
   //WiFiManagerParameter custom_text("<p>This is just a text paragraph</p>");
-  
+
   WiFiManagerParameter custom_mqtt_server("server", "mqtt server", mqtt_server, 40);
   WiFiManagerParameter custom_mqtt_port("port", "mqtt port", mqtt_port, 5);
   //WiFiManagerParameter custom_api_token("apikey", "API token", api_token, 34);
 
   //WiFiManager
   //Local intialization. Once its business is done, there is no need to keep it around
-  
+
 
   //set config save notify callback
   wifiManager.setSaveConfigCallback(saveConfigCallback);
-  wifiManager.setShowStaticFields(true);  // show Static IP  user Field 
- //wifiManager.setShowDnsFields(true); // show DNS  user Field
+  wifiManager.setShowStaticFields(true);  // show Static IP  user Field
+                                          //wifiManager.setShowDnsFields(true); // show DNS  user Field
   //set static ip
-  IPAddress _ip, _gw, _sn,_dns;
+  IPAddress _ip, _gw, _sn, _dns;
   _ip.fromString(static_ip);
   _gw.fromString(static_gw);
   _sn.fromString(static_sn);
   //_dns.fromString(static_dns);
   _dns.fromString("8.8.8.8");
   //wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,);
-  wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
+  //wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
 
   //add all your parameters here
   //wifiManager.addParameter(&custom_text);
@@ -173,14 +174,14 @@ void setup() {
 
   //set minimu quality of signal so it ignores AP's under that quality
   //defaults to 8%
-  wifiManager.setMinimumSignalQuality(30);
+  //wifiManager.setMinimumSignalQuality(30);
 
   //sets timeout until configuration portal gets turned off
   //useful to make it all retry or go to sleep
   //in seconds
   wifiManager.setTimeout(180);
- wifiManager.setConfigPortalTimeout(120);
-  
+  wifiManager.setConfigPortalTimeout(120);
+
   //fetches ssid and pass and tries to connect
   //if it does not connect it starts an access point with the specified name
   //here  "AutoConnectAP"
@@ -192,11 +193,11 @@ void setup() {
     ESP.restart();
     delay(5000);
   }
- wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn,_dns);
-        if (WiFi.hostByName(mqtt_server, ipAddr) != 1)
-        Serial.printf("ERROR: Unable to resolve host name- %s\n",mqtt_server);
-    else
-        Serial.printf("INFO: Host name resolved successfuly - %s\n", ipAddr.toString().c_str());
+  //wifiManager.setSTAStaticIPConfig(_ip, _gw, _sn, _dns);
+  if (WiFi.hostByName(mqtt_server, ipAddr) != 1)
+    Serial.printf("ERROR: Unable to resolve host name- %s\n", mqtt_server);
+  else
+    Serial.printf("INFO: Host name resolved successfuly - %s\n", ipAddr.toString().c_str());
 
   //if you get here you have connected to the WiFi
   Serial.println("connected...yeey :)");
@@ -209,7 +210,7 @@ void setup() {
   //save the custom parameters to FS
   if (shouldSaveConfig) {
     Serial.println("saving config");
- #if defined(ARDUINOJSON_VERSION_MAJOR) && ARDUINOJSON_VERSION_MAJOR >= 6
+#if defined(ARDUINOJSON_VERSION_MAJOR) && ARDUINOJSON_VERSION_MAJOR >= 6
     DynamicJsonDocument json(1024);
 #else
     DynamicJsonBuffer jsonBuffer;
@@ -229,7 +230,7 @@ void setup() {
       Serial.println("failed to open config file for writing");
     }
 
- #if defined(ARDUINOJSON_VERSION_MAJOR) && ARDUINOJSON_VERSION_MAJOR >= 6
+#if defined(ARDUINOJSON_VERSION_MAJOR) && ARDUINOJSON_VERSION_MAJOR >= 6
     serializeJson(json, Serial);
     serializeJson(json, configFile);
 #else
@@ -242,16 +243,16 @@ void setup() {
 
   WiFi.mode(WIFI_STA);
 
-    // snipped
-    ipAddr=181,117,205,30;
-    
-  
+  // snipped
+  ipAddr = 181, 117, 205, 30;
+
+
   Serial.println("local ip");
   Serial.println(WiFi.localIP());
   Serial.println(WiFi.gatewayIP());
   Serial.println(WiFi.subnetMask());
   Serial.println(WiFi.dnsIP());
-   client.setServer(mqtt_server,  51883);
+  client.setServer(mqtt_server, 51883);
 }
 
 void loop() {
