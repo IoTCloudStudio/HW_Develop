@@ -36,7 +36,8 @@ DHTesp dht;
 #define LED_BAT 15        // (VERDE) Muestra estado de carga y descarga de la batería
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 //VARIABLES Y CONSTANTES GENERALES:
-#define CTE_SHUNT 4 // Cantidad de R de Shunt 0.1 Ohm en paralelo
+#define CTE_SHUNT 5 // Cantidad de R de Shunt 0.1 Ohm en paralelo
+#define CTE_SHUNTG 5
 #define DIVISOR  0.164     // Coeficiente del divisor de tensíon = R2/(R1+R2)=47k/(240k+47K)
 #define SENSIB_1 0.00088   // Volt/muestra del ADC
 #define SENSIB_2 0.00099   // Volt/muestra del ADC (reajuste para medir tensión de 5V)
@@ -49,7 +50,7 @@ float I_gen = 0;  // Corriente generada en la salida del convertidor DC/DC
 float V_bat = 0;
 float Vbat_min = 11.6; //Tensión de corte de las salidas
 float V_reinicio = 13; //Tension de reinicio automatico de salidas
-float VCC = 0;   //Tensión de alimentación principal (batería más generada)
+float V_gen = 0;   //Tensión generada
 float V_out1 = 0;   //Tensión de salida 1
 float V_out2 = 0;   //Tensión de salida 2
 float P_load = 0;  // Potencia total consumida por la carga: P_load = I_load*VCC
@@ -74,7 +75,7 @@ int valorPWM = 200;
 #define CANAL 0
 #define PREC 9       // Precisión de 9 bits implica valores entre 0 y 511
 #define FREC 5000    // Frecuencia en HZ
-#define I_MAX 1500   //Corriente máxima de carga [mA]
+#define I_MAX 10000   //Corriente máxima de carga [mA]
 #define PWM_MAX 511  // 2^PREC - 1
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 //VARIABLES Y CONSTANTES DE CONEXIÓN Y REPORTE:
@@ -97,8 +98,8 @@ const char* password = "IoTcloud2019";
 const char* mqtt_server_domain = "192.168.170.84"; //local 
 const long mqtt_server_port = 1883;//local */
 
-/*const char* ssid = "Fibertel WiFi288 2.4GHz";
-const char* password = "0143512984";*/
+//const char* ssid = "Fibertel WiFi288 2.4GHz";
+//const char* password = "0143512984";
 const char* mqtt_server_domain = "testmqtt.iotcloud.studio";  // Remoto
 const long mqtt_server_port = 51883;                          // Remoto
 
@@ -110,8 +111,8 @@ char mqtt_server[40] = "testmqtt.iotcloud.studio";;
 char mqtt_port[6] = "51883";
 char api_token[34] = "";
 //default custom static IP
-char static_ip[16] = "192.168.0.123";
-char static_gw[16] = "192.168.0.1";
+char static_ip[16] = "192.168.230.123";
+char static_gw[16] = "192.168.230.1";
 char static_sn[16] = "255.255.255.0";
 char static_dns[16] = "8.8.8.8";
 IPAddress ipAddr;
@@ -559,10 +560,12 @@ for(;;){
   client.loop();*/
   //Serial.print("Tarea 1 se corre en el núcleo: ");
   //Serial.println(String (xPortGetCoreID()));
-   I_gen = CTE_SHUNT *ina219_A.getCurrent_mA();
-  if (I_gen > 10) {digitalWrite(CORTE_INPANEL, HIGH);}  // simulo diodo ideal con MOSFET
-  else{digitalWrite(CORTE_INPANEL, LOW);}
-  //VCC = ina219_A.getBusVoltage_V();
+   I_gen = CTE_SHUNTG *ina219_A.getCurrent_mA();
+  if (I_gen > 10) {digitalWrite(CORTE_INPANEL, HIGH);
+  V_gen = ina219_A.getBusVoltage_V();}  // simulo diodo ideal con MOSFET
+  else{digitalWrite(CORTE_INPANEL, LOW);
+  V_gen =0;}
+  
   //P_gen =  ina219_A.getPower_mW();
   
   float shuntvoltage_B = ina219_B.getShuntVoltage_mV();
@@ -647,9 +650,9 @@ void loop() {
     if (Estado_bat == 0) { mqtt_msj("NObat", dtostrf(Iabs_bat, 4, 2, msg)); }
     if (Estado_bat == 3) { mqtt_msj("Flote", dtostrf(Iabs_bat, 4, 2, msg)); }
 
-    //mqtt_msj("VCC (V): ", dtostrf(VCC, 4, 2, msg));
+    mqtt_msj("Vgen (V): ", dtostrf(V_gen, 4, 2, msg));
     mqtt_msj("Vb", dtostrf(V_bat, 4, 2, msg));
-    mqtt_msj("I", dtostrf(I_gen, 4, 2, msg));
+    mqtt_msj("Igen", dtostrf(I_gen, 4, 2, msg));
     //mqtt_msj("Iload(mA)", dtostrf(I_load, 4, 2, msg));
     mqtt_msj("T", dtostrf(temperatura, 4, 2, msg));
     mqtt_msj("H", dtostrf(humedad, 4, 2, msg));
