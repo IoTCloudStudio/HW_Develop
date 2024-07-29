@@ -99,7 +99,7 @@ The resulting (built) image(s) can be found in the directory ```/bin``` created 
 You can not simply edit Web UI files because you will need to convert them to C arrays, which can be done automatically by a gulp script that can be found in tools directory or you can use compiled executables at the same directory as well (for Windows PCs only).
 
 If you want to edit esp-rfid's Web UI you will need (unless using compiled executables):
-* NodeJS
+* NodeJS V10
 * npm (comes with NodeJS installer)
 * Gulp (can be installed with npm)
 
