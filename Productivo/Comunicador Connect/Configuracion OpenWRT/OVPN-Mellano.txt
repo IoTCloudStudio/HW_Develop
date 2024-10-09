@@ -24,3 +24,15 @@ Puerto int y ext: 4370
 Zk8088
 IP:192.168.0.10
 Puerto int y ext: 8088 
+
+INTERFACE
+192.168.0.1
+
+WIFI
+IoTCloud-MellanoSeguridad
+m3114n0s3gur1d4d
+
+VPN
+Mellano-IoTCloud010002002XXX
+DamianMe11ano2022010002002XXX
+

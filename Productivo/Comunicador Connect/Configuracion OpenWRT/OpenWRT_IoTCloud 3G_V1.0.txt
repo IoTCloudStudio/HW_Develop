@@ -42,7 +42,7 @@ Ingresar al chrome IP 192.168.1.1:
 user: root
 pass: 1234
 
-En el menu system/administration grabar pass "3gC0nn3ct!" y logout. 
+En el menu system/administration grabar pass "3gC0nn3ct!" o "IoTCloud2019!" y logout. 
 Volver a ingresar para probar credenciales nuevas.
 
 Conectar a internet (menu Network/wireless) ingresara la conexion activa, elegir scan, elegir iot o la red que tengas discponible
@@ -100,7 +100,7 @@ Pass: L0ck3382!
 
 Equipos IoT Genericos!!!!
 
-SSID: IoT_Cloud_XXX (donde XXX es el SN, por ejemplo: 0100020020051)
+SSID: IoT_Cloud_XXX (donde XXX es el SN, por ejemplo: 010002002051)
 Pass: Es el SN de atras para adelante (por ejemplo: 150200200010)
 
 
@@ -156,14 +156,20 @@ ssh root@10.2.2.X
 /etc/init.d/uhttpd enabled
 /etc/init.d/uhttpd start
 
+IoTCloud2019
 
 Desbloquear modem 3g
-
 Buscar soft
 ZTE Movistar. Recordar volver a conectar para activar
 ---------------------------------------------------
 
 Comando para identificar IMEI del modem
+
+Ingresar por SSH
+
+	ssh root@10.2.2.XX
+
+Reemplazar XX por el numero del Comunicador
 
 gcom info -d /dev/ttyUSBx
 
@@ -181,5 +187,12 @@ Guardar y volver al listado de SIM, cambiar la asigacion al grupo nuevo creado.
 
 ---------------------------------------------------
 
+TESTING PUERTOS
+sudo nmap -p 4370  10.2.2.58
+sudo nmap -p 4370 -sU  10.2.2.58
 
+---------------------------------------------------
 
+Bus 003 Device 004: ID 1a86:7523 QinHeng Electronics CH340 serial converter
+
+m2m.amx
