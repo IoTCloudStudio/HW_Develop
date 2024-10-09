@@ -1,0 +1,156 @@
+Installing TFTP Server :
+(Linux)
+sudo apt update
+sudo apt install tftpd-hpa
+
+(WIN)
+En Win hay que buscar el instalador openTFTP guardado
+
+---------------------------------------------------
+
+Configure un servidor TFTP de la siguiente manera:
+ingrsar a redes y recursos compartidos de windows- configuracion de dispositivo- ipv4 - asignar el ip siguiente
+
+Dirección IP 192.168.0.225
+
+El archivo tp_recovery.bin se encuentra en la misma carpeta de este instructivo
+Debemos colocar el tp_recovery.bin en el directorio :
+(Linux) /srv/tftp/ 
+(WIN revisar carpeta por default en el config del server, de no existir debera crearse una) C:\OpenTFTPServer\tp_recovery.bin
+
+Iniciar o revisar que el servidor TFTP este INICIADO
+
+---------------------------------------------------
+
+Instalar OpenWrt
+
+Conectado al mr3020v1 a través de una conexión por cable
+Configurar la placa en 192.168.0.100 - 255.255.255.0 - 192.168.0.254
+
+---------------------------------------------------
+
+Ingresar al chrome IP 192.168.0.254:
+user: root
+pass: 1234 o admin
+
+En el menu system/administration grabar pass "3gC0nn3ct!" y logout. 
+Volver a ingresar para probar credenciales nuevas.
+
+Conectar a internet (menu Network/wireless) ingresara la conexion activa, elegir scan, elegir iot o la red que tengas discponible
+una vez eleida la red, configurada (user/pass) precionar save/apply
+
+Red IoT
+Pass IoTcloud2019
+
+Entrar a interfaces, editar WWAN, en advanced destildar "Use DNS servers advertised by peer" y ponerle custom DNS 8.8.8.8
+En Menu Network/Firewall: marcar input, output y foward hay que poner "accept" en cada opcion.
+
+reboot (Reiniciar el dispositivo)!!!!!!!
+
+Ingresar por SSH (ssh -oHostKeyAlgorithms=+ssh-rsa root@192.168.1.1) en windows es atra vez de powershell abrir como administrador
+si pregunta por autorizacion colocar "yes"
+
+opkg update
+opkg install comgt kmod-usb2 kmod-usb-ohci kmod-usb-uhci kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-acm usb-modeswitch luci-proto-3g
+opkg install openvpn-openssl luci-app-openvpn
+
+reboot (Reiniciar el dispositivo)!!!!!!!
+
+Crear interfaz "tun0" protocol ummanaged Device "tun0"
+editarla y en la solapa firewall: debera estar cargada wan y crear en la lista de redes "tun0"
+
+
+reboot (Reiniciar el dispositivo)!!!!!!!
+
+
+Crear interfaz 3GWAN, Protocol: UMTS/GPRS/EV-DO. Una vez aplicados los cambios editar la misma interfaz dial number *99# 
+y en la solapa firewall elegir WAN
+Tener en cuenta que si el modem es Huawei elegir USB2 o ZTE USB4
+
+Ir a system --> scheduled tasks:copiar y pegar el siguien texto a continuacion en el recuadro
+
+# Reboot at 4:30am every day
+# Note: To avoid infinite reboot loop, wait 70 seconds
+# and touch a file in /etc so clock will be set
+# properly to 4:31 on reboot before cron starts.
+30 4 * * * sleep 70 && touch /etc/banner && reboot
+
+---------------------------------------------------
+
+(Crear WIFI) en el menu Network/wireless/edit seleccionar el master
+
+
+Solo para LOCK!!!!
+
+en la parte de (interface configuration) 
+en la pestaña general setup, dirigirse a ESSID eh ingresar lossiguientes datos
+
+SSID: JOIN-LOCK
+
+despues en la pestaña wireless security ingresar el password en la parte de encryption
+elegir WPA2-PSK el pass va en la parte que figura (KEY)
+luego guardar los cambios (save/apply) y seguir con el proximo paso
+
+Pass: L0ck3382!
+
+-------
+
+Equipos IoT Genericos!!!!
+
+SSID: IoT_Cloud_XXX (donde XXX es el SN, por ejemplo: 0100020020051)
+Pass: Es el SN de atras para adelante (por ejemplo: 1500200200010)
+
+
+---------------------------------------------------
+
+Ingresar al OPNSense
+
+Crear usuario y tildar la opcion de crear certificado de usuario. En la proxima ventana, choose Existing certificate -> testing2
+VPN-> OpenVPN -> Client Specific override
+	Creamos un IP static para el user
+Ir a exportar certificate y generar el archivo
+
+En el dispositivo ir al menu VPN, OVPN/configuration file upload:
+Nombre: Mismo que el usuario
+subir el Certificate OVPN
+una vez subido vamos a ver el nombre de usuario en la listo de openvpn instances
+
+en el boton "Edit"
+(al principio del archivo) Cambiar tun por tun0
+(solo aparece la linea auth-user-pass que hay que agregarle) auth-user-pass /etc/openvpn/IoTcom65ovpn.auth (el numero que figura en 
+iotcom"60"  va a variar segun el numero del equipo el mismo se encuentra en la parte superior overview>>instance "iotcomXX" las X representan al numero 
+que devemos agregar en la linea ya nmencionada antes
+
+en la seccion que figura debajo titulada Section to add an optional 'auth-user-pass' file with your credentials
+En el recuadro abajo escribir:
+
+(nombre del usuario y contraseña que creamos en el opnsense) 
+IoTcom60
+iotcloud
+
+Guardar y volver a la pantalla de OVPN. Tildar enabled y start, save and apply
+
+---------------------------------------------------
+
+-CAmbiar Hostname en solapa system a "3G_Connect"
+
+-Desactivar acceso web:
+ssh root@10.2.2.69
+
+/etc/init.d/uhttpd disable
+/etc/init.d/uhttpd stop
+
+---------------------------------------------------
+Funcionalidades EXTRAS y troubleshooting:
+
+(Solo usar para activar acceso WEB) 
+ssh root@10.2.2.X
+/etc/init.d/uhttpd enabled
+/etc/init.d/uhttpd start
+
+
+Desbloquear modem 3g
+
+Buscar soft
+ZTE Movistar. Recordar volver a conectar para activar
+---------------------------------------------------

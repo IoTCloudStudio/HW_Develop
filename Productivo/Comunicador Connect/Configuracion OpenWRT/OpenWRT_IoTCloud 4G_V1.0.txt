@@ -47,11 +47,13 @@ pass: 1234
 En el menu system/administration grabar pass "3gC0nn3ct!" y logout. 
 Volver a ingresar para probar credenciales nuevas.
 
-Conectar a internet (menu Network/wireless) ingresara la conexion activa, elegir scan, elegir iot o la red que tengas discponible
-una vez eleida la red, configurada (user/pass) precionar save/apply
+Conectar a internet (menu Network/wireless) ingresara la conexion activa, elegir scan, elegir iot o la red que tengas disponible
+una vez elejida la red y configurada (user/pass) precionar save/apply
 
-Entrar interfaces, editar WWAN, en advanced destildar "Use DNS servers advertised by peer" y ponerle custom DNS 8.8.8.8
-Menu Network/Firewall: marcar forward, input y foward hay que poner "accept" en cada opcion.
+Entrar a interfaces, editar WWAN, en advanced destildar "Use DNS servers advertised by peer" y ponerle custom DNS 8.8.8.8
+En Menu Network/Firewall: marcar input, output y foward hay que poner "accept" en cada opcion.
+
+reboot (Reiniciar el dispositivo)!!!!!!!s
 
 Ingresar por SSH (ssh root@192.168.1.1) en windows es atra vez de powershell abrir como administrador
 si pregunta por autorizacion colocar "yes"
@@ -106,8 +108,13 @@ SSID: IoT_Cloud_XXX (donde XXX es el SN, por ejemplo: 010020020051)
 Pass: Es el SN de atras para adelante (por ejemplo: 150020020010)
 
 SSID: IoT_Cloud_Private
+<<<<<<< HEAD
 private950020020010 (ojo q no deja poner mayusculas)
 private2019
+=======
+private95020020010 (ojo q no deja poner mayusculas)
+86628002652983
+>>>>>>> 72de6e9 (Cambio por JuanZ)
 
 ---------------------------------------------------
 

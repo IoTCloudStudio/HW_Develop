@@ -2,7 +2,6 @@ Installing TFTP Server :
 (Linux)
 sudo apt update
 sudo apt install tftpd-hpa
-sudo systemctl status tftpd-hpa
 
 (WIN)
 En Win hay que buscar el instalador openTFTP guardado
@@ -15,7 +14,6 @@ ingrsar a redes y recursos compartidos de windows- configuracion de dispositivo-
 Dirección IP 192.168.0.225
 
 El archivo tp_recovery.bin se encuentra en la misma carpeta de este instructivo
-
 Debemos colocar el tp_recovery.bin en el directorio :
 (Linux) /srv/tftp/ 
 (WIN revisar carpeta por default en el config del server, de no existir debera crearse una) C:\OpenTFTPServer\tp_recovery.bin
@@ -50,22 +48,23 @@ Volver a ingresar para probar credenciales nuevas.
 Conectar a internet (menu Network/wireless) ingresara la conexion activa, elegir scan, elegir iot o la red que tengas discponible
 una vez eleida la red, configurada (user/pass) precionar save/apply
 
-Entrar interfaces, editar WWAN, en advanced destildar "Use DNS servers advertised by peer" y ponerle custom DNS 8.8.8.8
-Menu Network/Firewall: marcar forward, input y foward hay que poner "accept" en cada opcion.
+Red IoT
+Pass IoTcloud2019
 
-Ingresar por SSH (ssh root@192.168.1.1) en windows es atra vez de powershell abrir como administrador
+Entrar a interfaces, editar WWAN, en advanced destildar "Use DNS servers advertised by peer" y ponerle custom DNS 8.8.8.8
+
+En Menu Network/Firewall: en input, output y foward hay que poner "accept" en cada opcion.
+
+reboot (Reiniciar el dispositivo)!!!!!!!
+
+Ingresar por SSH (ssh root@192.168.1.1) en windows es powershell, abrir como administrador
 si pregunta por autorizacion colocar "yes"
 
 opkg update
 opkg install comgt kmod-usb2 kmod-usb-ohci kmod-usb-uhci kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-acm usb-modeswitch luci-proto-3g
-opkg install openvpn-openssl luci-app-openvpn 
-
-Crear interfaz "tun0" protocol ummanaged Device "tun0"
-editarla y en la solapa firewall: debera estar cargada wan y crear en la lista de redes "tun0"
-
+opkg install openvpn-openssl luci-app-openvpn
 
 reboot (Reiniciar el dispositivo)!!!!!!!
-
 
 Crear interfaz 3GWAN, Protocol: UMTS/GPRS/EV-DO. Una vez aplicados los cambios editar la misma interfaz dial number *99# 
 y en la solapa firewall elegir WAN
@@ -87,7 +86,7 @@ Ir a system --> scheduled tasks:copiar y pegar el siguien texto a continuacion e
 Solo para LOCK!!!!
 
 en la parte de (interface configuration) 
-en la pestaña general setup, dirigirse a ESSID eh ingresar lossiguientes datos
+en la pestaña general setup, dirigirse a ESSID eh ingresar los siguientes datos
 
 SSID: JOIN-LOCK
 
@@ -101,8 +100,8 @@ Pass: L0ck3382!
 
 Equipos IoT Genericos!!!!
 
-SSID: IoT_Cloud_XXX (donde XXX es el SN, por ejemplo: 010020020051)
-Pass: Es el SN de atras para adelante (por ejemplo: 150020020010)
+SSID: IoT_Cloud_XXX (donde XXX es el SN, por ejemplo: 0100020020051)
+Pass: Es el SN de atras para adelante (por ejemplo: 150200200010)
 
 
 ---------------------------------------------------
@@ -121,7 +120,7 @@ una vez subido vamos a ver el nombre de usuario en la listo de openvpn instances
 
 en el boton "Edit"
 (al principio del archivo) Cambiar tun por tun0
-(solo aparece la linea auth-user-pass que hay que agregarle) auth-user-pass /etc/openvpn/IoTcom60.auth (el numero que figura en 
+(solo aparece la linea auth-user-pass que hay que agregarle) auth-user-pass /etc/openvpn/IoTcom65ovpn.auth (el numero que figura en 
 iotcom"60"  va a variar segun el numero del equipo el mismo se encuentra en la parte superior overview>>instance "iotcomXX" las X representan al numero 
 que devemos agregar en la linea ya nmencionada antes
 
@@ -134,12 +133,17 @@ iotcloud
 
 Guardar y volver a la pantalla de OVPN. Tildar enabled y start, save and apply
 
+Crear interfaz "tun0" protocol ummanaged Device "tun0"
+editarla y en la solapa firewall: debera estar cargada wan y crear en la lista de redes "tun0"
+
+reboot (Reiniciar el dispositivo)!!!!!!!
+
 ---------------------------------------------------
 
 -CAmbiar Hostname en solapa system a "3G_Connect"
 
 -Desactivar acceso web:
-ssh root@10.2.2.X
+ssh root@10.2.2.69
 
 /etc/init.d/uhttpd disable
 /etc/init.d/uhttpd stop
@@ -157,6 +161,24 @@ Desbloquear modem 3g
 
 Buscar soft
 ZTE Movistar. Recordar volver a conectar para activar
+---------------------------------------------------
+
+Comando para identificar IMEI del modem
+
+gcom info -d /dev/ttyUSBx
+
+Reemplazar x por el USB en el que esta conectado el 3G (por lo general es el 4)
+
+Luego ingresar a Movistar, buscar el IMEI en el listado de CHIP
+
+Copiar el N° de SIM y crear un nuevo Grupo de Suscripcion en Administracion Comercial
+
+Colocar en nombre N° SIM_N° Comunicador_Sitio
+
+Ejemplo: 8954079900016497809_74_RODRIGUEZ1096
+
+Guardar y volver al listado de SIM, cambiar la asigacion al grupo nuevo creado.
+
 ---------------------------------------------------
 
 
