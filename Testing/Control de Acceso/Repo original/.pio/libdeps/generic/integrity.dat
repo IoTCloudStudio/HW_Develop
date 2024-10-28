@@ -1,9 +1,9 @@
-ESPAsyncUDP
-https://github.com/monkeyboard/Wiegand-Protocol-Library-for-Arduino.git
-Bounce2@2.52
-ESP Async WebServer
-ArduinoJson@5.13.4
-ESPAsyncTCP
-Time@1.5
 AsyncMqttClient
+ArduinoJson@5.13.4
+Bounce2@2.52
+ESPAsyncUDP
+Time@1.5
 https://github.com/miguelbalboa/rfid#ea7ee3f3daafd46d0c5b8438ba41147c384a1f0d
+https://github.com/monkeyboard/Wiegand-Protocol-Library-for-Arduino.git
+ESP Async WebServer
+ESPAsyncTCP

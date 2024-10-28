@@ -4,27 +4,27 @@
     <div class="row">
         <div class="col-sm-6">
             <legend>Backup</legend>
-            <h6 class="text-muted">Please make sure that you have made a backup on regular basis.</h6>
+            <h6 class="text-muted">Recuerda realizar un backup de manera regular.</h6>
             <div>
-                <button class="btn btn-link btn-sm" onclick="backupuser();">Backup User Data</button>
+                <button class="btn btn-link btn-sm" onclick="backupuser();">Backup usuarios</button>
                 <a id="downloadUser" style="display:none"></a>
-                <button class="btn btn-link btn-sm" onclick="backupset();">Backup Settings</button>
+                <button class="btn btn-link btn-sm" onclick="backupset();">Backup configuraciones</button>
                 <a id="downloadSet" style="display:none"></a>
             </div>
             <br>
             <div>
-                <legend>Restore</legend>
-                <h6 class="text-muted">Click on links and choose your backup file to restore.</h6>
-                <label for="restoreUser" class="btn btn-link btn-sm">Restore User Data</label>
+                <legend>Restaurar usuarios/configuraciones</legend>
+                <h6 class="text-muted">Escoge que quieres restaurar.</h6>
+                <label for="restoreUser" class="btn btn-link btn-sm">Restaurar usuarios</label>
                 <input id="restoreUser" type="file" accept="text/json" onchange="restoreUser();" style="display:none;">
-                <label for="restoreSet" class="btn btn-link btn-sm">Restore Settings</label>
+                <label for="restoreSet" class="btn btn-link btn-sm">Restaurar configuraciones</label>
                 <input id="restoreSet" type="file" accept="text/json" onchange="restoreSet();" style="display:none;">
             </div>
             <br>
             <div>
-                <legend>Restart</legend>
-                <h6 class="text-muted">Click to restart your device without saving changes.</h6>
-                <label for="restart" class="btn btn-link btn-sm">Restart Device</label>
+                <legend>Reiniciar</legend>
+                <h6 class="text-muted">Reiniciar sin guardar los cambios.</h6>
+                <label for="restart" class="btn btn-link btn-sm">Reiniciar dispositivo</label>
                 <button id="restart" class="btn btn-link btn-sm" onclick="restartESP();" style="display:none;"></button>
             </div>
             <br>
@@ -33,15 +33,15 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Please wait while restoring user data...</h4>
+                            <h4 class="modal-title">Aguarde mientras se sincronizan los usuarios...</h4>
                         </div>
                         <div class="modal-body">
                             <div id="pbar" class="progress">
-                                <div id="dynamic" class="progress-bar progress-bar-primary progress-bar-striped active">Restoring...</div>
+                                <div id="dynamic" class="progress-bar progress-bar-primary progress-bar-striped active">Reestableciendo...</div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="restoreclose" style="display:none;" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" id="restoreclose" style="display:none;" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please wait while your ESP restarts...</h3>
+                        <h3 class="panel-title">Por favor aguarde mientras Tesseract se reinicia...</h3>
                     </div>
                     <div class="panel-body">
                         <div class="progress">
@@ -80,27 +80,27 @@
     <legend>General Settings</legend>
 	    <br>
     <div class="row form-group">
-        <label class="col-xs-3">Admin Password<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Log On password for the Administrator"></i></label>
+        <label class="col-xs-3">Admin Password<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Password del Administrador"></i></label>
         <span class="col-xs-9 col-md-5">
-              <input class="form-control input-sm" placeholder="Administrator Password" id="adminpwd"  type="password">
+              <input class="form-control input-sm" placeholder="Password Administrador" id="adminpwd"  type="password">
               </span>
         <br>
     </div>
     <div class="row form-group">
-        <label class="col-xs-3">Host Name<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Hostname for your ESP, When Bonjour is installed on your computer you can access your ESP via http://hostname.local"></i></label>
+        <label class="col-xs-3">Host Name<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Nombre del host para Tesseract, si tienes un DNS podras acceder via http://tesseract.local"></i></label>
         <span class="col-xs-9 col-md-5">
               <input class="form-control input-sm" placeholder="Hostname" value="esp-rfid" id="hostname" type="text">
               </span>
         <br>
     </div>
     <div class="row form-group">
-        <label class="col-xs-3">Auto Restart<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="How often to automatically restart the unit to lessen risk of memory leaks and crashes."></i></label>
+        <label class="col-xs-3">Reinicio automatico<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Programe un reinicio automatico de la placa."></i></label>
         <span class="col-xs-9 col-md-5">
                 <select class="form-control input-sm" id="autorestart" name="autorestart">
-                  <option value='0'>Never</option>
-                  <option value='86400' selected>Every 24h</option>
-                  <option value='604800'>Every 7 days</option>
-                  <option value='18144000'>Every 30 days</option>
+                  <option value='0'>Nunca</option>
+                  <option value='86400' selected>Cada 24h</option>
+                  <option value='604800'>Cada 7 dias</option>
+                  <option value='18144000'>Cada 30 dias</option>
                 </select>
               </span>
         <br>
@@ -121,10 +121,10 @@
     <br>
     <br>
     <legend>Hardware Settings</legend>
-    <h6 class="text-muted">Please refer the <a href="https://github.com/esprfid/esp-rfid#pin-layout">documentation</a> for pin configuration.</h6>
+    <h6 class="text-muted">Por favor solicite nuestro manual para configurar estos campos.</h6>
 	    <br>
     <div class="row form-group">
-        <label class="col-xs-3">Reader Type<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Choose RFID reader type."></i></label>
+        <label class="col-xs-3">Tipo de lector/comunicacion<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Eliga tipo de lector RFID."></i></label>
         <div class="col-xs-9 col-md-5">
             <select class="form-control input-sm" id="readerType" onchange="handleReader();">
                 <option selected="selected" value="0">MFRC522</option>
@@ -139,7 +139,7 @@
     </div>
     <div class="" id="wiegandForm" style="display:none">
         <div class="row form-group">
-            <label class="col-xs-3">Pin D0<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Choose Wiegand D0 pin."></i></label>
+            <label class="col-xs-3">Pin D0<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Escoger Wiegand D0 pin."></i></label>
             <span class="col-xs-9 col-md-5">
                   <select class="form-control input-sm" id="wg0pin">
                     <option value="0">GPIO-0</option>
@@ -156,7 +156,7 @@
                 </span>
         </div>
         <div class="row form-group">
-            <label class="col-xs-3">Pin D1<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Choose Wiegand D1 pin."></i></label>
+            <label class="col-xs-3">Pin D1<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Escoger Wiegand D1 pin."></i></label>
             <span class="col-xs-9 col-md-5">
                   <select class="form-control input-sm" id="wg1pin">
                     <option value="0">GPIO-0</option>
@@ -175,7 +175,7 @@
     </div>
     <div class="" id="mfrc522Form" style="display:none">
         <div class="row form-group">
-            <label class="col-xs-3">SPI SS<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Choose which ESP port is connected to RFID Hardware SDA pin"></i></label>
+            <label class="col-xs-3">SPI SS<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Escoger que ESP port esta conectado al RFID SDA pin"></i></label>
             <span class="col-xs-9 col-md-5">
                   <select class="form-control input-sm" id="gpioss">
                     <option value="0">GPIO-0</option>
@@ -188,7 +188,7 @@
                 </span>
         </div>
         <div class="row form-group" id="rc522gain">
-            <label class="col-xs-3">Antenna Gain<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Higher value means further the RFID reader's reading distance"></i></label>
+            <label class="col-xs-3">Ganancia Antenna<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="A mayor valor mas distancia de lectura"></i></label>
             <span class="col-xs-9 col-md-5">
                   <select class="form-control input-sm" id="gain">
                     <option value="112">Max (48 db)</option>
@@ -203,7 +203,7 @@
     </div>
     <br>
     <div class="row form-group">
-        <label class="col-xs-3">WiFi LED<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Choose &quot;WiFi LED&quot; pin"></i></label>
+        <label class="col-xs-3">WiFi LED<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Escoger &quot;WiFi LED&quot; pin"></i></label>
         <span class="col-xs-9 col-md-5">
               <select class="form-control input-sm" id="wifipin">
                 <option selected="selected" value="255">None</option>
@@ -221,52 +221,52 @@
         </span>
     </div>
     <div class="row form-group">
-        <label class="col-xs-3">Relay Type<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Depending on your electrical setup, you can choose the relay type"></i></label>
+        <label class="col-xs-3">Comportamiento relee<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Escoger como se va a comportar el relee"></i></label>
         <span class="col-xs-9 col-md-5">
             <select class="form-control input-sm" id="typerly">
-              <option selected="selected" value="1">Active High</option>
-              <option value="0">Active Low</option>
+              <option selected="selected" value="1">Normalmente activo</option>
+              <option value="0">Normalmente desactivado</option>
             </select>
             </span>
     </div>
     <div class="row form-group">
-        <label class="col-xs-3">Relay Pin<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Choose which ESP port is connected to your relay"></i></label>
+        <label class="col-xs-3">Pin relee 1<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Escoger pin relee 1"></i></label>
         <span class="col-xs-6 col-md-5">
                 <select class="form-control input-sm" id="gpiorly">
                     <option value="0">GPIO-0</option>
                     <option value="1">GPIO-1</option>
                     <option value="2">GPIO-2</option>
-                    <option selected="selected" value="4">GPIO-4</option>
+                    <option value="4">GPIO-4</option>
                     <option value="5">GPIO-5</option>
                     <option value="12">GPIO-12</option>
-                    <option value="13">GPIO-13</option>
+                    <option selected="selected" value="13">GPIO-13</option>
                     <option value="14">GPIO-14</option>
                     <option value="15">GPIO-15</option>
                     <option value="16">GPIO-16</option>
                 </select>
               </span>
         <span class="col-xs-3">
-            <button id="testb" type="button" class="btn btn-primary btn-xs" onclick="testRelay()">Test</button><i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Test previous relay setting. Keep in mind that this is actually triggers the relay."></i>
+            <button id="testb" type="button" class="btn btn-primary btn-xs" onclick="testRelay()">Activar</button><i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="Probar la activacion del relee 1. Tenga en cuenta que esto se ejecutara en la placa."></i>
         </span>
     </div>
     <div class="row form-group">
-        <label class="col-xs-3">Lock Type<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Use momentary method for door lock counterparts, and the continuous one for electromagnetic locks."></i></label>
+        <label class="col-xs-3">Comportamiento relee 1<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="El comportamiento momentaneo mantiene el relee activo durante unos segundos mientras que el continuo lo hace hasta recibir otra orden"></i></label>
         <span class="col-xs-9 col-md-5">
             <select class="form-control input-sm" id="lockType" onchange="handleLock();">
-                <option selected="selected" value="0">Momentary</option>
-                <option value="1">Continuous</option>
+                <option selected="selected" value="0">Momentaneo</option>
+                <option value="1">Continuo</option>
             </select>
         </span>
     </div>
     <div class="row form-group" id="activateTimeForm">
-        <label class="col-xs-3">Activate Time<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Relay Toggle time in Microseconds, usually 300ms is enough for the most electric door locks"></i></label>
+        <label class="col-xs-3">Tiempo activacion momentaneo<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Tiempo en Microsegundos que permanecera activo el relee 1"></i></label>
         <span class="col-xs-9 col-md-5">
-            <input class="form-control input-sm" value="300" placeholder="in Microsecond" id="delay" type="text" name="hightime">
+            <input class="form-control input-sm" value="3000" placeholder="en Microsegundos" id="delay" type="text" name="hightime">
         </span>
     </div>
     <br>
     <div class="row form-group">
-        <label class="col-xs-3">Button Pin<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Choose a pin to have a button with equivalent behaviour to scan a valid card (open/close button)."></i></label>
+        <label class="col-xs-3">PIN boton de salida<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Escoger pin para el boton de salida."></i></label>
         <span class="col-xs-9 col-md-5">
             <select class="form-control input-sm" id="buttonPin">
                 <option selected="selected" value="255">None</option>
@@ -282,7 +282,7 @@
         <br>
         <br>
         <div class="col-xs-9 col-md-8">
-            <button onclick="savehardware()" class="btn btn-primary btn-sm pull-right">Save</button>
+            <button onclick="savehardware()" class="btn btn-primary btn-sm pull-right">Guardar</button>
         </div>
     </div>
     <br>
@@ -292,17 +292,17 @@
     <br>
     <br>
     <div class="text-center" id="loading-img">
-        <h5>Please wait while fetching data...<span id="loadpages"></span></h5>
+        <h5>Aguarde mientras consultamos los reportes...<span id="loadpages"></span></h5>
         <br>
     </div>
     <div>
-        <legend>Access Log</legend>
+        <legend>Reportes de acceso</legend>
         <div class="panel panel-default">
             <div>
                 <table id="latestlogtable" class="table" data-paging="true" data-filtering="true" data-sorting="true" data-editing="false" data-state="true"></table>
             </div>
         </div>
-        <button onclick="clearlatest()" class="btn btn-primary btn-sm">Clear Log</button>
+        <button onclick="clearlatest()" class="btn btn-primary btn-sm">Borrar reportes acceso</button>
         <div style="clear:both;">
             <br>
             <br>
@@ -315,17 +315,17 @@
     <br>
     <br>
     <div class="text-center" id="loading-img">
-        <h5>Please wait while fetching data...<span id="loadpages"></span></h5>
+        <h5>Aguarde mientras consultamos los reportes...<span id="loadpages"></span></h5>
         <br>
     </div>
     <div>
-        <legend>Event Log</legend>
+        <legend>Reportes de sistema</legend>
         <div class="panel panel-default">
             <div>
                 <table id="eventtable" class="table" data-paging="true" data-filtering="true" data-sorting="true" data-editing="false" data-state="true"></table>
             </div>
         </div>
-        <button onclick="clearevent()" class="btn btn-primary btn-sm">Clear Log</button>
+        <button onclick="clearevent()" class="btn btn-primary btn-sm">Borrar reportes sistema</button>
         <div style="clear:both;">
             <br>
             <br>
@@ -338,13 +338,13 @@
     <legend>MQTT Settings</legend>
 	    <br>
     <div class="row form-group">
-        <label class="col-xs-3">MQTT<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Please choose if you want to enable MQTT"></i></label>
+        <label class="col-xs-3">MQTT<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Escoger habilitar MQTT"></i></label>
         <div class="col-xs-9">
             <form>
                 <label class="radio-inline">
-                    <input type="radio" value="1" name="mqttenabled">Enabled</label>
+                    <input type="radio" value="1" name="mqttenabled">Habilitado</label>
                 <label class="radio-inline">
-                    <input type="radio" value="0" name="mqttenabled" checked>Disabled</label>
+                    <input type="radio" value="0" name="mqttenabled" checked>Deshabiitado</label>
             </form>
         </div>
     </div>
@@ -384,7 +384,7 @@
         <br>
         <br>
         <div class="col-xs-9 col-md-8">
-            <button onclick="savemqtt()" class="btn btn-primary btn-sm pull-right">Save</button>
+            <button onclick="savemqtt()" class="btn btn-primary btn-sm pull-right">Guardar</button>
         </div>
     </div>
     <br>
@@ -393,32 +393,32 @@
 <div id="networkcontent">
     <br>
     <br>
-    <legend>Wi-Fi Settings</legend>
-    <h6 class="text-muted">Type your Wi-Fi Network's SSID or Scan for nerby Wireless Networks to join.</h6>
+    <legend>Configuracion Wi-Fi</legend>
+    <h6 class="text-muted">Nombre SSID o escanee las redes cercanas.</h6>
     <br>
     <div class="row form-group">
-        <label class="col-xs-3">Wi-Fi Mode<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="You can run your ESP in AP Mode or Client Mode. In client mode you will need to connect to an existing Wi-Fi network, in AP Mode ESP creates a Wi-Fi network itself."></i></label>
+        <label class="col-xs-3">Modo Wi-Fi<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Puede usarlo como AP or Client. En modo cliente debera conectarse a una red Wi-Fi existente, en AP Mode el equipo emite su propio Wi-Fi."></i></label>
         <div class="col-xs-9">
             <form>
                 <label class="radio-inline">
                     <input type="radio" value="1" name="wmode" id="wmodeap" onclick="handleAP();" checked>Access Point </label>
                 <label class="radio-inline">
-                    <input type="radio" value="0" name="wmode" id="wmodesta" onclick="handleSTA();">Client</label>
+                    <input type="radio" value="0" name="wmode" id="wmodesta" onclick="handleSTA();">Cliente</label>
             </form>
         </div>
     </div>
     <div class="row form-group">
-        <label class="col-xs-3">SSID<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Wi-Fi Network's Name"></i></label>
+        <label class="col-xs-3">SSID<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Nombre Wi-Fi"></i></label>
         <span class="col-xs-7 col-md-5">
                 <input class="form-control input-sm" id="inputtohide" type="text" name="ap_ssid">
                 <select class="form-control input-sm" style="display:none;" id="ssid" onchange="listBSSID();"></select>
               </span>
         <span class="col-xs-2">
-                <button id="scanb" type="button" class="btn btn-primary btn-xs" style="display:none;" onclick="scanWifi()">Scan</button>
+                <button id="scanb" type="button" class="btn btn-primary btn-xs" style="display:none;" onclick="scanWifi()">Escanear Wi-Fi</button>
               </span>
     </div>
     <div class="row form-group" style="display:none" id="hideBSSID">
-        <label class="col-xs-3">BSSID<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="If you have two Wi-Fi networks with the same SSID you may want to choose the specific one by BSSID"></i></label>
+        <label class="col-xs-3">SSID<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="If you have two Wi-Fi networks with the same SSID you may want to choose the specific one by BSSID"></i></label>
         <span class="col-xs-9 col-md-5">
               <input id="wifibssid" class="form-control input-sm" type="text" name="ap_bssid">
               </span>
@@ -431,11 +431,11 @@
     </div>
     <br>
     <div class="row form-group" id="hideap">
-        <label class="col-xs-3">Hide Network Name<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="You can choose to hide Wireless Network name, so your ESP does not broadcast SSID, keep in mind that people can still find your network if they are insist."></i></label>
+        <label class="col-xs-3">Esconder SSID<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="You can choose to hide Wireless Network name, so your ESP does not broadcast SSID, keep in mind that people can still find your network if they are insist."></i></label>
         <div class="col-xs-9">
             <form>
                 <label class="radio-inline">
-                    <input type="radio" value="1" name="hideapenable">Yes</label>
+                    <input type="radio" value="1" name="hideapenable">Si</label>
                 <label class="radio-inline">
                     <input type="radio" value="0" name="hideapenable" checked>No</label>
             </form>
@@ -443,25 +443,25 @@
     </div>
     <br>
     <div class="row form-group" id="dhcp">
-        <label class="col-xs-3">Use DHCP<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Choose if you want to get an IP address from DHCP server or not."></i></label>
+        <label class="col-xs-3">DHCP<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Choose if you want to get an IP address from DHCP server or not."></i></label>
         <div class="col-xs-9">
             <form>
                 <label class="radio-inline">
-                    <input type="radio" value="1" name="dhcpenabled" onclick="handleDHCP();" checked>Yes</label>
+                    <input type="radio" value="1" name="dhcpenabled" onclick="handleDHCP();" checked>Activado</label>
                 <label class="radio-inline">
-                    <input type="radio" value="0" name="dhcpenabled" onclick="handleDHCP();">No</label>
+                    <input type="radio" value="0" name="dhcpenabled" onclick="handleDHCP();">Apagado</label>
             </form>
         </div>
     </div>
     <div id="staticip1" style="display:none">
         <div class="row form-group">
-            <label class="col-xs-3">IP Address<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-html="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Enter IP Address<BR>(for example 192.168.4.1)"></i></label>
+            <label class="col-xs-3">Direccion IP<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-html="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Enter IP Address<BR>(for example 192.168.4.1)"></i></label>
             <span class="col-xs-9 col-md-5">
               <input id="ipaddress" class="form-control input-sm">
               </span>
         </div>
         <div class="row form-group">
-            <label class="col-xs-3">Subnet Mask<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-html="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Enter Subnet Mask<BR>(for example 255.255.255.0)"></i></label>
+            <label class="col-xs-3">Mascara Subreb<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-html="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Enter Subnet Mask<BR>(for example 255.255.255.0)"></i></label>
             <span class="col-xs-9 col-md-5">
               <input id="subnet" class="form-control input-sm">
               </span>
@@ -469,7 +469,7 @@
     </div>
     <div id="staticip2" style="display:none">
         <div class="row form-group">
-            <label class="col-xs-3">DNS Server</label>
+            <label class="col-xs-3">DNS</label>
             <span class="col-xs-9 col-md-5">
               <input id="dnsadd" class="form-control input-sm">
               </span>
@@ -483,10 +483,10 @@
     </div>
     <br>
     <div class="row form-group">
-        <label class="col-xs-3">Auto Disable Wifi<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Disable WiFi after a time interval, to conserve power in battery powered units. WiFi is re-enabled when an admin card is scanned, or device is rebooted. Remember that you need to have enough time to upload your configuration, so don't set it too low."></i></label>
+        <label class="col-xs-3">Auto apagado Wifi<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Disable WiFi after a time interval, to conserve power in battery powered units. WiFi is re-enabled when an admin card is scanned, or device is rebooted. Remember that you need to have enough time to upload your configuration, so don't set it too low."></i></label>
         <span class="col-xs-9 col-md-5">
                 <select class="form-control input-sm" id="disable_wifi_after_seconds" name="auto_restart_interval_seconds">
-                  <option value='0'>Always on</option>
+                  <option value='0'>Siempre encendido</option>
                   <option value='180'>3 min</option>
                   <option value='240'>4 min</option>
                   <option value='300'>5 min</option>
@@ -498,7 +498,7 @@
         <br>
         <br>
         <div class="col-xs-9 col-md-8">
-            <button onclick="savenetwork()" class="btn btn-primary btn-sm pull-right">Save</button>
+            <button onclick="savenetwork()" class="btn btn-primary btn-sm pull-right">Guardar</button>
         </div>
     </div>
     <br>
@@ -507,40 +507,40 @@
 <div id="ntpcontent">
     <br>
     <br>
-    <legend>Time Settings</legend>
-    <h6 class="text-muted">Small differences between device time and local time can be ignored. Please see <a href="https://github.com/esprfid/esp-rfid#time">documentation</a> for additional information.</h6>
+    <legend>Configurar fecha y hora</legend>
+    <h6 class="text-muted">Tenga su dispositivo siempre sincronizado.</h6>
 	<br>
     <div class="row form-group">
-        <label class="col-xs-3">Device Time</label>
+        <label class="col-xs-3">Hora y fecha del dispositivo</label>
         <span id="utc" class="col-xs-9 col-md-5">
               </span>
     </div>
     <div class="row form-group">
-        <label class="col-xs-3">Browser Time</label>
+        <label class="col-xs-3">Hora y fecha de la NUBE</label>
         <span id="rtc" class="col-xs-9 col-md-5">
               </span>
     </div>
     <div class="row form-group">
         <div class="col-xs-3">
-            <button onclick="syncBrowserTime()" class="btn btn-link btn-sm">Sync Browser Time to Device</button><i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Send your PC/Phone time to ESP, useful when the ESP does not have Internet connection."></i>
+            <button onclick="syncBrowserTime()" class="btn btn-link btn-sm">Sincronizar fecha y hora</button><i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Sincroniza tu PC con el dispositivo."></i>
         </div>
     </div>
     <div class="row form-group">
-        <label class="col-xs-3">NTP Server<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The server for the time sync. Choose nearest server for better accuracy, see ntp.org for servers nearby."></i></label>
+        <label class="col-xs-3">Servidor NTP<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Servidor de horario."></i></label>
         <span class="col-xs-9 col-md-5">
               <input class="form-control input-sm" placeholder="eg. pool.ntp.org" value="pool.ntp.org" id="ntpserver" type="text">
               </span>
         <br>
     </div>
     <div class="row form-group">
-        <label class="col-xs-3">Intervals<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Intervals between Time Sync in Minutes"></i></label>
+        <label class="col-xs-3">Intervalo<i style="margin-left: 10px;" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Intervalo en minutos entre sincronizaciones"></i></label>
         <span class="col-xs-9 col-md-5">
               <input class="form-control input-sm" placeholder="in Minutes" value="30" id="intervals" type="text">
               </span>
         <br>
     </div>
     <div class="row form-group">
-        <label class="col-xs-3">Time Zone</label>
+        <label class="col-xs-3">Huso Horario</label>
         <span class="col-xs-9 col-md-5">
                 <select class="form-control input-sm" name="DropDownTimezone" id="DropDownTimezone">
                   <option value="-12">(GMT -12:00) Eniwetok, Kwajalein</option>
@@ -579,7 +579,7 @@
         <br>
         <br>
         <div class="col-xs-9 col-md-8">
-            <button onclick="saventp()" class="btn btn-primary btn-sm pull-right">Save</button>
+            <button onclick="saventp()" class="btn btn-primary btn-sm pull-right">Guardar</button>
         </div>
         <br>
         <br>
@@ -592,18 +592,18 @@
     <br>
     <div class="row text-center">
         <div class="col-md-8 col-md-offset-2">
-            <h1>Welcome</h1>
-            <p>Here you can find some information about your device status.</p>
+            <h1>Bienvenido</h1>
+            <p>Informacion de tu dispositivo.</p>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <span>esp-rfid Access Control</span>&nbsp; <small><strong><span id="sver"></span></strong></small>
+                    <span>Tesseract Access Control</span>&nbsp; <small><strong><span id="sver"></span></strong></small>
                 </div>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default table-responsive">
                 <table class="table table-hover table-striped table-condensed">
-                    <caption>Device</caption>
+                    <caption>Dispositivo</caption>
                     <tr>
                         <th>Chip ID</th>
                         <td id="chip"></td>
@@ -617,31 +617,31 @@
                         <td id="uptime"></td>
                     </tr>
                     <tr>
-                        <th>Free Heap</th>
+                        <th>Memoria libre</th>
                         <td>
                             <div class="progress" style="margin-bottom: 0 !important;">
                                 <div id="heap" class="progress-bar progress-bar-primary" role="progressbar">
-                                    Progress
+                                    Progreso
                                 </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <th>Free Flash</th>
+                        <th>Memoria Flash</th>
                         <td>
                             <div class='progress' style="margin-bottom: 0 !important;">
                                 <div id="flash" class="progress-bar progress-bar-primary" role="progressbar">
-                                    Progress
+                                    Progreso
                                 </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <th>Free SPIFFS</th>
+                        <th>Memoria SPIFFS</th>
                         <td>
                             <div class='progress' style="margin-bottom: 0 !important;">
                                 <div id="spiffs" class="progress-bar progress-bar-primary" role="progressbar">
-                                    Progress
+                                    Progreso
                                 </div>
                             </div>
                         </td>
@@ -650,7 +650,7 @@
             </div>
             <div class="panel panel-default table-responsive">
                 <table class="table table-hover table-striped table-condensed">
-                    <caption>Network</caption>
+                    <caption>Redes</caption>
                     <tr>
                         <th>SSID</th>
                         <td id="ssidstat"></td>
@@ -684,11 +684,11 @@
 </div>
 <div id="userscontent">
     <div id="loading-img" class="text-center">
-        <h5>Please wait while fetching data... <span id="loadpages"></span></h5>
+        <h5>Aguarde mientras recuperamos los usuarios... <span id="loadpages"></span></h5>
     </div>
     <br>
     <div class="text-center" id="usersbanner">
-        <h5>You can add new users by either scanning a RFID Tag or by clicking on "New User" button.</h5>
+        <h5>Puede agregar usuarios leyendo tag RFID o ingresando al boton "Nuevo usuario".</h5>
     </div>
     <br>
     <div class="panel panel-default">
@@ -706,7 +706,7 @@
             <form class="modal-content form-horizontal" id="editor">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="editor-title">Add User</h4>
+                    <h4 class="modal-title" id="editor-title">Nuevo usuario</h4>
                 </div>
                 <div class="modal-body">
                     <input type="number" id="id" name="id" class="hidden" />
@@ -723,16 +723,16 @@
                         </div>
                     </div>
                     <div class="form-group required">
-                        <label for="username" class="col-sm-3 control-label">User Name or Label</label>
+                        <label for="username" class="col-sm-3 control-label">Nombre de usuario</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="username" name="username" placeholder="User Name or Label" required>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Nombre de usuario" required>
                         </div>
                     </div>
                     <div class="form-group required">
-                        <label for="acctype" class="col-sm-3 control-label">Access Type</label>
+                        <label for="acctype" class="col-sm-3 control-label">Tipo de acceso</label>
                         <div class="col-sm-9">
                             <select class="form-control" id="acctype" required>
-                                <option selected="selected" value="1">Always</option>
+                                <option selected="selected" value="1">Siempre</option>
                                 <!--
                                 <option value="2">Within Selected Hours</option>
                                 <option value="3">Within Selected Days</option>
@@ -740,8 +740,8 @@
                                 <option value="5">On Weekends</option>
                                 <option value="6">On Weekdays</option>
                                 -->
-                                <option value="0">Disabled</option>
-                                <option value="99">Admin</option>
+                                <option value="0">Sin acceso</option>
+                                <option value="99">Administrador</option>
                             </select>
                         </div>
                     </div>
@@ -755,15 +755,15 @@
                     </div>
                     -->
                     <div class="form-group required">
-                        <label for="validuntil" class="col-sm-3 control-label">Valid Until</label>
+                        <label for="validuntil" class="col-sm-3 control-label">Fecha validez</label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control" id="validuntil" name="validuntil" value="2038-01-01" placeholder="Valid Until" required>
+                            <input type="date" class="form-control" id="validuntil" name="validuntil" value="2038-01-01" placeholder="Fecha validez" required>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 </div>
             </form>
         </div>

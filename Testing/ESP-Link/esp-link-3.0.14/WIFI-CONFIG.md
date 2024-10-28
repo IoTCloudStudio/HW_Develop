@@ -77,9 +77,9 @@ This has a number of effects:
 - esp-link will use the hostname in its DHCP request, which allows you to identify the module's
   MAC and IP addresses in your DHCP server (typ. your wifi router). In addition, some DHCP
   servers will inject these names into the local DNS cache so you can use URLs like
-  `hostname.local`.
+  `tesseract.local`.
 - someday, esp-link will inject the hostname into mDNS (multicast DNS, bonjour, etc...) so 
-  URLs of the form `hostname.local` work for everyone (as of v2.1.beta5 mDNS is disabled due
+  URLs of the form `tesseract.local` work for everyone (as of v2.1.beta5 mDNS is disabled due
   to reliability issues with it)
 
 You can also enter a description of up to 128 characters on the home page (bottom right). This
