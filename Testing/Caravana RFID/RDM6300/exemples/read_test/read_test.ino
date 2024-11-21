@@ -9,7 +9,7 @@
 
 #include <SoftwareSerial.h>
 #include <RDM6300.h>
-SoftwareSerial RFID(2, 3); // RX and TX
+SoftwareSerial RFID(3, 1); // RX and TX
 
 int Led=13;
 uint8_t Payload[6]; // used for read comparisons
