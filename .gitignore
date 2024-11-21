@@ -87,3 +87,9 @@ typings/
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/*
+Productivo/Tesseract/Firmware/.pio/*
+Productivo/Tesseract/Firmware/bin/*
+Productivo/Tesseract/Firmware/src/websrc/AutofillStates/*
+Productivo/Tesseract/Firmware/src/websrc/component_crx_cache/*
+Productivo/Tesseract/Firmware/src/websrc/hyphen-data/*
+Productivo/Tesseract/Firmware/src/websrc/MEIPreload/*
