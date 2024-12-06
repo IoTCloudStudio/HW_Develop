@@ -1,0 +1,86 @@
+
+(rules PCB Tesseract.dsn
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute off)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 1)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 3.5)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 3.5)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clearance 200.2)
+    (clearance 125.0 (type smd_to_turn_gap))
+    (clearance 50.0 (type smd))
+    (clearance 200.2 (type "kicad_default"))
+  )
+  (padstack "Via[0-1]_800:400_um"
+    (shape
+      (circle F.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 800.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_800:400_um" "Via[0-1]_800:400_um" default
+  )
+  (via 
+    "Via[0-1]_800:400_um-kicad_default" "Via[0-1]_800:400_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-1]_800:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_800:400_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    12V GND +3.3V +12V "Net-(D2-K)" "Net-(D2-A)" "Net-(D4-A)" "Net-(D5-K)"
+    "Net-(D5-A)" "Net-(D7-K)" "Net-(D7-A)" "Net-(D8-A)" D0 D1 LED BEEP
+    "Net-(D13-A)" "Net-(D14-A)" "D0-RFW26" GPIO0 "D1-RFW26" GPIO2 "Net-(D17-A)" 12VOUT
+    "Net-(J15-Pin_6)" +5V TXP SCL{slash}TX SCL RXP SDA{slash}RX SDA
+    "Net-(J8-Pin_3)" "unconnected-(J9-Pin_3-Pad3)" "unconnected-(J9-Pin_4-Pad4)" "unconnected-(J9-Pin_6-Pad6)" "unconnected-(J13-Pin_1-Pad1)" "unconnected-(J13-Pin_2-Pad2)" "unconnected-(J13-Pin_3-Pad3)" "unconnected-(J13-Pin_4-Pad4)"
+    "unconnected-(J13-Pin_5-Pad5)" "unconnected-(J13-Pin_6-Pad6)" "Net-(J14-Pin_1)" "Net-(J14-Pin_2)" "Net-(J14-Pin_3)" "Net-(J16-Pin_3)" RST "Net-(Q1-B)"
+    "Net-(Q2-B)" "Net-(Q3-B)" "Net-(Q4-B)" "Net-(Q4-C)" "Net-(Q5-B)" "Net-(Q5-C)" GPIO4 "Net-(U3-~{RST})"
+    "Net-(U3-EN)" GPIO13 GPIO12 GPIO5 GPIO14 GPIO15 GPIO16 "unconnected-(U3-ADC-Pad2)"
+    "unconnected-(U3-CS0-Pad9)" "unconnected-(U3-MISO-Pad10)" "unconnected-(U3-GPIO9-Pad11)" "unconnected-(U3-GPIO10-Pad12)" "unconnected-(U3-MOSI-Pad13)" "unconnected-(U3-SCLK-Pad14)" BTN "Net-(J22-Pin_2)"
+    "Net-(J22-Pin_1)" "Net-(J22-Pin_3)" "Net-(D3-A)"
+    (clearance_class "kicad_default")
+    (via_rule "kicad_default")
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)
