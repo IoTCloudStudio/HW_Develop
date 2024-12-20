@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP SM6T6V8A
+D TVS Diode Uni-Directional SM6T6V8A 13.4V, 600W, SMB 2-Pin
+K
+F https://www.st.com/resource/en/datasheet/sm6t100a.pdf
+$ENDCMP
+#
+#End Doc Library
