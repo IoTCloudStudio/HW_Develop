@@ -2316,6 +2316,14 @@
     )
   )
 
+  (netclass_flag "" (length 2.54) (shape round) (at 142.24 134.62 0) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid e6a33cb0-d2f7-409b-8a89-46d9981d6bb2)
+    (property "Netclass" "GND" (at 142.9385 132.08 0)
+      (effects (font (size 1.27 1.27) italic) (justify left))
+    )
+  )
+
   (symbol (lib_id "Device:Varistor") (at 181.61 113.03 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 006ad96c-53d6-4db4-b88f-1f3a56e082f2)
