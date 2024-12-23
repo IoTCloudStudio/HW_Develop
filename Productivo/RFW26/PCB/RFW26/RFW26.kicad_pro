@@ -123,7 +123,7 @@
         "min_text_height": 0.7999999999999999,
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.3,
-        "min_track_width": 0.5,
+        "min_track_width": 0.39999999999999997,
         "min_via_annular_width": 0.09999999999999999,
         "min_via_diameter": 0.5,
         "solder_mask_clearance": 0.0,
@@ -439,7 +439,7 @@
         "name": "12V",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.4,
+        "track_width": 0.6,
         "via_diameter": 0.8,
         "via_drill": 0.4,
         "wire_width": 6
@@ -456,7 +456,7 @@
         "name": "GND",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.5,
+        "track_width": 0.6,
         "via_diameter": 0.8,
         "via_drill": 0.4,
         "wire_width": 6
