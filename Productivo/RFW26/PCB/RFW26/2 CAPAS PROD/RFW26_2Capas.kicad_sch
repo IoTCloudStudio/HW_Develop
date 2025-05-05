@@ -249,83 +249,6 @@
         )
       )
     )
-    (symbol "Connector:Screw_Terminal_01x02" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "Screw_Terminal_01x02" (at 0 -5.08 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "screw terminal" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "TerminalBlock*:*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "Screw_Terminal_01x02_1_1"
-        (rectangle (start -1.27 1.27) (end 1.27 -3.81)
-          (stroke (width 0.254) (type default))
-          (fill (type background))
-        )
-        (circle (center 0 -2.54) (radius 0.635)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -0.5334 -2.2098)
-            (xy 0.3302 -3.048)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -0.5334 0.3302)
-            (xy 0.3302 -0.508)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -0.3556 -2.032)
-            (xy 0.508 -2.8702)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -0.3556 0.508)
-            (xy 0.508 -0.3302)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (circle (center 0 0) (radius 0.635)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (pin passive line (at -5.08 0 0) (length 3.81)
-          (name "Pin_1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -2.54 0) (length 3.81)
-          (name "Pin_2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
     (symbol "Connector:Screw_Terminal_01x03" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "J" (at 0 5.08 0)
         (effects (font (size 1.27 1.27)))
@@ -424,6 +347,131 @@
         (pin passive line (at -5.08 -2.54 0) (length 3.81)
           (name "Pin_3" (effects (font (size 1.27 1.27))))
           (number "3" (effects (font (size 1.27 1.27))))
+        )
+      )
+    )
+    (symbol "Connector:Screw_Terminal_01x04" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
+      (property "Reference" "J" (at 0 5.08 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Value" "Screw_Terminal_01x04" (at 0 -7.62 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Footprint" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "~" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_keywords" "screw terminal" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_description" "Generic screw terminal, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_fp_filters" "TerminalBlock*:*" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "Screw_Terminal_01x04_1_1"
+        (rectangle (start -1.27 3.81) (end 1.27 -6.35)
+          (stroke (width 0.254) (type default))
+          (fill (type background))
+        )
+        (circle (center 0 -5.08) (radius 0.635)
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (circle (center 0 -2.54) (radius 0.635)
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -0.5334 -4.7498)
+            (xy 0.3302 -5.588)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -0.5334 -2.2098)
+            (xy 0.3302 -3.048)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -0.5334 0.3302)
+            (xy 0.3302 -0.508)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -0.5334 2.8702)
+            (xy 0.3302 2.032)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -0.3556 -4.572)
+            (xy 0.508 -5.4102)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -0.3556 -2.032)
+            (xy 0.508 -2.8702)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -0.3556 0.508)
+            (xy 0.508 -0.3302)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -0.3556 3.048)
+            (xy 0.508 2.2098)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (circle (center 0 0) (radius 0.635)
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (circle (center 0 2.54) (radius 0.635)
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (pin passive line (at -5.08 2.54 0) (length 3.81)
+          (name "Pin_1" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+        (pin passive line (at -5.08 0 0) (length 3.81)
+          (name "Pin_2" (effects (font (size 1.27 1.27))))
+          (number "2" (effects (font (size 1.27 1.27))))
+        )
+        (pin passive line (at -5.08 -2.54 0) (length 3.81)
+          (name "Pin_3" (effects (font (size 1.27 1.27))))
+          (number "3" (effects (font (size 1.27 1.27))))
+        )
+        (pin passive line (at -5.08 -5.08 0) (length 3.81)
+          (name "Pin_4" (effects (font (size 1.27 1.27))))
+          (number "4" (effects (font (size 1.27 1.27))))
         )
       )
     )
@@ -1756,7 +1804,7 @@
     (stroke (width 0) (type default))
     (uuid 09ef5199-8512-4eb4-98ee-983f54a80426)
   )
-  (wire (pts (xy 52.07 38.1) (xy 52.07 46.99))
+  (wire (pts (xy 52.07 38.1) (xy 52.07 54.61))
     (stroke (width 0) (type default))
     (uuid 0a5259b8-bad0-423c-b0f3-63cd8103290e)
   )
@@ -1824,10 +1872,6 @@
     (stroke (width 0) (type default))
     (uuid 20fef697-b26b-423d-863a-41bd22789190)
   )
-  (wire (pts (xy 254 111.76) (xy 256.54 111.76))
-    (stroke (width 0) (type default))
-    (uuid 24369107-f419-4935-814e-c3ca4090f4ab)
-  )
   (wire (pts (xy 151.13 52.07) (xy 168.91 52.07))
     (stroke (width 0) (type default))
     (uuid 2464aaa4-9c39-4b18-b614-cc80a3b89b0c)
@@ -1852,13 +1896,9 @@
     (stroke (width 0) (type default))
     (uuid 2e7e8be5-c9c5-4905-9d17-0d2f05504cbc)
   )
-  (wire (pts (xy 52.07 49.53) (xy 52.07 55.88))
+  (wire (pts (xy 52.07 57.15) (xy 52.07 63.5))
     (stroke (width 0) (type default))
     (uuid 2fecd7e0-6356-4a07-84e2-53f4275863ab)
-  )
-  (wire (pts (xy 256.54 107.95) (xy 256.54 109.22))
-    (stroke (width 0) (type default))
-    (uuid 307d6562-33fb-4400-af1e-744cab0569a4)
   )
   (wire (pts (xy 80.01 40.64) (xy 80.01 38.1))
     (stroke (width 0) (type default))
@@ -1871,6 +1911,10 @@
   (wire (pts (xy 133.35 43.18) (xy 151.13 43.18))
     (stroke (width 0) (type default))
     (uuid 3b78e8be-2164-4634-8a21-79d1bd9124a7)
+  )
+  (wire (pts (xy 38.1 54.61) (xy 52.07 54.61))
+    (stroke (width 0) (type default))
+    (uuid 3bbe0126-b5df-4b1f-a633-741f0407cae0)
   )
   (wire (pts (xy 181.61 107.95) (xy 181.61 109.22))
     (stroke (width 0) (type default))
@@ -1907,6 +1951,10 @@
   (wire (pts (xy 146.05 87.63) (xy 148.59 87.63))
     (stroke (width 0) (type default))
     (uuid 4d4844da-e8d5-4927-a5c6-a66f5a17fc41)
+  )
+  (wire (pts (xy 38.1 52.07) (xy 40.64 52.07))
+    (stroke (width 0) (type default))
+    (uuid 4d7cf83f-e526-4265-bacd-c986b4decfa3)
   )
   (wire (pts (xy 267.97 139.7) (xy 271.78 139.7))
     (stroke (width 0) (type default))
@@ -2016,10 +2064,6 @@
     (stroke (width 0) (type default))
     (uuid 6aa0511f-dac2-4378-a69a-a0cc2d47e4fd)
   )
-  (wire (pts (xy 245.11 107.95) (xy 256.54 107.95))
-    (stroke (width 0) (type default))
-    (uuid 6c0c5aeb-594a-4f1a-8a16-a69a5450e1b3)
-  )
   (wire (pts (xy 151.13 50.8) (xy 151.13 52.07))
     (stroke (width 0) (type default))
     (uuid 6ddb1083-3bcd-4990-8fb0-9b7532772a5f)
@@ -2092,6 +2136,10 @@
     (stroke (width 0) (type default))
     (uuid 8d10dfc0-e15c-4799-b416-16a7457260db)
   )
+  (wire (pts (xy 38.1 49.53) (xy 40.64 49.53))
+    (stroke (width 0) (type default))
+    (uuid 8e38087a-00e9-4e7b-8e0b-040bc469afac)
+  )
   (wire (pts (xy 265.43 142.24) (xy 269.24 142.24))
     (stroke (width 0) (type default))
     (uuid 8e51b778-402e-4fec-bfa2-b92db54bcaf2)
@@ -2151,6 +2199,10 @@
   (wire (pts (xy 80.01 38.1) (xy 91.44 38.1))
     (stroke (width 0) (type default))
     (uuid a42e58d5-5a6b-448a-b54d-613cfb7d7624)
+  )
+  (wire (pts (xy 38.1 57.15) (xy 52.07 57.15))
+    (stroke (width 0) (type default))
+    (uuid a7b207e0-4b89-4dd2-b6f1-217bfefb6a53)
   )
   (wire (pts (xy 76.2 132.08) (xy 76.2 138.43))
     (stroke (width 0) (type default))
@@ -2312,10 +2364,6 @@
     (stroke (width 0) (type default))
     (uuid fc254d1b-5862-4e12-a5b2-550d35b29374)
   )
-  (wire (pts (xy 254 114.3) (xy 256.54 114.3))
-    (stroke (width 0) (type default))
-    (uuid fefe52b7-2435-4f3b-ae2b-8d272fd2a20a)
-  )
 
   (global_label "12V" (shape input) (at 72.39 33.02 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
@@ -2324,11 +2372,11 @@
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
   )
-  (global_label "D0" (shape input) (at 254 114.3 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
+  (global_label "D0" (shape input) (at 40.64 49.53 0) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify left))
     (uuid 37968a75-1717-46a8-8685-7ac0013ecd4a)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 248.5353 114.3 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 46.1047 49.53 0)
+      (effects (font (size 1.27 1.27)) (justify left) hide)
     )
   )
   (global_label "D0" (shape input) (at 269.24 144.78 0) (fields_autoplaced)
@@ -2359,11 +2407,11 @@
       (effects (font (size 1.27 1.27)) (justify right) hide)
     )
   )
-  (global_label "D1" (shape input) (at 254 111.76 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right))
+  (global_label "D1" (shape input) (at 40.64 52.07 0) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify left))
     (uuid 900e73e0-a48d-4624-98ac-12fa230bbbba)
-    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 248.5353 111.76 0)
-      (effects (font (size 1.27 1.27)) (justify right) hide)
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 46.1047 52.07 0)
+      (effects (font (size 1.27 1.27)) (justify left) hide)
     )
   )
   (global_label "12VOUT" (shape input) (at 182.88 128.27 0) (fields_autoplaced)
@@ -2429,7 +2477,7 @@
     (pin "1" (uuid b96d2ae6-f2e0-47e9-9bcd-9299db654db0))
     (pin "2" (uuid 826678da-1a0e-49e9-be58-1e4ac422784d))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "RV2") (unit 1)
         )
@@ -2455,7 +2503,7 @@
     (pin "1" (uuid 484be62f-2cc9-4238-bb92-50554c0a9281))
     (pin "2" (uuid e7ab1129-53fb-425b-873c-9108a18d00cd))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "C5") (unit 1)
         )
@@ -2480,7 +2528,7 @@
     )
     (pin "1" (uuid 660b45a2-519f-43e9-9519-063b243b59c0))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#FLG01") (unit 1)
         )
@@ -2506,7 +2554,7 @@
     (pin "1" (uuid f56a9e33-e7b1-428b-b14c-882b00fd4c42))
     (pin "2" (uuid 1158c780-c459-4d2a-82de-349b131ec977))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "D4") (unit 1)
         )
@@ -2536,7 +2584,7 @@
           (reference "#PWR027") (unit 1)
         )
       )
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR03") (unit 1)
         )
@@ -2562,7 +2610,7 @@
     (pin "1" (uuid 47611e61-15de-49d7-8aab-0f5ffc8421b6))
     (pin "2" (uuid c4e907d5-8f6e-4ce1-90bf-2f7cfbdbec99))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "C4") (unit 1)
         )
@@ -2587,7 +2635,7 @@
     )
     (pin "1" (uuid 605e5b24-d398-4097-a216-5b1b6bef08f4))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#FLG03") (unit 1)
         )
@@ -2617,7 +2665,7 @@
           (reference "#PWR026") (unit 1)
         )
       )
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR04") (unit 1)
         )
@@ -2643,7 +2691,7 @@
     (pin "1" (uuid f3c425b2-e0b5-4ea4-b1b8-2b2c062f4a16))
     (pin "2" (uuid 2f82ac88-322e-41fe-a733-f1e4e657d121))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "L1") (unit 1)
         )
@@ -2669,9 +2717,37 @@
     (pin "1" (uuid be9e88e1-9b5b-481b-88ae-a417e51b8b91))
     (pin "2" (uuid 6995e55a-e939-4da8-9a2d-f4d593aa4ca6))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R10") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "Connector:Screw_Terminal_01x04") (at 33.02 54.61 180) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 2108dc15-f63d-495b-9529-f136546990d6)
+    (property "Reference" "W26/34-12+1" (at 33.02 43.18 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Value" "Screw_Terminal_01x04" (at 33.02 45.72 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-4_1x04_P5.00mm_Horizontal" (at 33.02 54.61 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 33.02 54.61 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "2" (uuid 0f86bf33-3839-48db-9a5a-91bb3ce229ba))
+    (pin "4" (uuid 10872ffb-b8da-41cb-aabc-28f04852c524))
+    (pin "1" (uuid 361311aa-0369-473a-87c7-6f8507d7a314))
+    (pin "3" (uuid c45b5abc-6458-4229-84de-90de3d76835e))
+    (instances
+      (project "RFW26_2Capas"
+        (path "/93f5690a-e250-4b70-beff-afbbe557712f"
+          (reference "W26/34-12+1") (unit 1)
         )
       )
     )
@@ -2699,7 +2775,7 @@
           (reference "#PWR026") (unit 1)
         )
       )
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR05") (unit 1)
         )
@@ -2730,7 +2806,7 @@
           (reference "R12") (unit 1)
         )
       )
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R1") (unit 1)
         )
@@ -2756,7 +2832,7 @@
     (pin "2" (uuid a478bb9b-e838-4729-93d7-949f3ceacb95))
     (pin "1" (uuid 595b005b-e695-4722-ac76-f3aabb2fa6e3))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "D2") (unit 1)
         )
@@ -2783,7 +2859,7 @@
     (pin "2" (uuid 1f58dece-cc98-4e78-a46e-3188307a4c34))
     (pin "3" (uuid 03a465fa-2fa2-4904-ac2b-39cde4e409b2))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "U2") (unit 1)
         )
@@ -2809,7 +2885,7 @@
     (pin "1" (uuid ea620f25-cb65-4155-b436-9bb19f7c6df7))
     (pin "2" (uuid 9095eff1-be6d-4393-8f29-0943b01788b8))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R4") (unit 1)
         )
@@ -2834,7 +2910,7 @@
     )
     (pin "1" (uuid 7d37a888-32b8-4b83-a034-5ea360ea5ec9))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR012") (unit 1)
         )
@@ -2860,7 +2936,7 @@
     (pin "1" (uuid e46780f9-41ab-4734-b558-3cc4250ce6ef))
     (pin "2" (uuid 26cad820-17d5-4498-8695-1d1b2ad489a8))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "F1") (unit 1)
         )
@@ -2892,7 +2968,7 @@
     (pin "1" (uuid 712304b7-200a-4855-a9a8-f0b86455d618))
     (pin "2" (uuid 722014c6-e7c4-4a28-bf29-9b465585e7aa))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "D1") (unit 1)
         )
@@ -2920,34 +2996,9 @@
     (pin "3" (uuid 912d96af-f171-430f-9664-239043b05c42))
     (pin "4" (uuid a33e25bc-c7a5-48fd-8711-0f0ce806a5c5))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "J5") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "power:GND") (at 245.11 107.95 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 3bfa4b94-f3cc-4203-9a9f-1f2c17145016)
-    (property "Reference" "#PWR016" (at 245.11 114.3 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "GND" (at 245.11 113.03 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 245.11 107.95 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 245.11 107.95 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 7140cb5d-9046-4b1f-a88d-9ff30ca336ed))
-    (instances
-      (project "RFW26"
-        (path "/93f5690a-e250-4b70-beff-afbbe557712f"
-          (reference "#PWR016") (unit 1)
         )
       )
     )
@@ -2972,7 +3023,7 @@
     (pin "2" (uuid 3ba87123-7ba8-4f03-88e6-750bee7e6ebf))
     (pin "3" (uuid 785a53c2-f801-41a4-8274-8af49bac5318))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "J10") (unit 1)
         )
@@ -2997,7 +3048,7 @@
     )
     (pin "1" (uuid ee85f3ef-1686-4186-960c-6ab0b646dd11))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR020") (unit 1)
         )
@@ -3005,24 +3056,24 @@
     )
   )
 
-  (symbol (lib_id "power:GND") (at 52.07 55.88 0) (unit 1)
+  (symbol (lib_id "power:GND") (at 52.07 63.5 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 40f36f22-c6d0-4755-9ed6-4422a3bcf2cd)
-    (property "Reference" "#PWR011" (at 52.07 62.23 0)
+    (property "Reference" "#PWR011" (at 52.07 69.85 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Value" "GND" (at 52.07 60.96 0)
+    (property "Value" "GND" (at 52.07 68.58 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 52.07 55.88 0)
+    (property "Footprint" "" (at 52.07 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "" (at 52.07 55.88 0)
+    (property "Datasheet" "" (at 52.07 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 56988850-50cc-4e40-9cc2-01b2d4357c9a))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR011") (unit 1)
         )
@@ -3054,7 +3105,7 @@
     (pin "2" (uuid 3c124f7e-7e3e-4ce9-bc3f-8848d184f9b1))
     (pin "8" (uuid 2e319b6a-94cd-4717-a959-9b96fd49a5f4))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "J4") (unit 1)
         )
@@ -3079,7 +3130,7 @@
     )
     (pin "1" (uuid 164ab91a-62ba-4705-9a63-60d1354dc051))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR07") (unit 1)
         )
@@ -3105,7 +3156,7 @@
     (pin "1" (uuid d4cc9367-ab86-4ed5-9d93-dac5d1f47387))
     (pin "2" (uuid 93042989-c50d-4ece-a0cb-7d0f47f547b9))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "C6") (unit 1)
         )
@@ -3135,7 +3186,7 @@
           (reference "#PWR029") (unit 1)
         )
       )
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR01") (unit 1)
         )
@@ -3164,7 +3215,7 @@
     (pin "4" (uuid e59ba07a-8582-4073-9564-c5281f1c7020))
     (pin "5" (uuid 8bbc1d9c-d36b-4c15-8bb4-9c322c6235f2))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "J9") (unit 1)
         )
@@ -3190,7 +3241,7 @@
     (pin "1" (uuid d734a9d9-2620-49ef-a157-25b87a23e581))
     (pin "2" (uuid 3eb56bba-0d22-4fbe-9e8c-f6b8f6de670d))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "D6") (unit 1)
         )
@@ -3215,7 +3266,7 @@
     )
     (pin "1" (uuid 777af827-98b4-4680-88c0-d895c5611b41))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR017") (unit 1)
         )
@@ -3240,7 +3291,7 @@
     )
     (pin "1" (uuid 5cfa0e20-8ad6-46a7-ad72-824be502c54b))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR014") (unit 1)
         )
@@ -3269,7 +3320,7 @@
     (pin "4" (uuid c03f7119-0db1-4122-9d74-469c267f9821))
     (pin "5" (uuid 67c7fe0f-5d17-49d3-bab1-6275b0c42b52))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "U1") (unit 1)
         )
@@ -3298,7 +3349,7 @@
     (pin "4" (uuid 95423a58-123b-405f-afcc-256c15650179))
     (pin "5" (uuid 351cbc2d-bb0b-494c-a2aa-0b229dd90d82))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "K2") (unit 1)
         )
@@ -3324,7 +3375,7 @@
     (pin "1" (uuid ae7b9fd2-ecfd-4abd-9ea5-c9b77231ef95))
     (pin "2" (uuid f8ca266e-486b-4644-a97d-56c1a20b5cf4))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "D5") (unit 1)
         )
@@ -3349,35 +3400,9 @@
     )
     (pin "1" (uuid bab5ccd4-539e-49d0-a26f-5de6b07bafd5))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR09") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Screw_Terminal_01x02") (at 46.99 49.53 180) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 954aa3a2-fd56-4ccc-a3f9-696d247cb307)
-    (property "Reference" "J1" (at 46.99 55.88 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "IN 12V" (at 46.99 53.34 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2_1x02_P5.00mm_Horizontal" (at 46.99 49.53 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 46.99 49.53 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 4987a8f4-7b4f-4d41-b95c-d3a57205b34d))
-    (pin "2" (uuid 8f1f2cc6-aec5-41be-bd91-ce81edf4d260))
-    (instances
-      (project "RFW26"
-        (path "/93f5690a-e250-4b70-beff-afbbe557712f"
-          (reference "J1") (unit 1)
         )
       )
     )
@@ -3401,7 +3426,7 @@
     (pin "1" (uuid 0de7dc21-e162-4086-8c07-948a41ae1504))
     (pin "2" (uuid cc2ea85a-bdb3-46aa-9324-f39f61f69f14))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R11") (unit 1)
         )
@@ -3426,7 +3451,7 @@
     )
     (pin "1" (uuid 7e93eea5-b5bc-4492-8d50-1807688307ef))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR08") (unit 1)
         )
@@ -3457,7 +3482,7 @@
           (reference "R16") (unit 1)
         )
       )
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R3") (unit 1)
         )
@@ -3482,7 +3507,7 @@
     )
     (pin "1" (uuid 55593e22-7bc8-4f2f-a0f2-462e2d79b575))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "ANT1") (unit 1)
         )
@@ -3508,7 +3533,7 @@
     (pin "1" (uuid 82656e0f-488c-4400-8a41-5ff62ec04136))
     (pin "2" (uuid 0249c31e-529e-4a38-9f2c-449464659ec9))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R5") (unit 1)
         )
@@ -3534,7 +3559,7 @@
     (pin "1" (uuid 90d79e3e-e8f5-4c96-9585-cd8f8a462a0a))
     (pin "2" (uuid 57cefbd1-af76-4164-a8e1-6e96ea53e91c))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R9") (unit 1)
         )
@@ -3559,7 +3584,7 @@
     )
     (pin "1" (uuid 0609dba2-8f50-4a37-9f5b-7231b0ec93d5))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR013") (unit 1)
         )
@@ -3592,7 +3617,7 @@
           (reference "J11") (unit 1)
         )
       )
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "J2") (unit 1)
         )
@@ -3618,7 +3643,7 @@
     (pin "1" (uuid 63044ee8-2b46-4b6b-aeaf-1e0e2c51a2e9))
     (pin "2" (uuid 2ec92c98-b77a-401e-a724-aea7c6521639))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R6") (unit 1)
         )
@@ -3644,7 +3669,7 @@
     (pin "1" (uuid f6a5b62c-eae0-40ae-830d-d791e727181b))
     (pin "2" (uuid c4830022-14f4-4af4-972e-0be37f2a848c))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "C2") (unit 1)
         )
@@ -3671,7 +3696,7 @@
     (pin "2" (uuid fd5ad5a3-f50f-4524-b1a6-0e5aeadbb186))
     (pin "3" (uuid 7bd8f45f-9262-4638-87eb-598c9282e2b6))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "Q2") (unit 1)
         )
@@ -3708,7 +3733,7 @@
           (reference "J10") (unit 1)
         )
       )
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "J3") (unit 1)
         )
@@ -3733,7 +3758,7 @@
     )
     (pin "1" (uuid ddd378a4-3b60-4a7d-90c0-e922b74dd970))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR015") (unit 1)
         )
@@ -3758,7 +3783,7 @@
     )
     (pin "1" (uuid 3e6a715b-4536-4f2f-8982-742fcde1d92f))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR010") (unit 1)
         )
@@ -3784,7 +3809,7 @@
     (pin "1" (uuid 1ae6a331-df5c-4d12-802b-3cbedb500e10))
     (pin "2" (uuid c92ef154-4c16-4e33-a85e-ab367a54294f))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R8") (unit 1)
         )
@@ -3809,7 +3834,7 @@
     )
     (pin "1" (uuid 6023c9e0-8659-4e0f-818b-51cb9311a90b))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR018") (unit 1)
         )
@@ -3840,7 +3865,7 @@
           (reference "R16") (unit 1)
         )
       )
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R7") (unit 1)
         )
@@ -3871,7 +3896,7 @@
           (reference "R13") (unit 1)
         )
       )
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "R2") (unit 1)
         )
@@ -3912,7 +3937,7 @@
     (pin "1" (uuid b44ff235-3838-4569-8a59-40e2dd41e66b))
     (pin "2" (uuid 5fa9efbb-7893-4564-80d5-de24abe2b730))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "RV1") (unit 1)
         )
@@ -3937,7 +3962,7 @@
     )
     (pin "1" (uuid 64e70ea0-5f6a-41cd-a777-535f79ead2d0))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR019") (unit 1)
         )
@@ -3962,7 +3987,7 @@
     )
     (pin "1" (uuid 16fe79f4-5921-45d3-a905-a54a3829417c))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#PWR021") (unit 1)
         )
@@ -3988,7 +4013,7 @@
     (pin "1" (uuid b2a854c9-0445-49f9-94fe-55bf8bc6b61c))
     (pin "2" (uuid 63717a5d-2685-409c-9e27-7d00516d4a48))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "C3") (unit 1)
         )
@@ -4020,7 +4045,7 @@
     (pin "1" (uuid 11764be2-5283-47f4-8ae9-56fac3d1222b))
     (pin "2" (uuid af2139f8-9e6f-4756-9488-94591a27fa32))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "D7") (unit 1)
         )
@@ -4046,36 +4071,9 @@
     (pin "1" (uuid 69bf2f04-7889-4ea2-b104-33c24cf8b3d3))
     (pin "2" (uuid 263c4e2c-ebfa-40a3-b9a2-71d6626d87b8))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "SW1") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Screw_Terminal_01x03") (at 261.62 111.76 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid f5cc1344-7d11-4e2c-b42d-d304250872c6)
-    (property "Reference" "W26/34" (at 264.16 110.49 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "Screw_Terminal_01x03" (at 264.16 113.03 0)
-      (effects (font (size 1.27 1.27)) (justify left) hide)
-    )
-    (property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3_1x03_P5.00mm_Horizontal" (at 261.62 111.76 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 261.62 111.76 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "3" (uuid 4a12153a-c96b-4ee0-b231-b89efe7b6af5))
-    (pin "2" (uuid d4be3db4-65e1-45aa-be52-57a4d6d27331))
-    (pin "1" (uuid f58ab111-0a5a-4abf-8717-a684fea35293))
-    (instances
-      (project "RFW26"
-        (path "/93f5690a-e250-4b70-beff-afbbe557712f"
-          (reference "W26/34") (unit 1)
         )
       )
     )
@@ -4098,7 +4096,7 @@
     )
     (pin "1" (uuid 958a0ccc-c400-41dc-a143-8577d2a2b34b))
     (instances
-      (project "RFW26"
+      (project "RFW26_2Capas"
         (path "/93f5690a-e250-4b70-beff-afbbe557712f"
           (reference "#FLG02") (unit 1)
         )
