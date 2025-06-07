@@ -3,16 +3,19 @@
 
 # platformio
 
+.pio
 .pioenvs
 .piolibdeps
 .clang_complete
 .gcc-flags.json
+.pio
 
 # esp-rfid
 src/websrc/css/required.css
 src/websrc/js/required.js
 src/websrc/fonts
 src/websrc/gzipped
+src/websrc/process
 
 bin/generic.bin
 bin/forV2Board.bin
@@ -55,9 +58,7 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules
-package-lock.json
-
+node_modules/
 jspm_packages/
 
 # Typescript v1 declaration files
@@ -87,9 +88,4 @@ typings/
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/*
-Productivo/Tesseract/Firmware/.pio/*
-Productivo/Tesseract/Firmware/bin/*
-Productivo/Tesseract/Firmware/src/websrc/AutofillStates/*
-Productivo/Tesseract/Firmware/src/websrc/component_crx_cache/*
-Productivo/Tesseract/Firmware/src/websrc/hyphen-data/*
-Productivo/Tesseract/Firmware/src/websrc/MEIPreload/*
+.DS_Store

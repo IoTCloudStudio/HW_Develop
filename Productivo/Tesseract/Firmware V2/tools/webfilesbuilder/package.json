@@ -1,0 +1,19 @@
+{
+  "name": "webfilesbuilder",
+  "version": "1.0.0",
+  "description": "Combine all js and css files into one and gzip them for the ESP-RFID project",
+  "scripts": {
+    "start": "gulp"
+  },
+  "author": "ESP-RFID Developers",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "fs-extra": "^11.3.0",
+    "gulp": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-flatmap": "^1.0.2",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-uglify": "^3.0.2"
+  },
+  "bin": "bin.js"
+}
