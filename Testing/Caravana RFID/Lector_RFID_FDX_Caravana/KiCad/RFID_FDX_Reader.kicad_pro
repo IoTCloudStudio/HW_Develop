@@ -3,15 +3,9 @@
     "3dviewports": [],
     "design_rules": {
       "rules": {
-        "solder_mask_clearance": 0.0,
-        "solder_mask_min_width": 0.0
-      },
-      "track_widths": [
-        0.0
-      ],
-      "via_sizes": [
-        0.0
-      ]
+        "solder_mask_to_via_clearance": 0.0,
+        "solder_mask_minimum_width": 0.0
+      }
     },
     "layer_presets": [],
     "viewports": []
@@ -221,6 +215,7 @@
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
       "pin_not_driven": "error",
+      "pin_to_pin": "warning",
       "power_pin_not_driven": "error",
       "similar_labels": "warning",
       "simulation_model_issue": "ignore",
@@ -270,6 +265,8 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
+      "plot": "",
+      "pos_files": "",
       "specctra_dsn": "",
       "step": "",
       "vrml": ""
@@ -312,7 +309,7 @@
   },
   "sheets": [
     [
-      "7a00f13c-a700-45ca-9974-48b050769647",
+      "e63e39d7-6ac0-4ffd-8aa3-1841a4541b55",
       ""
     ]
   ],
