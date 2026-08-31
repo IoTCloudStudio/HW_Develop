@@ -157,7 +157,6 @@
         (effects (font (size 1.27 1.27)) hide)
       )
       (symbol "LM358_1_1"
-        (polyline
           (pts
             (xy -5.08 5.08)
             (xy 5.08 0)
@@ -181,7 +180,6 @@
         )
       )
       (symbol "LM358_2_1"
-        (polyline
           (pts
             (xy -5.08 5.08)
             (xy 5.08 0)
@@ -274,7 +272,6 @@
         (effects (font (size 1.27 1.27)) hide)
       )
       (symbol "C_0_1"
-        (polyline
           (pts
             (xy -2.032 -0.762)
             (xy 2.032 -0.762)
@@ -282,7 +279,6 @@
           (stroke (width 0.508) (type default))
           (fill (type none))
         )
-        (polyline
           (pts
             (xy -2.032 0.762)
             (xy 2.032 0.762)
@@ -326,7 +322,6 @@
         (effects (font (size 1.27 1.27)) hide)
       )
       (symbol "LED_0_1"
-        (polyline
           (pts
             (xy -1.27 -1.27)
             (xy -1.27 1.27)
@@ -334,7 +329,6 @@
           (stroke (width 0.254) (type default))
           (fill (type none))
         )
-        (polyline
           (pts
             (xy -1.27 0)
             (xy 1.27 0)
@@ -342,7 +336,6 @@
           (stroke (width 0) (type default))
           (fill (type none))
         )
-        (polyline
           (pts
             (xy 1.27 -1.27)
             (xy 1.27 1.27)
@@ -352,7 +345,6 @@
           (stroke (width 0.254) (type default))
           (fill (type none))
         )
-        (polyline
           (pts 
             (xy 0.762 2.032)
             (xy 1.778 3.048)
@@ -360,7 +352,6 @@
           (stroke (width 0) (type default))
           (fill (type none))
         )
-        (polyline
           (pts
             (xy -0.254 1.778)
             (xy 0.762 2.794)
@@ -368,24 +359,20 @@
           (stroke (width 0) (type default))
           (fill (type none))
         )
-        (polyline
           (pts
             (xy 1.778 3.048)
             (xy 1.27 2.794)
             (xy 1.524 2.286)
             (xy 1.778 3.048)
           )
-          (stroke (width 0.1524) (type default))
           (fill (type outline))
         )
-        (polyline
           (pts
             (xy 0.762 2.794)
             (xy 0.254 2.54)
             (xy 0.508 2.032)
             (xy 0.762 2.794)
           )
-          (stroke (width 0.1524) (type default))
           (fill (type outline))
         )
       )
@@ -424,7 +411,6 @@
         (effects (font (size 1.27 1.27)) hide)
       )
       (symbol "C_Variable_0_1"
-        (polyline
           (pts
             (xy -2.54 0)
             (xy 2.54 0)
@@ -432,7 +418,6 @@
           (stroke (width 0) (type default))
           (fill (type none))
         )
-        (polyline
           (pts
             (xy -0.635 2.54)
             (xy 0.635 1.27)
@@ -440,7 +425,6 @@
           (stroke (width 0) (type default))
           (fill (type none))
         )
-        (polyline
           (pts
             (xy 2.54 -1.905)
             (xy -2.54 1.905)
@@ -484,28 +468,22 @@
         (effects (font (size 1.27 1.27)) hide)
       )
       (symbol "Conn_01x02_Pin_1_1"
-        (polyline
           (pts
             (xy 1.27 -2.54)
             (xy 0.8636 -2.54)
           )
-          (stroke (width 0.1524) (type default))
           (fill (type none))
         )
-        (polyline
           (pts
             (xy 1.27 0)
             (xy 0.8636 0)
           )
-          (stroke (width 0.1524) (type default))
           (fill (type none))
         )
         (rectangle (start 0.8636 -2.413) (end 0 -2.667)
-          (stroke (width 0.1524) (type default))
           (fill (type outline))
         )
         (rectangle (start 0.8636 0.127) (end 0 -0.127)
-          (stroke (width 0.1524) (type default))
           (fill (type outline))
         )
         (pin passive line (at 5.08 0 180) (length 3.81)
@@ -543,7 +521,6 @@
           (stroke (width 0) (type default))
           (fill (type none))
         )
-        (polyline
           (pts
             (xy 0 1.27)
             (xy 0 3.048)
@@ -551,7 +528,6 @@
           (stroke (width 0) (type default))
           (fill (type none))
         )
-        (polyline
           (pts
             (xy 2.54 1.27)
             (xy -2.54 1.27)
@@ -597,7 +573,6 @@
     (path "/interface_J1" (reference "J1") (unit 1) (value "USB_Power") (footprint "Connector_USB:USB_Micro-B_Molex-105017-0001"))
   )
 
-  (symbol (lib_id "RF_Module:ESP32-WROOM-32") (at 100 100 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid "30c6927d-8e94-4963-a195-9a23d1d54001")
     (property "Reference" "U1" (at 100 130 0)
@@ -617,7 +592,6 @@
     (pin "3" (uuid "30c6927d-8e94-4963-a195-9a23d1d54004"))
   )
 
-  (symbol (lib_id "Amplifier_Operational:LM358") (at 180 80 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid "30c6927d-8e94-4963-a195-9a23d1d54005")
     (property "Reference" "U2" (at 180 90 0)
@@ -779,7 +753,6 @@
     (uuid "30c6927d-8e94-4963-a195-9a23d1d54032")
   )
 
-  (symbol (lib_id "power:GND") (at 80 60 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid "30c6927d-8e94-4963-a195-9a23d1d54040")
     (property "Reference" "#PWR01" (at 80 66.04 0)
@@ -796,7 +769,6 @@
     )
   )
   
-  (symbol (lib_id "power:+3V3") (at 70 130.48 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid "30c6927d-8e94-4963-a195-9a23d1d54041")
     (property "Reference" "#PWR02" (at 70 134.62 0)
@@ -905,7 +877,6 @@
     (uuid "30c6927d-8e94-4963-a195-9a23d1d54360")
   )
 
-  (symbol (lib_id "power:GND") (at 110 60 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid "30c6927d-8e94-4963-a195-9a23d1d54361")
     (property "Reference" "#PWR03" (at 110 66.04 0)
@@ -916,7 +887,6 @@
     )
   )
 
-  (polyline
     (pts
       (xy 20 20)
       (xy 280 20)
@@ -924,7 +894,6 @@
       (xy 20 180)
       (xy 20 20)
     )
-    (stroke (width 0.1524) (type default))
     (fill (type none))
     (uuid "30c6927d-8e94-4963-a195-9a23d1d54362")
   )
