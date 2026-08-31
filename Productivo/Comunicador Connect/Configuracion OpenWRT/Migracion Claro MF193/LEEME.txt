@@ -1,0 +1,51 @@
+========================================================================
+ MIGRACION DE ROUTER A 3G (Claro / Movistar / otro)  -  ZTE MF193
+========================================================================
+
+Para el tecnico en el sitio (NO necesita internet):
+
+  1. Conecte la PC por WiFi a la red del router.
+  2. Abra esta carpeta y haga doble clic en  INSTALAR.bat
+  3. Responda lo que pregunta la ventana negra:
+       - IP del router  -> si no sabe, apriete ENTER (usa 192.168.1.1)
+       - Operador       -> 1 = Claro (por defecto), 2 = Movistar, 3 = otro
+  4. Cuando pida la contrasena (la pide dos veces) escriba:   3gC0nn3ct!
+  5. Espere unos 5 minutos SIN cerrar la ventana.
+     Al final dice "LISTO - EL ROUTER QUEDO NAVEGANDO POR 3G"
+     o, si algo fallo, que hacer.
+
+Si termina con problema: al lado de INSTALAR.bat queda un archivo
+  instalacion-AAAAMMDD-HHMMSS.log
+Mande ESE archivo a soporte. El router NO se retira: la configuracion
+anterior queda respaldada dentro del router en
+  /etc/config/network.original-antes-de-instalar
+
+------------------------------------------------------------------------
+ Contenido de la carpeta
+------------------------------------------------------------------------
+  INSTALAR.bat          Lo unico que se toca (doble clic).
+  instalar.ps1          Logica real (PowerShell). El .bat solo lo lanza.
+  mf193-offline-pkgs/   Se copia al router y se instala ahi, sin red:
+                          - uqmi                (binario)
+                          - 5 paquetes .ipk     (QMI + usb-modeswitch)
+                          - install-offline.sh  (corre en el router)
+
+------------------------------------------------------------------------
+ Requisitos / notas
+------------------------------------------------------------------------
+- Router  : TL-MR3020 v3   |  OpenWrt 22.03.0  |  target ramips/mt76x8
+- Modem   : ZTE MF193 (19d2:0124 modem / 19d2:0149 storage)
+- PC      : Windows 10/11 con "Cliente OpenSSH" (ssh.exe/scp.exe con -O).
+            El instalador lo verifica al inicio y avisa si falta.
+- APN     : Claro = igprs.claro.com.ar (sin usuario/clave)
+            Movistar = wap.gprs.unifon.com.ar (usuario/clave: wap/wap)
+
+- Los paquetes son de ESTE target. Para un router de otro modelo/chipset
+  hay que rearmar mf193-offline-pkgs/ con los .ipk y el binario uqmi de
+  ESE target (uqmi ya no esta en el feed general de OpenWrt; se saca del
+  .ipk de targets/<target>/packages/ o de un router de ese target).
+
+- Problema conocido de hardware (no de este instalador): en alguna unidad
+  puntual el kernel apaga el puerto USB al pasar a modo datos
+  ("disabled by hub (EMI?)"). Si el log menciona "EMI" o "USB disconnect",
+  probar un cable extensor USB corto para alejar el modem del router.
