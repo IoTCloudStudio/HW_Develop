@@ -1,5 +1,5 @@
 ========================================================================
- MIGRACION DE ROUTER A 3G (Claro / Movistar / otro)  -  ZTE MF193
+ MIGRACION DE ROUTER A 3G (Claro)  -  ZTE MF193  -  por QMI
 ========================================================================
 
 Para el tecnico en el sitio (NO necesita internet):
@@ -8,11 +8,22 @@ Para el tecnico en el sitio (NO necesita internet):
   2. Abra esta carpeta y haga doble clic en  INSTALAR.bat
   3. Responda lo que pregunta la ventana negra:
        - IP del router  -> si no sabe, apriete ENTER (usa 192.168.1.1)
-       - Operador       -> 1 = Claro (por defecto), 2 = Movistar, 3 = otro
-  4. Cuando pida la contrasena (la pide dos veces) escriba:   3gC0nn3ct!
-  5. Espere unos 5 minutos SIN cerrar la ventana.
-     Al final dice "LISTO - EL ROUTER QUEDO NAVEGANDO POR 3G"
-     o, si algo fallo, que hacer.
+       - Operador       -> 1 = Claro (por defecto)
+     La contrasena del router va incluida: normalmente NO hay que escribir
+     nada mas. Solo la pide si el router tiene otra contrasena.
+  4. Espere unos 3-6 minutos SIN cerrar la ventana. El router configura el
+     modem por QMI y prueba el 3G solo; el instalador se reconecta para ver
+     como salio (mientras aparecen puntos "...", es normal).
+     Al final dice "EL ROUTER NAVEGA POR 3G (QMI...)" o, si algo fallo,
+     que hacer.
+
+CONEXION POR WiFi: si la PC se desconecta de la red del router y NO vuelve
+sola, reconectala a mano; la ventana sigue esperando. Si ya se cerro o dio
+timeout, hace doble clic en  VER-RESULTADO.bat  : se reconecta y te dice
+como salio, sin reinstalar nada.
+
+Si Windows pregunta por "plink.exe" o "pscp.exe" (son de PuTTY, estan
+firmados): permitir la ejecucion.
 
 Si termina con problema: al lado de INSTALAR.bat queda un archivo
   instalacion-AAAAMMDD-HHMMSS.log
@@ -21,31 +32,36 @@ anterior queda respaldada dentro del router en
   /etc/config/network.original-antes-de-instalar
 
 ------------------------------------------------------------------------
+ Que deja instalado en el router
+------------------------------------------------------------------------
+  - Modulos QMI (kmod-usb-net-qmi-wwan + deps) y el binario uqmi.
+  - /usr/sbin/mf193-qmi  : conecta el modem por QMI y lo vigila.
+      * en el arranque (rc.local) hace 'mf193-qmi connect'
+      * cron cada 4 min hace 'mf193-qmi watch': si no hay internet
+        reconecta, y si falla 3 veces seguidas REINICIA el router.
+  - Interfaz 'wan3g' = proto 'dhcp' sobre 'wwan0', en la zona wan del
+    firewall. netifd hace el DHCP, la ruta y el DNS.
+
+------------------------------------------------------------------------
  Contenido de la carpeta
 ------------------------------------------------------------------------
   INSTALAR.bat          Lo unico que se toca (doble clic).
-  instalar.ps1          Logica real (PowerShell). El .bat solo lo lanza.
+  VER-RESULTADO.bat     Solo re-lee como salio (si el WiFi se corto).
+  instalar.ps1          Logica de la PC (PowerShell). Los .bat la lanzan.
+  tools/                plink.exe + pscp.exe (PuTTY 0.85, sin instalar).
   mf193-offline-pkgs/   Se copia al router y se instala ahi, sin red:
-                          - uqmi                (binario)
-                          - 5 paquetes .ipk     (QMI + usb-modeswitch)
-                          - install-offline.sh  (corre en el router)
+                          - uqmi, qmi.sh, mf193-qmi
+                          - kmods QMI + usb-modeswitch (.ipk)
+                          - install-offline.sh (corre en el router)
 
 ------------------------------------------------------------------------
- Requisitos / notas
+ Datos / notas
 ------------------------------------------------------------------------
-- Router  : TL-MR3020 v3   |  OpenWrt 22.03.0  |  target ramips/mt76x8
-- Modem   : ZTE MF193 (19d2:0124 modem / 19d2:0149 storage)
-- PC      : Windows 10/11 con "Cliente OpenSSH" (ssh.exe/scp.exe con -O).
-            El instalador lo verifica al inicio y avisa si falta.
-- APN     : Claro = igprs.claro.com.ar (sin usuario/clave)
-            Movistar = wap.gprs.unifon.com.ar (usuario/clave: wap/wap)
-
-- Los paquetes son de ESTE target. Para un router de otro modelo/chipset
-  hay que rearmar mf193-offline-pkgs/ con los .ipk y el binario uqmi de
-  ESE target (uqmi ya no esta en el feed general de OpenWrt; se saca del
-  .ipk de targets/<target>/packages/ o de un router de ese target).
-
-- Problema conocido de hardware (no de este instalador): en alguna unidad
-  puntual el kernel apaga el puerto USB al pasar a modo datos
-  ("disabled by hub (EMI?)"). Si el log menciona "EMI" o "USB disconnect",
-  probar un cable extensor USB corto para alejar el modem del router.
+- Router : TL-MR3020 v3  |  OpenWrt 22.03.0  |  target ramips/mt76x8
+- Modem  : ZTE MF193 (arranca en modo 'factory_test'; se destraba por QMI
+           con 'set-device-operating-mode online'). NO conecta por PPP.
+- APN    : Claro = igprs.claro.com.ar (sin usuario/clave)
+- PC     : Windows 10/11. NO necesita "Cliente OpenSSH" (usa tools/).
+- Contrasena SSH del router (de fabrica): 3gC0nn3ct!
+- Los .ipk/uqmi son de ESTE target (ramips/mt76x8, kernel 5.10.138). Otro
+  modelo de router -> rearmar mf193-offline-pkgs/ con lo de ese target.

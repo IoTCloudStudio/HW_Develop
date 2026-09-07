@@ -1,0 +1,95 @@
+#!/bin/sh
+# /usr/sbin/mf193-qmi  - conecta el ZTE MF193 por QMI y vigila la conexion.
+#   connect | watch | status
+# La interfaz 'wan3g' es  proto 'dhcp'  device 'wwan0'  (netifd hace DHCP/ruta).
+
+D=/dev/cdc-wdm0
+APN="$(uci -q get network.wan3g.apn)"; [ -n "$APN" ] || APN="igprs.claro.com.ar"
+IFACE=wan3g
+STAMP=/tmp/mf193.fails
+
+uq() { s="$1"; shift
+    uqmi -d "$D" "$@" >/tmp/mf193.o 2>&1 &
+    p=$!; ( sleep "$s"; kill -9 $p 2>/dev/null ) & w=$!
+    wait $p 2>/dev/null; kill $w 2>/dev/null
+    cat /tmp/mf193.o 2>/dev/null; rm -f /tmp/mf193.o
+}
+online() { ping -I wwan0 -c 2 -W 4 8.8.8.8 >/dev/null 2>&1; }
+
+connect() {
+    [ -c "$D" ] || { logger -t mf193 "no hay $D"; return 1; }
+    logger -t mf193 "conectando (apn $APN)"
+
+    uq 8  --sync >/dev/null 2>&1
+    uq 12 --set-device-operating-mode online >/dev/null 2>&1
+
+    # esperar registro (max ~75s)
+    n=0; reg=""
+    while [ $n -lt 25 ]; do
+        case "$(uq 8 --get-serving-system 2>/dev/null)" in
+            *'"registration": "registered"'*) reg=1; break ;;
+        esac
+        n=$((n+1)); sleep 3
+    done
+    [ -n "$reg" ] || { logger -t mf193 "no registra en la red"; return 1; }
+
+    # start-network (2 intentos, SIN toggle de radio: el toggle rompe la sesion)
+    j=0
+    while [ $j -lt 2 ]; do
+        uq 8  --stop-network 0xffffffff --autoconnect >/dev/null 2>&1
+        uq 6  --sync >/dev/null 2>&1
+        r=$(uq 25 --start-network --apn "$APN" --auth-type none --ip-family ipv4 \
+                  --autoconnect --keep-client-id wds 2>&1)
+        sleep 4
+        case "$(uq 8 --get-data-status 2>/dev/null)" in
+            *connected*) break ;;
+        esac
+        logger -t mf193 "start-network intento $((j+1)): $r"
+        j=$((j+1)); sleep 5
+    done
+    case "$(uq 8 --get-data-status 2>/dev/null)" in
+        *connected*) ;;
+        *) logger -t mf193 "no conecto la sesion de datos"; return 1 ;;
+    esac
+
+    # levantar wwan0 por netifd (dhcp) y verificar internet real (hasta ~45s)
+    ifup "$IFACE"
+    k=0
+    while [ $k -lt 15 ]; do
+        sleep 3
+        online && { logger -t mf193 "OK navegando"; return 0; }
+        k=$((k+1))
+    done
+    # ultimo intento: dhcp a mano por si netifd no prendio wwan0
+    ip link set dev wwan0 up 2>/dev/null
+    udhcpc -i wwan0 -q -n -t 6 -T 3 >/dev/null 2>&1
+    online && { logger -t mf193 "OK navegando (dhcp manual)"; return 0; }
+    logger -t mf193 "sesion de datos OK pero sin internet"
+    return 1
+}
+
+case "$1" in
+    connect|start)
+        connect && { echo 0 > "$STAMP"; exit 0; } || { logger -t mf193 "connect fallo"; exit 1; }
+        ;;
+    watch)
+        if online; then echo 0 > "$STAMP"; exit 0; fi
+        f=$(cat "$STAMP" 2>/dev/null); [ -n "$f" ] || f=0; f=$((f+1)); echo "$f" > "$STAMP"
+        logger -t mf193 "sin internet (fail #$f) - reconectando"
+        if connect; then echo 0 > "$STAMP"; exit 0; fi
+        if [ "$f" -ge 3 ]; then
+            logger -t mf193 "3 fallas seguidas - REBOOT"
+            echo 0 > "$STAMP"; sync; sleep 2; reboot
+        fi
+        exit 1
+        ;;
+    status)
+        echo "op-mode : $(uq 8 --get-device-operating-mode)"
+        echo "serving : $(uq 8 --get-serving-system | tr -d '\n\t ')"
+        echo "data    : $(uq 8 --get-data-status)"
+        ifconfig wwan0 2>/dev/null | grep -E 'inet addr|RX pack'
+        ip route | grep -E 'default.*wwan0' >/dev/null && echo "ruta default: por wwan0" || echo "ruta default: NO por wwan0"
+        online && echo "internet: OK" || echo "internet: NO"
+        ;;
+    *) echo "uso: mf193-qmi connect|watch|status"; exit 2 ;;
+esac
