@@ -33,6 +33,30 @@ function Invoke-Plink {
     [pscustomobject]@{ Code = $codigo; Out = $texto }
 }
 
+# Borra la host key SSH que PuTTY (plink/pscp) cachea en el registro para esa IP.
+# Si no, al migrar OTRO router en la misma IP la clave no coincide y plink -batch
+# ABORTA ("host key does not match"). Limpiando, cada router se acepta de cero.
+function Limpiar-HostKey-Cacheada {
+    param([string]$Objetivo)
+    $reg = "HKCU:\Software\SimonTatham\PuTTY\SshHostKeys"
+    try {
+        if (Test-Path $reg) {
+            $item = Get-Item -LiteralPath $reg
+            $n = 0
+            foreach ($nombre in $item.GetValueNames()) {
+                # nombres tipo  ssh-ed25519@22:192.168.1.1  /  rsa2@22:192.168.1.1
+                if ($nombre -like "*:$Objetivo") {
+                    Remove-ItemProperty -LiteralPath $reg -Name $nombre -ErrorAction SilentlyContinue
+                    $n++
+                }
+            }
+            if ($n -gt 0) {
+                Write-Host "  (se limpiaron $n clave(s) SSH cacheada(s) de $Objetivo - router nuevo)" -ForegroundColor DarkGray
+            }
+        }
+    } catch { }
+}
+
 function Salir-Con-Error {
     param([string]$Mensaje)
     Write-Host ""
@@ -69,6 +93,8 @@ if (-not (Test-Path $PkgDir)) {
 
 $archivosNecesarios = @(
     "install-offline.sh",
+    "mf193-qmi",
+    "qmi.sh",
     "uqmi",
     "kmod-mii_*.ipk",
     "kmod-usb-wdm_*.ipk",
@@ -91,6 +117,10 @@ Write-Host "Paso 1: conexion al router"
 $ip = Read-Host "IP del router [ENTER = 192.168.1.1]"
 if ([string]::IsNullOrWhiteSpace($ip)) { $ip = "192.168.1.1" }
 $Ip = $ip
+
+# Cada router tiene su propia host key: limpiar la cacheada de esta IP para que
+# no choque con la del router anterior (migracion en serie, misma IP).
+Limpiar-HostKey-Cacheada $ip
 
 Write-Host "  Probando conexion a $ip ..."
 $pingOk = $false
@@ -158,8 +188,9 @@ Write-Host ""
 # ---------------------------------------------------------------------------
 Write-Host "Paso 2b: probando acceso al router..."
 
-# Primera conexion: aceptar y cachear la clave del host respondiendo 'y'.
-# (sin -batch para poder contestar esa unica pregunta)
+# Primera conexion: la clave cacheada ya se limpio arriba, asi que plink pide
+# "Store key in cache?" -> se responde 'y' por stdin (sin -batch). Las llamadas
+# siguientes (pscp / plink -batch) ya la encuentran cacheada.
 $probe = (& cmd /c "echo y| `"$Plink`" -ssh -pw `"$PW`" root@$ip `"echo AUTH_OK`" 2>&1") | Out-String
 
 if ($probe -notmatch "AUTH_OK") {
