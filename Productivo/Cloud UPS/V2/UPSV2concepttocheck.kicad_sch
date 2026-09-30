@@ -5447,6 +5447,156 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Switch:SW_Push"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 1.27 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "SW_Push"
+				(at 0 -1.524 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Push button switch, generic, two pins"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch normally-open pushbutton push-button"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_Push_0_1"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 1.27) (xy 0 3.048)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 1.27) (xy -2.54 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Timer:NE555"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -7115,6 +7265,12 @@
 		(uuid "81259722-7793-4f11-8b99-6579bff7af79")
 	)
 	(junction
+		(at 48.26 143.51)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "83749b86-c3e8-46c2-b7a3-7540654fb90a")
+	)
+	(junction
 		(at 110.49 55.88)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7597,16 +7753,6 @@
 			(type default)
 		)
 		(uuid "15a7f88e-0338-4248-a750-3fe660240acc")
-	)
-	(wire
-		(pts
-			(xy 58.42 143.51) (xy 58.42 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "15c2c449-9730-47a0-a7e7-a226ffbabc0a")
 	)
 	(wire
 		(pts
@@ -8350,7 +8496,7 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 143.51) (xy 58.42 143.51)
+			(xy 22.86 143.51) (xy 48.26 143.51)
 		)
 		(stroke
 			(width 0)
@@ -8590,16 +8736,6 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 113.03) (xy 52.07 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "727e6a32-595f-46e6-b75c-93910d48753f")
-	)
-	(wire
-		(pts
 			(xy 22.86 107.95) (xy 26.67 107.95)
 		)
 		(stroke
@@ -8627,6 +8763,16 @@
 			(type default)
 		)
 		(uuid "73e291ad-3d24-455b-b345-e5c4ab04bddc")
+	)
+	(wire
+		(pts
+			(xy 58.42 113.03) (xy 52.07 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "759e52b2-f87d-4238-9ec2-d5bf6acac969")
 	)
 	(wire
 		(pts
@@ -8880,6 +9026,16 @@
 	)
 	(wire
 		(pts
+			(xy 48.26 162.56) (xy 48.26 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8dd50690-58d7-4cbc-b80d-9bed707f198a")
+	)
+	(wire
+		(pts
 			(xy 20.32 99.06) (xy 20.32 118.11)
 		)
 		(stroke
@@ -9027,6 +9183,16 @@
 			(type default)
 		)
 		(uuid "960c2598-36fb-47ed-8a65-495de572313c")
+	)
+	(wire
+		(pts
+			(xy 58.42 143.51) (xy 58.42 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9825a772-d468-4257-89ab-3c6ab9bb9587")
 	)
 	(wire
 		(pts
@@ -9227,6 +9393,16 @@
 			(type default)
 		)
 		(uuid "aa4ddf7c-2c3c-404d-862c-96ae1108840a")
+	)
+	(wire
+		(pts
+			(xy 58.42 143.51) (xy 48.26 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aa7d9d32-835a-4a84-ad0b-496d1fd2a1e1")
 	)
 	(wire
 		(pts
@@ -9877,6 +10053,16 @@
 			(type default)
 		)
 		(uuid "e9d9f8c5-c2a3-4870-89a4-257ef5bc0b8f")
+	)
+	(wire
+		(pts
+			(xy 48.26 143.51) (xy 48.26 152.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea5bc883-f887-4032-86a4-c46d27a1bc2c")
 	)
 	(wire
 		(pts
@@ -13746,7 +13932,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 			(at 74.93 36.068 90)
 			(effects
 				(font
@@ -13814,7 +14000,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 			(at 86.36 93.218 90)
 			(effects
 				(font
@@ -13933,6 +14119,70 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 48.26 165.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0ebbda0c-d1a0-4186-abfb-06fb9a87f1a9")
+		(property "Reference" "#PWR05"
+			(at 48.26 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 48.387 169.4942 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 48.26 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 48.26 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 48.26 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f5bbd1c5-0949-4a00-9b83-fc9a48f90e6b")
+		)
+		(instances
+			(project "UPSV2concepttocheck"
+				(path "/410ed0da-63a6-4bd5-99bf-7edb148feca4"
+					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_Shunt")
 		(at 54.61 41.91 0)
 		(mirror x)
@@ -13960,7 +14210,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Shunt_L22.2mm_W8.0mm_PS14.30mm_P25.40mm"
 			(at 52.832 41.91 90)
 			(effects
 				(font
@@ -14190,7 +14440,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 			(at 80.01 153.162 90)
 			(effects
 				(font
@@ -14334,7 +14584,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:CP_Radial_D8.0mm_P5.00mm"
 			(at 148.2852 104.14 0)
 			(effects
 				(font
@@ -14404,7 +14654,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 			(at 89.662 86.36 90)
 			(effects
 				(font
@@ -14639,6 +14889,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 48.26 157.48 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3fabccf7-8d75-4a9c-aac1-0bc89f5ca4d6")
+		(property "Reference" "SW1"
+			(at 49.53 156.2099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "SW_Push"
+			(at 49.53 158.7499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Button_Switch_THT:SW_DIP_SPSTx01_Piano_10.8x4.1mm_W7.62mm_P2.54mm"
+			(at 43.18 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 43.18 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 48.26 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9cf82f23-fa27-4244-93a1-cd0da12fc3e3")
+		)
+		(pin "2"
+			(uuid "f18a0222-cc79-4520-a7f2-e53057590887")
+		)
+		(instances
+			(project ""
+				(path "/410ed0da-63a6-4bd5-99bf-7edb148feca4"
+					(reference "SW1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:Varistor")
 		(at 29.21 77.47 90)
 		(unit 1)
@@ -14664,7 +14984,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Varistor:RV_Disc_D21.5mm_W5.1mm_P10mm"
 			(at 29.21 79.248 90)
 			(effects
 				(font
@@ -14778,7 +15098,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"
 			(at 135.89 117.8052 0)
 			(effects
 				(font
@@ -14848,7 +15168,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
 			(at 69.342 158.75 90)
 			(effects
 				(font
@@ -14979,7 +15299,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Fuse:Fuse_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 39.878 68.58 90)
 			(effects
 				(font
@@ -15048,7 +15368,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 			(at 186.182 96.52 90)
 			(effects
 				(font
@@ -15118,7 +15438,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 			(at 67.818 139.7 90)
 			(effects
 				(font
@@ -15263,7 +15583,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Radial_Power_L16.1mm_W9.0mm_P7.37mm"
 			(at 80.01 50.8 0)
 			(effects
 				(font
@@ -15334,7 +15654,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 			(at 79.248 139.7 90)
 			(effects
 				(font
@@ -15402,7 +15722,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Fuse:Fuse_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 90.17 56.388 90)
 			(effects
 				(font
@@ -15565,7 +15885,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 			(at 193.802 96.52 90)
 			(effects
 				(font
@@ -15634,7 +15954,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 			(at 178.562 96.52 90)
 			(effects
 				(font
@@ -15703,7 +16023,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Fuse:Fuse_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
 			(at 18.542 68.58 90)
 			(effects
 				(font
@@ -15771,7 +16091,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Radial_Power_L16.1mm_W9.0mm_P7.37mm"
 			(at 73.66 27.94 0)
 			(effects
 				(font
@@ -15839,7 +16159,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 			(at 151.13 44.958 90)
 			(effects
 				(font
