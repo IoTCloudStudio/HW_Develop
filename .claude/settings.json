@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 /tmp/claude-1000/-home-jmrg-Git-HW-Develop/b3a07022-653a-4093-b9a8-4cc2e00d4aff/scratchpad/apply_fix2.py)"
+    ]
+  }
+}

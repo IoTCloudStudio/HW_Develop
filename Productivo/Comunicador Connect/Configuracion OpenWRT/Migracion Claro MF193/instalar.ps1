@@ -100,6 +100,8 @@ $archivosNecesarios = @(
     "kmod-usb-wdm_*.ipk",
     "kmod-usb-net_*.ipk",
     "kmod-usb-net-qmi-wwan_*.ipk",
+    "librt_*.ipk",
+    "libusb-1.0-0_*.ipk",
     "usb-modeswitch_*.ipk"
 )
 foreach ($patron in $archivosNecesarios) {
@@ -249,6 +251,7 @@ Write-Host "        PC a la red del router; la ventana sigue reintentando." -For
 Write-Host -NoNewline "        Esperando"
 
 $estado   = $null
+$etapas   = @()
 $vueltas  = 0
 $deadline = (Get-Date).AddMinutes(18)
 while ((Get-Date) -lt $deadline) {
@@ -261,7 +264,16 @@ while ((Get-Date) -lt $deadline) {
         Write-Host -NoNewline "        "
     }
     $r = Invoke-Plink "cat /tmp/migracion-3g.resultado 2>/dev/null"
-    if ($r.Code -eq 0 -and $r.Out.Trim()) { $estado = $r.Out.Trim(); break }
+    if ($r.Code -eq 0 -and $r.Out.Trim()) {
+        # Primera linea = veredicto general (OK / FAIL / YA_CORRIENDO).
+        # Lineas siguientes = "etapa=estado" (una por cada paso validado).
+        $lineas = $r.Out -split "`r?`n" | Where-Object { $_.Trim() -ne "" }
+        if ($lineas.Count -gt 0) {
+            $estado = $lineas[0].Trim()
+            $etapas = $lineas | Select-Object -Skip 1
+            break
+        }
+    }
 }
 Write-Host ""
 Write-Host ""
@@ -269,31 +281,72 @@ Write-Host ""
 # Traer el log detallado de la fase de red (best-effort)
 $logRemoto = (Invoke-Plink "cat /tmp/migracion-3g.log 2>/dev/null").Out
 
+function Mostrar-Etapas {
+    param([string[]]$Lista)
+    if (-not $Lista -or $Lista.Count -eq 0) { return }
+    Write-Host ""
+    Write-Host "--- detalle por etapa ---"
+    foreach ($linea in $Lista) {
+        $partes = $linea -split '=', 2
+        if ($partes.Count -lt 2) { continue }
+        $nombre = $partes[0].Trim()
+        $valor  = $partes[1].Trim()
+        $color = switch ($valor) {
+            "OK"             { "Green" }
+            "SIN_CONFIGURAR" { "DarkGray" }
+            default          { "Red" }
+        }
+        Write-Host ("  {0,-12} {1}" -f $nombre, $valor) -ForegroundColor $color
+    }
+}
+
 # ---------------------------------------------------------------------------
 # Paso 6: resultado
 # ---------------------------------------------------------------------------
-if ($estado -match '^OK') {
+if ($estado -match '^YA_CORRIENDO') {
+    Write-Host "=================================================================="  -ForegroundColor Yellow
+    Write-Host " YA HAY UNA INSTALACION EN CURSO EN ESTE ROUTER"                     -ForegroundColor Yellow
+    Write-Host "=================================================================="  -ForegroundColor Yellow
+    Write-Host "Otra ventana del instalador (o la fase anterior, que corre en"
+    Write-Host "segundo plano en el router) todavia esta trabajando. No se inicio"
+    Write-Host "una segunda migracion en paralelo - eso podria pisar la que esta"
+    Write-Host "en curso."
+    Write-Host ""
+    Write-Host "Espere 2-3 minutos y haga doble clic en  VER-RESULTADO.bat"
+    $rc = 4
+}
+elseif ($estado -match '^OK') {
     Write-Host "=================================================================="  -ForegroundColor Green
-    Write-Host " LISTO - EL ROUTER QUEDO NAVEGANDO POR 3G"                           -ForegroundColor Green
+    Write-Host " LISTO - EL ROUTER QUEDO NAVEGANDO POR 3G - TODO VALIDADO"           -ForegroundColor Green
     Write-Host "=================================================================="  -ForegroundColor Green
     Write-Host "Puede desconectar el cable / apagar la PC. El router se reconecta"
     Write-Host "solo si se corta la luz o se reinicia."
+    Mostrar-Etapas $etapas
     $rc = 0
 }
 elseif ($estado -match '^FAIL') {
     Write-Host "=================================================================="  -ForegroundColor Red
-    Write-Host " LA MIGRACION NO PUDO CONFIRMAR NAVEGACION POR 3G"                   -ForegroundColor Red
+    Write-Host " LA MIGRACION NO QUEDO COMPLETA - FALTAN ETAPAS POR VALIDAR"         -ForegroundColor Red
     Write-Host "=================================================================="  -ForegroundColor Red
     Write-Host "NO retire el router todavia. La configuracion original quedo"
     Write-Host "respaldada dentro del router en:"
     Write-Host "  /etc/config/network.original-antes-de-instalar"
+    Mostrar-Etapas $etapas
+    $faltantes = $etapas | Where-Object { $_ -match '=(FALLA)$' } | ForEach-Object { ($_ -split '=')[0].Trim() }
+    Write-Host ""
+    if ($faltantes) {
+        Write-Host ("Lo que ya quedo validado NO se vuelve a repetir. Vuelva a ejecutar") -ForegroundColor Yellow
+        Write-Host ("INSTALAR.bat: solo va a reintentar esto -> " + ($faltantes -join ", ")) -ForegroundColor Yellow
+    } else {
+        Write-Host "Vuelva a ejecutar INSTALAR.bat - lo ya validado no se repite." -ForegroundColor Yellow
+    }
     if ($logRemoto -and $logRemoto.Trim()) {
         Write-Host ""
         Write-Host "--- detalle del router ---" -ForegroundColor Yellow
         Write-Host $logRemoto
     }
     Write-Host ""
-    Write-Host "Guarde y envie este archivo de registro a soporte:" -ForegroundColor Yellow
+    Write-Host "Si vuelve a fallar en la misma etapa, guarde y envie este registro a soporte:" -ForegroundColor Yellow
     Write-Host "  $LogFile"
     $rc = 1
 }
@@ -307,6 +360,7 @@ else {
     Write-Host "  2) Espera 1-2 minutos."
     Write-Host "  3) Doble clic en  VER-RESULTADO.bat  (en esta misma carpeta)."
     Write-Host "     Eso se reconecta y te dice como salio, sin volver a instalar nada."
+    Write-Host "     Lo que el router ya valido de la migracion anterior no se pierde ni se repite."
     if ($logRemoto -and $logRemoto.Trim()) {
         Write-Host ""
         Write-Host "--- ultimo detalle leido del router ---" -ForegroundColor Yellow

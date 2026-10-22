@@ -7,6 +7,17 @@ D=/dev/cdc-wdm0
 APN="$(uci -q get network.wan3g.apn)"; [ -n "$APN" ] || APN="igprs.claro.com.ar"
 IFACE=wan3g
 STAMP=/tmp/mf193.fails
+LOCK=/var/run/mf193-qmi.lock
+
+# connect/watch no deben superponerse: si cron dispara un watch nuevo mientras
+# el anterior sigue reconectando (connect() puede tardar varios minutos), las
+# dos instancias pelean por el mismo /dev/cdc-wdm0 y la conexion nunca cierra.
+case "$1" in
+    connect|start|watch)
+        exec 9>"$LOCK"
+        flock -n 9 || { logger -t mf193 "ya hay una instancia corriendo ($1) - salgo"; exit 0; }
+        ;;
+esac
 
 uq() { s="$1"; shift
     uqmi -d "$D" "$@" >/tmp/mf193.o 2>&1 &

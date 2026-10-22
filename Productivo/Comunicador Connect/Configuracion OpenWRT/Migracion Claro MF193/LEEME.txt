@@ -25,6 +25,17 @@ como salio, sin reinstalar nada.
 Si Windows pregunta por "plink.exe" o "pscp.exe" (son de PuTTY, estan
 firmados): permitir la ejecucion.
 
+SI ALGO FALLA, SIMPLEMENTE VOLVE A HACER DOBLE CLIC EN INSTALAR.bat.
+El instalador trabaja por etapas (paquetes / script / interfaz 3G / conexion
+/ VPN) y cada una se valida contra el estado real del router, no contra lo
+que paso la vez anterior. Lo que ya quedo bien NO se vuelve a instalar ni se
+reconfigura - solo se reintenta lo que todavia no esta validado. Al final
+siempre aparece el detalle etapa por etapa; si falta algo, el mensaje te
+dice exactamente cual volver a intentar.
+Si ves "YA HAY UNA INSTALACION EN CURSO": no se hizo nada mal, es que el
+router todavia esta terminando la corrida anterior (u otra ventana del
+instalador esta activa). Esperá 2-3 minutos y usá VER-RESULTADO.bat.
+
 Si termina con problema: al lado de INSTALAR.bat queda un archivo
   instalacion-AAAAMMDD-HHMMSS.log
 Mande ESE archivo a soporte. El router NO se retira: la configuracion
